@@ -1,27 +1,31 @@
 extends Node
 
 var music_db_override_values = {
-	#'title': 0,
+	#'track.ogg': 0,
 }
 
 var sfx_db_override_values = {
-	#'title': 0,
+	#'track.wav': 0,
 }
 
 var sfx_pitch_override_values = {
-	#'title': {
+	#'track.wav': {
 		#'pitch_range': 0,
 		#'base_pitch': 0
 	#},
 }
 
+var sfx_bus_lookup = {
+	#'track.ogg': 'BGM',
+	#'track'.wav': 'UI'
+}
 
 # Tracks that don't need a position
 var non_positional_tracks = [
 	
 ]
 
-func is_track_centered(track_name):
+func is_track_non_positional(track_name):
 	return track_name in non_positional_tracks
 
 func get_pitch(pitch_range, base_pitch):
@@ -49,7 +53,7 @@ func play_music(track_name, overrides = {}):
 	else:
 		music_player.pitch_scale = 1.0  # Default pitch
 		
-	music_player.stream = load("res://sounds/music/"+track_name+'.ogg')
+	music_player.stream = load("res://audio/music/"+track_name)
 	add_child(music_player) # adds the music to the root of the game
 	music_player.play()
 	
@@ -61,11 +65,21 @@ func stop_playing_music(track_name):
 	var music_player = get_node_or_null(track_name)
 	if music_player:
 		music_player.queue_free()
-	
 
-func play_random_sfx(parent, track_name, overrides = {}):
-	var sfx_player = AudioStreamPlayer2D.new()
-	sfx_player.bus = "SFX"
+func create_sfx_player(track_name):
+	var sfx_player
+	if is_track_non_positional(track_name):
+		sfx_player =  AudioStreamPlayer.new()
+	else:
+		sfx_player = AudioStreamPlayer2D.new()
+		
+	if sfx_bus_lookup.has(track_name):
+		sfx_player.bus = sfx_bus_lookup[track_name]
+	else:
+		sfx_player.bus = 'Master'
+
+func play_random_sfx(track_name, parent = self, overrides = {}):
+	var sfx_player = create_sfx_player(track_name)
 	
 	# Position override
 	if overrides.has('position') and overrides.position:
@@ -91,12 +105,12 @@ func play_random_sfx(parent, track_name, overrides = {}):
 		else:
 			push_warning("No standard pitch override mix for track ", track_name)
 			
-	var tracks = g.files_in_dir('res://sounds/sfx/', track_name)
+	var tracks = g.files_in_dir('res://audio/sfx/', track_name)
 	if tracks.size() > 0:
 		randomize()
 		var random_track = tracks.pick_random()
-		sfx_player.stream = load('res://sounds/sfx/' + random_track)
-		#sfx_player.connect("finished", sfx_player, "queue_free")
+		sfx_player.stream = load('res://audio/sfx/' + random_track)
+		sfx_player.finished.connect(sfx_player.queue_free)
 		parent.add_child(sfx_player)
 		sfx_player.play()
 	
@@ -104,15 +118,12 @@ func play_random_sfx(parent, track_name, overrides = {}):
 	return sfx_player
 
 
-func play_sfx(parent, track_name,  overrides = {}):
-	var sfx_player = AudioStreamPlayer2D.new()
-	sfx_player.bus = "SFX"
+func play_sfx(track_name, parent = self,  overrides = {}):
+	var sfx_player = create_sfx_player(track_name)
 	
 	# Position override
 	if overrides.has('position'):
 		sfx_player.position = overrides.position
-	elif is_track_centered(track_name):
-		sfx_player.position = Vector2(320, 180)
 	
 	# Volume override
 	if overrides.has('db') and overrides.db: # Override option for some specific event in game that different from the standard
@@ -133,10 +144,10 @@ func play_sfx(parent, track_name,  overrides = {}):
 			sfx_player.pitch_scale = get_pitch(pitch_range, base_pitch)
 		else:
 			push_warning("No standard pitch override mix for track ", track_name)
-	var track_path = 'res://sounds/sfx/'+track_name+'.ogg'
+	var track_path = 'res://audio/sfx/'+track_name
 	if ResourceLoader.exists(track_path):
 		sfx_player.stream = load(track_path)
-		#sfx_player.connect("finished", sfx_player, "queue_free")
+		sfx_player.finished.connect(sfx_player.queue_free)
 		parent.call_deferred('add_child', sfx_player)
 		sfx_player.play()
 	
