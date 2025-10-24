@@ -191,74 +191,74 @@ text = "Fix Tape (F)"
 [node name="TV" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="TV"]
-position = Vector2(975.00006, 149)
+position = Vector2(953.00006, 166.37503)
 scale = Vector2(3.216797, 1.8496099)
 texture = ExtResource("1_g6svw")
 
 [node name="VCR" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="VCR"]
-position = Vector2(832.99994, 420.625)
+position = Vector2(810.9999, 438.00003)
 scale = Vector2(5.886719, 1.5996095)
 texture = ExtResource("1_g6svw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
-position = Vector2(806.00006, 344)
+position = Vector2(784, 361.37503)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_g6svw")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
-position = Vector2(905, 342)
+position = Vector2(883, 359.37503)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_g6svw")
 
 [node name="TrackLabel" type="Label" parent="VCR"]
-offset_left = 535.0
-offset_top = 336.0
-offset_right = 601.0
-offset_bottom = 359.0
+offset_left = 513.0
+offset_top = 353.37503
+offset_right = 579.0
+offset_bottom = 376.37503
 text = "Tracking"
 
 [node name="TrackTutorialLabel" type="Label" parent="VCR"]
-offset_left = 410.0
-offset_top = 289.0
-offset_right = 668.0
-offset_bottom = 312.0
+offset_left = 388.0
+offset_top = 306.37503
+offset_right = 646.0
+offset_bottom = 329.37503
 text = "Use 1-5 number keys for Tracking"
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR"]
-offset_left = 997.0
-offset_top = 287.0
-offset_right = 1255.0
-offset_bottom = 310.0
+offset_left = 975.0
+offset_top = 304.37503
+offset_right = 1233.0
+offset_bottom = 327.37503
 text = "Use <- and -> arrow keys for dial"
 
 [node name="DialTutorialLabel3" type="Label" parent="VCR"]
-offset_left = 715.0
-offset_top = 526.0
-offset_right = 973.0
-offset_bottom = 549.0
+offset_left = 693.0
+offset_top = 543.375
+offset_right = 951.0
+offset_bottom = 566.375
 text = "Hit Spacebar to get ticker catch"
 
 [node name="TuningLabel" type="Label" parent="VCR"]
-offset_left = 1085.0
-offset_top = 335.0
-offset_right = 1151.0
-offset_bottom = 358.0
+offset_left = 1063.0
+offset_top = 352.37503
+offset_right = 1129.0
+offset_bottom = 375.37503
 text = "Tuner"
 
 [node name="RewindButton" type="Button" parent="VCR"]
-offset_left = 768.0
-offset_top = 482.0
-offset_right = 921.0
-offset_bottom = 513.0
+offset_left = 746.0
+offset_top = 499.37503
+offset_right = 899.0
+offset_bottom = 530.375
 text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
-offset_left = 501.0
-offset_top = 371.0
-offset_right = 644.0
-offset_bottom = 426.0
+offset_left = 479.0
+offset_top = 388.37503
+offset_right = 670.0
+offset_bottom = 443.37503
 
 [node name="1" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
@@ -303,14 +303,14 @@ button_group = SubResource("ButtonGroup_grv5e")
 text = "5"
 
 [node name="DialLight" type="ColorRect" parent="VCR"]
-offset_left = 1136.0
-offset_top = 338.0
-offset_right = 1146.0
-offset_bottom = 358.0
+offset_left = 1114.0
+offset_top = 355.37503
+offset_right = 1124.0
+offset_bottom = 375.37503
 color = Color(0, 0, 0, 1)
 
 [node name="Dial" type="Node2D" parent="VCR"]
-position = Vector2(1104, 412)
+position = Vector2(1082, 429.37503)
 
 [node name="Sprite2D" type="Sprite2D" parent="VCR/Dial"]
 scale = Vector2(0.6875, 0.65625)
@@ -326,21 +326,22 @@ color = Color(1, 0.06666667, 0.023529412, 1)
 [node name="Ticker" type="Node2D" parent="VCR"]
 
 [node name="TrackBorder" type="ColorRect" parent="VCR/Ticker"]
-offset_left = 720.0
-offset_top = 412.0
-offset_right = 1002.0
-offset_bottom = 439.0
+offset_left = 698.0
+offset_top = 429.37503
+offset_right = 980.0
+offset_bottom = 456.37503
 theme = SubResource("Theme_grv5e")
 color = Color(0, 0, 0, 1)
 
 [node name="Track" type="ColorRect" parent="VCR/Ticker"]
-offset_left = 723.0
-offset_top = 416.0
-offset_right = 999.0
-offset_bottom = 436.0
+offset_left = 701.0
+offset_top = 433.37503
+offset_right = 977.0
+offset_bottom = 453.37503
 theme = SubResource("Theme_grv5e")
 
 [node name="Path2D" type="Path2D" parent="VCR/Ticker"]
+position = Vector2(-22, 17.37503)
 curve = SubResource("Curve2D_grv5e")
 
 [node name="HitzonePathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
