@@ -88,8 +88,8 @@ var VHS_DATA = {
 			"5": 4
 		},
 		'dial_zone': {
-			'rough_zone': [20, 60],
-			'tight_zone': [35, 45]
+			'rough_zone': [-10, 30],
+			'tight_zone': [-5, 5]
 		},
 		'tick_speeds': {
 			'no_zone': 1.8,
