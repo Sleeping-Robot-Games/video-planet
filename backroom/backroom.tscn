@@ -20,35 +20,6 @@ size = Vector2(126.586426, 126.666626)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
 size = Vector2(129.88434, 128)
 
-[sub_resource type="Animation" id="Animation_grv5e"]
-resource_name = "spin"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpoolIndicator:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -6.283185307179586]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpoolIndicator2:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -6.283185307179586]
-}
-
 [sub_resource type="Animation" id="Animation_irnpm"]
 length = 0.001
 tracks/0/type = "value"
@@ -132,6 +103,35 @@ tracks/1/keys = {
 "values": [0.0, 1.1344640137963142]
 }
 
+[sub_resource type="Animation" id="Animation_grv5e"]
+resource_name = "spin"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpoolIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpoolIndicator2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+
 [sub_resource type="Animation" id="Animation_2d3aw"]
 resource_name = "spin_recover"
 length = 2.0
@@ -189,12 +189,12 @@ texture = ExtResource("1_g6svw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
 position = Vector2(806.00006, 344)
-scale = Vector2(0.6171875, 0.65625)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_g6svw")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
 position = Vector2(905, 342)
-scale = Vector2(0.6171875, 0.65625)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_g6svw")
 
 [node name="TrackLabel" type="Label" parent="VCR"]
@@ -227,6 +227,7 @@ offset_bottom = 426.0
 [node name="1" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "1
@@ -235,6 +236,7 @@ text = "1
 [node name="2" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "2
@@ -243,6 +245,7 @@ text = "2
 [node name="3" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "3"
@@ -250,6 +253,7 @@ text = "3"
 [node name="4" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "4"
@@ -257,6 +261,7 @@ text = "4"
 [node name="5" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "5"

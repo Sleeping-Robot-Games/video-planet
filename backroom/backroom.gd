@@ -8,7 +8,9 @@ extends Node2D
 @onready var dial_light = $VCR/DialLight
 @onready var rewind_button = $VCR/RewindButton
 @onready var tv = $TV/Sprite2D
-
+@onready var left_spool = $VCR/SpoolIndicator
+@onready var right_spool = $VCR/SpoolIndicator2
+@onready var anim_player = $VCR/AnimationPlayer  
 
 const DIAL_ROTATE_SPEED = 50.0
 const DIAL_ROTATE_MIN = -100.0
@@ -30,11 +32,9 @@ var tick_direction := 1.0 # 1 = forward, -1 = backward
 var tick_in_hitzone = false
 # how wide the hitzone is based on the track setting weight
 var hitzone_scale_lookup = {
-	0: .05,
+	2: .05,
 	1: .1,
-	2: .15,
-	3: .2,
-	4: .25
+	0: .25,
 }
 
 var track_setting_tv_lookup = {
@@ -51,17 +51,18 @@ var rewinding = false
 var vhs_phase = 1
 var successful_hits = 0
 
+## Right now the VHS needs 8 successes total based on the spool scale math
 var VHS_DATA = {
 	# The number of miss tick failures before the VHS breaks
 	'number_of_failures_before_break': 5,
 	1: {
-		# the track weight setting of 0 is best and 4 is worst
+		# the track weight setting of 0 is best and 2 is worst
 		'track_setting_weights': {
-			"1": 2,
+			"1": 1,
 			"2": 0,
 			"3": 1,
-			"4": 4,
-			"5": 3
+			"4": 2,
+			"5": 2
 		},
 		# the dial zone is the area between 2 rotation degrees between -100 and 100
 		'dial_zone': {
@@ -77,15 +78,15 @@ var VHS_DATA = {
 		# position of hitzone on the path between 0 and 1
 		'hitzone_position': .4,
 		# number of times the player needs to hit with the tick in the hitzone to move to the next phase
-		'success_count_to_continue': 3,
+		'success_count_to_continue': 2,
 	},
 	2: {
 		'track_setting_weights': {
 			"1": 1,
-			"2": 3,
-			"3": 0,
-			"4": 2,
-			"5": 4
+			"2": 2,
+			"3": 2,
+			"4": 1,
+			"5": 0
 		},
 		'dial_zone': {
 			'rough_zone': [-10, 30],
@@ -101,11 +102,11 @@ var VHS_DATA = {
 	},
 	3: {
 		'track_setting_weights': {
-			"1": 4,
-			"2": 2,
-			"3": 3,
-			"4": 0,
-			"5": 1
+			"1": 2,
+			"2": 1,
+			"3": 0,
+			"4": 1,
+			"5": 2
 		},
 		'dial_zone': {
 			'rough_zone': [-70, -40],
@@ -117,7 +118,7 @@ var VHS_DATA = {
 			'tight_zone': 1
 		},
 		'hitzone_position': .2,
-		'success_count_to_continue': 5,
+		'success_count_to_continue': 2,
 	}
 }
 
@@ -179,36 +180,32 @@ func _process(delta):
 		tick_direction = 1.0
 
 func on_success():
-	var anim_player := $VCR/AnimationPlayer
-	var spool_1 := $VCR/SpoolIndicator
-	var spool_2 := $VCR/SpoolIndicator2
-
 	anim_player.pause()
 
-	var spool_1_rot = spool_1.rotation
-	var spool_2_rot = spool_2.rotation
+	var left_spool_rot = left_spool.rotation
+	var right_spool_rot = right_spool.rotation
 
-	var tween := create_tween()
+	var rotation_tween = create_tween()
 
-	# Step 1: both spools spin fast, full rotation in opposite directions
+	# Both spools spin fast, full rotation in opposite directions
 	var full_rot := deg_to_rad(360)
-	tween.tween_property(spool_1, "rotation", spool_1_rot - full_rot, 0.35)
-	tween.parallel().tween_property(spool_2, "rotation", spool_2_rot - full_rot, 0.35)
-
+	rotation_tween.tween_property(left_spool, "rotation", left_spool_rot - full_rot, 0.35)
+	rotation_tween.parallel().tween_property(right_spool, "rotation", right_spool_rot - full_rot, 0.35)
+	
+	var scale_tween = create_tween()
+	scale_tween.tween_property(left_spool, "scale", left_spool.scale + Vector2(.05, .05), .5)
+	scale_tween.parallel().tween_property(right_spool, "scale", right_spool.scale - Vector2(.05, .05), .5)
+	
 	if rewinding:
 		# Step 2: resume main spin animation
-		tween.tween_callback(Callable(anim_player, "play").bind("spin"))
+		rotation_tween.tween_callback(Callable(anim_player, "play").bind("spin"))
 
 
 func on_miss():
-	var anim_player := $VCR/AnimationPlayer
-	var spool_1 := $VCR/SpoolIndicator 
-	var spool_2 := $VCR/SpoolIndicator2  
-
 	anim_player.pause()
 
-	var spool_1_rot = spool_1.rotation
-	var spool_2_rot = spool_2.rotation
+	var left_spool_rot = left_spool.rotation
+	var right_spool_rot = right_spool.rotation
 
 	# Calculate reel-back offset (both rotate opposite directions)
 	var offset := deg_to_rad(60)
@@ -216,12 +213,12 @@ func on_miss():
 	var tween := create_tween()
 
 	# Step 1: Reel back (simulate tape tension shift)
-	tween.tween_property(spool_1, "rotation", spool_1_rot + offset, 0.15)
-	tween.parallel().tween_property(spool_2, "rotation", spool_2_rot + offset, 0.15)
+	tween.tween_property(left_spool, "rotation", left_spool_rot + offset, 0.15)
+	tween.parallel().tween_property(right_spool, "rotation", right_spool_rot + offset, 0.15)
 
 	# Step 2: Return to original rotation
-	tween.tween_property(spool_1, "rotation", spool_1_rot, 0.2)
-	tween.parallel().tween_property(spool_2, "rotation", spool_2_rot, 0.2)
+	tween.tween_property(left_spool, "rotation", left_spool_rot, 0.2)
+	tween.parallel().tween_property(right_spool, "rotation", right_spool_rot, 0.2)
 
 	# TODO: small TV flicker feedback
 
