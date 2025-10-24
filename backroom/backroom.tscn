@@ -219,12 +219,12 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
-position = Vector2(796, 406)
+position = Vector2(652.2, 566)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
-position = Vector2(895, 404)
+position = Vector2(751.2, 564)
 scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
 
@@ -425,6 +425,14 @@ texture = ExtResource("20_dwywq")
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("21_j8cxi")
+
+[node name="Postertest2" type="Label" parent="."]
+offset_left = 308.0
+offset_top = 69.0
+offset_right = 498.0
+offset_bottom = 92.0
+scale = Vector2(2, 2)
+text = "<- Window here instead?"
 
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]

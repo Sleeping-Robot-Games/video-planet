@@ -41,13 +41,13 @@ var hitzone_scale_lookup = {
 }
 
 ## TODO: Don't use this, make it more static the further the tracking is to the ideal number
-var track_setting_tv_lookup = {
-	'1': Color.BLUE,
-	'2': Color.RED,
-	'3': Color.GREEN,
-	'4': Color.YELLOW,
-	'5': Color.DARK_VIOLET
-}
+#var track_setting_tv_lookup = {
+	#'1': Color.BLUE,
+	#'2': Color.RED,
+	#'3': Color.GREEN,
+	#'4': Color.YELLOW,
+	#'5': Color.DARK_VIOLET
+#}
 var current_ideal_track_setting
 var current_toggled_track_setting
 
@@ -287,8 +287,8 @@ func init_vhs():
 	var tick_speed_tween = create_tween()
 	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
 	
-	var tv_state_tween = create_tween()
-	tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
+	#var tv_state_tween = create_tween()
+	#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
 
 func start_vhs_rewind_after_fix():
 	num_of_misses = 0
@@ -298,8 +298,8 @@ func start_vhs_rewind_after_fix():
 	fix_tape_button.hide()
 	rewinding = true
 	$VCR/AnimationPlayer.play('spin')
-	var tv_state_tween = create_tween()
-	tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
+	#var tv_state_tween = create_tween()
+	#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
 	
 func next_vhs_phase():
 	successful_hits = 0
@@ -318,8 +318,8 @@ func next_vhs_phase():
 		var tick_speed_tween = create_tween()
 		tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
 		
-		var tv_state_tween = create_tween()
-		tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
+		#var tv_state_tween = create_tween()
+		#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
 		
 func _on_rewind_button_pressed() -> void:
 	init_vhs()
