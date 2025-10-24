@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=19 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Texture2D" uid="uid://csvm7i4w365vb" path="res://storefront/rug.png" id="2_d824b"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://byn6noy7k1xhc" path="res://storefront/bekindsign.png" id="11_22fc6"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
+[ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
 texture = ExtResource("2_da638")
@@ -80,6 +81,7 @@ texture = ExtResource("1_cuptk")
 sources/0 = SubResource("TileSetAtlasSource_2pbmh")
 
 [node name="Storefront" type="Node2D"]
+y_sort_enabled = true
 scale = Vector2(2, 2)
 
 [node name="Floor" type="TileMapLayer" parent="."]
@@ -102,47 +104,61 @@ tile_set = SubResource("TileSet_k6kcy")
 tile_map_data = PackedByteArray("AAABAAcAAAABAAQAAAACAAcAAAACAAQAAAADAAcAAAACAAQAAAAEAAcAAAACAAQAAAAFAAcAAAACAAQAAAAGAAcAAAACAAQAAAAHAAcAAAACAAQAAAAIAAcAAAACAAQAAAAJAAcAAAACAAQAAAAKAAcAAAACAAQAAAALAAcAAAACAAQAAAAMAAcAAAACAAQAAAANAAcAAAACAAQAAAAOAAcAAAACAAQAAAAPAAcAAAACAAQAAAAQAAcAAAACAAQAAAARAAcAAAACAAQAAAASAAcAAAACAAQAAAATAAcAAAACAAQAAAAUAAcAAAACAAQAAAAVAAcAAAACAAQAAAAWAAcAAAACAAQAAAAXAAcAAAACAAQAAAAYAAcAAAACAAQAAAAZAAcAAAACAAQAAAAaAAcAAAACAAQAAAAbAAcAAAACAAQAAAAcAAcAAAACAAQAAAAdAAcAAAACAAQAAAAeAAcAAAACAAQAAAAfAAcAAAACAAQAAAAgAAcAAAACAAQAAAAhAAcAAAACAAQAAAAiAAcAAAACAAQAAAAjAAcAAAACAAQAAAAkAAcAAAACAAQAAAAlAAcAAAACAAQAAAAmAAcAAAACAAQAAAAnAAcAAAACAAQAAAAoAAcAAAADAAQAAAABAAgAAAABAAUAAAABAAkAAAABAAYAAAABAAoAAAABAAYAAAABAAsAAAABAAYAAAABAAwAAAABAAYAAAABAA0AAAABAAYAAAABAA4AAAABAAYAAAABAA8AAAABAAYAAAABABAAAAABAAYAAAABABEAAAABAAYAAAABABIAAAABAAYAAAABABMAAAABAAYAAAABABQAAAABAAYAAAABABUAAAABAAYAAAABABYAAAABAAYAAAABABcAAAABAAYAAAABABgAAAABAAYAAAABABkAAAABAAYAAAABABoAAAABAAYAAAABABsAAAABAAYAAAAoABsAAAADAAYAAAAoABoAAAADAAYAAAAoABkAAAADAAYAAAAoABgAAAADAAYAAAAoABcAAAADAAYAAAAoABYAAAADAAYAAAAoABUAAAADAAYAAAAoABQAAAADAAYAAAAoABMAAAADAAYAAAAoABIAAAADAAYAAAAoABEAAAADAAYAAAAoABAAAAADAAYAAAAoAA8AAAADAAYAAAAoAA4AAAADAAYAAAAoAA0AAAADAAYAAAAoAAwAAAADAAYAAAAoAAsAAAADAAYAAAAoAAoAAAADAAYAAAAoAAkAAAADAAYAAAAoAAgAAAADAAUAAAABABwAAAABAAcAAAAoABwAAAADAAcAAAACABwAAAACAAcAAAADABwAAAACAAcAAAAEABwAAAACAAcAAAAFABwAAAACAAcAAAAGABwAAAACAAcAAAAHABwAAAACAAcAAAAIABwAAAACAAcAAAAJABwAAAACAAcAAAAKABwAAAACAAcAAAALABwAAAACAAcAAAAMABwAAAACAAcAAAANABwAAAACAAcAAAAOABwAAAACAAcAAAAPABwAAAACAAcAAAAQABwAAAACAAcAAAARABwAAAACAAcAAAASABwAAAACAAcAAAATABwAAAACAAcAAAAUABwAAAACAAcAAAAVABwAAAACAAcAAAAWABwAAAACAAcAAAAXABwAAAACAAcAAAAYABwAAAACAAcAAAAZABwAAAACAAcAAAAaABwAAAACAAcAAAAbABwAAAACAAcAAAAcABwAAAACAAcAAAAdABwAAAACAAcAAAAeABwAAAACAAcAAAAfABwAAAACAAcAAAAgABwAAAACAAcAAAAhABwAAAACAAcAAAAiABwAAAACAAcAAAAjABwAAAACAAcAAAAkABwAAAACAAcAAAAlABwAAAACAAcAAAAmABwAAAACAAcAAAAnABwAAAACAAcAAAACAAgAAAACAAUAAAADAAgAAAACAAUAAAAEAAgAAAACAAUAAAAFAAgAAAACAAUAAAAGAAgAAAACAAUAAAAHAAgAAAACAAUAAAAIAAgAAAACAAUAAAAJAAgAAAACAAUAAAAKAAgAAAACAAUAAAALAAgAAAACAAUAAAAMAAgAAAACAAUAAAANAAgAAAACAAUAAAAOAAgAAAACAAUAAAAPAAgAAAACAAUAAAAQAAgAAAACAAUAAAARAAgAAAACAAUAAAASAAgAAAACAAUAAAATAAgAAAACAAUAAAAUAAgAAAACAAUAAAAVAAgAAAACAAUAAAAWAAgAAAACAAUAAAAXAAgAAAACAAUAAAAYAAgAAAACAAUAAAAZAAgAAAACAAUAAAAaAAgAAAACAAUAAAAbAAgAAAACAAUAAAAcAAgAAAACAAUAAAAdAAgAAAACAAUAAAAeAAgAAAACAAUAAAAfAAgAAAACAAUAAAAgAAgAAAACAAUAAAAhAAgAAAACAAUAAAAiAAgAAAACAAUAAAAjAAgAAAACAAUAAAAkAAgAAAACAAUAAAAlAAgAAAACAAUAAAAmAAgAAAACAAUAAAAnAAgAAAACAAUAAAA=")
 tile_set = SubResource("TileSet_56nh0")
 
-[node name="Deco" type="Sprite2D" parent="."]
+[node name="Deco" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Poster1" type="Sprite2D" parent="Deco"]
+y_sort_enabled = true
 position = Vector2(40, 48)
 texture = ExtResource("5_k10vf")
 
-[node name="Poster2" type="Sprite2D" parent="Deco/Poster1"]
-position = Vector2(32, 0)
+[node name="Poster2" type="Sprite2D" parent="Deco"]
+y_sort_enabled = true
+position = Vector2(72, 48)
 texture = ExtResource("6_5o5x3")
 
-[node name="Shelf1" type="Sprite2D" parent="Deco"]
-position = Vector2(488.5, 175)
-texture = ExtResource("7_qepj0")
-
-[node name="Shelf2" type="Sprite2D" parent="Deco"]
-position = Vector2(490.5, 245)
-texture = ExtResource("7_qepj0")
-
-[node name="Shelf3" type="Sprite2D" parent="Deco"]
-position = Vector2(222, 294)
-texture = ExtResource("7_qepj0")
-
-[node name="Shelf4" type="Sprite2D" parent="Deco"]
-position = Vector2(491, 313)
-texture = ExtResource("7_qepj0")
-
 [node name="Windowtets" type="Sprite2D" parent="Deco"]
+y_sort_enabled = true
 position = Vector2(488, 96)
 texture = ExtResource("8_dspst")
 
 [node name="Doortemp" type="Sprite2D" parent="Deco"]
+y_sort_enabled = true
 position = Vector2(280, 104)
 texture = ExtResource("9_ur6w1")
 
-[node name="Counter" type="Sprite2D" parent="Deco"]
-position = Vector2(136, 152)
-texture = ExtResource("10_fk8fj")
-
 [node name="Bekindsign" type="Sprite2D" parent="Deco"]
+y_sort_enabled = true
 position = Vector2(280, 56)
 texture = ExtResource("11_22fc6")
+
+[node name="Furniture" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Shelf1" type="Sprite2D" parent="Furniture"]
+y_sort_enabled = true
+position = Vector2(488.5, 175)
+texture = ExtResource("7_qepj0")
+
+[node name="Shelf2" type="Sprite2D" parent="Furniture"]
+y_sort_enabled = true
+position = Vector2(490.5, 245)
+texture = ExtResource("7_qepj0")
+
+[node name="Shelf3" type="Sprite2D" parent="Furniture"]
+y_sort_enabled = true
+position = Vector2(222, 294)
+texture = ExtResource("7_qepj0")
+
+[node name="Shelf4" type="Sprite2D" parent="Furniture"]
+y_sort_enabled = true
+position = Vector2(491, 313)
+texture = ExtResource("7_qepj0")
+
+[node name="Counter" type="Sprite2D" parent="Furniture"]
+y_sort_enabled = true
+position = Vector2(136, 152)
+texture = ExtResource("10_fk8fj")
 
 [node name="Backroomdoorframe" type="Sprite2D" parent="."]
 position = Vector2(48, 120)
@@ -150,3 +166,7 @@ texture = ExtResource("12_74fhw")
 
 [node name="Backroomdoor" type="Sprite2D" parent="Backroomdoorframe"]
 texture = ExtResource("13_kcm8m")
+
+[node name="Player" parent="." instance=ExtResource("14_s766h")]
+y_sort_enabled = true
+position = Vector2(273, 201)

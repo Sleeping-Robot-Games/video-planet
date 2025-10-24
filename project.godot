@@ -32,6 +32,7 @@ folder_colors={
 "res://audio/": "orange",
 "res://backroom/": "purple",
 "res://storefront/": "blue",
+"res://storefront/player/": "pink",
 "res://title/": "teal"
 }
 
