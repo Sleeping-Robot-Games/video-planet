@@ -2,7 +2,7 @@ extends Node
 
 var music_db_override_values = {
 	#'track.ogg': 0,
-	'backroom_bgm_1.ogg': 0
+	'backroom_bgm_1': 0
 }
 
 var sfx_db_override_values = {
@@ -58,7 +58,7 @@ func play_music(track_name, overrides = {}):
 	else:
 		music_player.pitch_scale = 1.0  # Default pitch
 		
-	music_player.stream = load("res://audio/music/"+track_name)
+	music_player.stream = load("res://audio/music/"+track_name+".ogg")
 	add_child(music_player) # adds the music to the root of the game
 	music_player.play()
 	
@@ -110,11 +110,11 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 		else:
 			push_warning("No standard pitch override mix for track ", track_name)
 			
-	var tracks = g.files_in_dir('res://audio/sfx/', track_name)
+	var tracks = g.files_in_dir('res://audio/sfx/', track_name+".wav")
 	if tracks.size() > 0:
 		randomize()
 		var random_track = tracks.pick_random()
-		sfx_player.stream = load('res://audio/sfx/' + random_track)
+		sfx_player.stream = load('res://audio/sfx/' + random_track+".wav")
 		sfx_player.finished.connect(sfx_player.queue_free)
 		parent.add_child(sfx_player)
 		sfx_player.play()
@@ -149,7 +149,7 @@ func play_sfx(track_name, parent = self,  overrides = {}):
 			sfx_player.pitch_scale = get_pitch(pitch_range, base_pitch)
 		else:
 			push_warning("No standard pitch override mix for track ", track_name)
-	var track_path = 'res://audio/sfx/'+track_name
+	var track_path = 'res://audio/sfx/'+track_name+".wav"
 	if ResourceLoader.exists(track_path):
 		sfx_player.stream = load(track_path)
 		sfx_player.finished.connect(sfx_player.queue_free)
