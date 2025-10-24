@@ -22,7 +22,8 @@ var sfx_bus_lookup = {
 
 # Tracks that don't need a position
 var non_positional_tracks = [
-	
+	#'track.ogg',
+	#'track.wav'
 ]
 
 func is_track_non_positional(track_name):
