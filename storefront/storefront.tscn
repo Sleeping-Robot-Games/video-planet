@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=20 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Texture2D" uid="uid://csvm7i4w365vb" path="res://storefront/rug.png" id="2_d824b"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
+[ext_resource type="Texture2D" uid="uid://bt0r07rt4b8tn" path="res://storefront/shelflong.png" id="15_k10vf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
 texture = ExtResource("2_da638")
@@ -89,7 +90,7 @@ tile_map_data = PackedByteArray("AAABAAgAAAAEAAEAAAABAAkAAAAEAAIAAAABAAoAAAAEAAE
 tile_set = SubResource("TileSet_56nh0")
 
 [node name="Rug" type="Sprite2D" parent="Floor"]
-position = Vector2(136, 184)
+position = Vector2(137, 190)
 texture = ExtResource("2_d824b")
 
 [node name="Rug2" type="Sprite2D" parent="Floor"]
@@ -121,6 +122,10 @@ texture = ExtResource("6_5o5x3")
 y_sort_enabled = true
 position = Vector2(444, 96)
 texture = ExtResource("8_dspst")
+
+[node name="Shelflong" type="Sprite2D" parent="Deco"]
+position = Vector2(140, 112)
+texture = ExtResource("15_k10vf")
 
 [node name="Doortemp" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
@@ -157,11 +162,11 @@ texture = ExtResource("7_qepj0")
 
 [node name="Counter" type="Sprite2D" parent="Furniture"]
 y_sort_enabled = true
-position = Vector2(136, 152)
+position = Vector2(136, 168)
 texture = ExtResource("10_fk8fj")
 
 [node name="Backroomdoorframe" type="Sprite2D" parent="."]
-position = Vector2(48, 120)
+position = Vector2(48, 134)
 texture = ExtResource("12_74fhw")
 
 [node name="Backroomdoor" type="Sprite2D" parent="Backroomdoorframe"]
