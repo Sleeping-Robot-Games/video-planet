@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=7 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -7,6 +7,12 @@
 allow_unpress = true
 
 [sub_resource type="Theme" id="Theme_grv5e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grv5e"]
+size = Vector2(34, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
+size = Vector2(128.00012, 128)
 
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
@@ -45,7 +51,7 @@ offset_top = 371.0
 offset_right = 644.0
 offset_bottom = 426.0
 
-[node name="Button" type="Button" parent="VCR/Tracking"]
+[node name="1" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 toggle_mode = true
@@ -53,7 +59,7 @@ button_group = SubResource("ButtonGroup_grv5e")
 text = "1
 "
 
-[node name="Button2" type="Button" parent="VCR/Tracking"]
+[node name="2" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 toggle_mode = true
@@ -61,21 +67,21 @@ button_group = SubResource("ButtonGroup_grv5e")
 text = "2
 "
 
-[node name="Button3" type="Button" parent="VCR/Tracking"]
+[node name="3" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "3"
 
-[node name="Button4" type="Button" parent="VCR/Tracking"]
+[node name="4" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "4"
 
-[node name="Button5" type="Button" parent="VCR/Tracking"]
+[node name="5" type="Button" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 toggle_mode = true
@@ -83,9 +89,9 @@ button_group = SubResource("ButtonGroup_grv5e")
 text = "5"
 
 [node name="Dial" type="Node2D" parent="VCR"]
+position = Vector2(1104, 412)
 
 [node name="Sprite2D" type="Sprite2D" parent="VCR/Dial"]
-position = Vector2(1104, 412.00003)
 scale = Vector2(0.6875, 0.65625)
 texture = ExtResource("1_g6svw")
 
@@ -116,11 +122,24 @@ theme = SubResource("Theme_grv5e")
 [node name="HitZone" type="ColorRect" parent="VCR/Ticker"]
 offset_left = 737.0
 offset_top = 406.0
-offset_right = 770.0
+offset_right = 771.0
 offset_bottom = 446.0
 color = Color(0.35767606, 0.96751696, 0.57527703, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="VCR/Ticker"]
+[node name="Area2D" type="Area2D" parent="VCR/Ticker/HitZone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/HitZone/Area2D"]
+position = Vector2(17, 20)
+shape = SubResource("RectangleShape2D_grv5e")
+
+[node name="Tick" type="Sprite2D" parent="VCR/Ticker"]
 position = Vector2(861.00006, 426)
 scale = Vector2(0.10937506, 0.328125)
 texture = ExtResource("1_g6svw")
+
+[node name="Area2D" type="Area2D" parent="VCR/Ticker/Tick"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Tick/Area2D"]
+position = Vector2(-0.00048828125, 0)
+scale = Vector2(1.0000004, 1)
+shape = SubResource("RectangleShape2D_irnpm")
