@@ -163,9 +163,9 @@ func _process(delta):
 	if not rewinding:
 		return
 		
-	if Input.is_action_pressed('right'):
+	if Input.is_action_pressed('dial_right'):
 		dial_angle += DIAL_ROTATE_SPEED * delta
-	elif Input.is_action_pressed('left'):
+	elif Input.is_action_pressed('dial_left'):
 		dial_angle -= DIAL_ROTATE_SPEED * delta
 	
 	dial_angle = clamp(dial_angle, DIAL_ROTATE_MIN, DIAL_ROTATE_MAX)

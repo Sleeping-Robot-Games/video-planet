@@ -169,4 +169,4 @@ texture = ExtResource("13_kcm8m")
 
 [node name="Player" parent="." instance=ExtResource("14_s766h")]
 y_sort_enabled = true
-position = Vector2(273, 201)
+position = Vector2(275, 162.5)

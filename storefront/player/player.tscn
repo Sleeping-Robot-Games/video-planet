@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://x2l0pltsea0m"]
+[gd_scene load_steps=7 format=3 uid="uid://x2l0pltsea0m"]
 
 [ext_resource type="Texture2D" uid="uid://bsumnos6vom64" path="res://storefront/player/girl.png" id="1_4kqef"]
 [ext_resource type="Script" uid="uid://c844mybouibnt" path="res://storefront/player/player.gd" id="1_n7xn3"]
@@ -7,14 +7,58 @@
 radius = 5.0
 height = 20.0
 
+[sub_resource type="Animation" id="Animation_48828"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_n7xn3"]
+resource_name = "walk_down"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 18, 19, 20, 21]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xig5k"]
+_data = {
+&"RESET": SubResource("Animation_48828"),
+&"walk_down": SubResource("Animation_n7xn3")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_n7xn3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_4kqef")
 hframes = 8
-vframes = 6
+vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_n7xn3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xig5k")
+}
