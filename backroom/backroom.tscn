@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=14 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -8,11 +8,167 @@ allow_unpress = true
 
 [sub_resource type="Theme" id="Theme_grv5e"]
 
+[sub_resource type="Curve2D" id="Curve2D_grv5e"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 724, 427, 0, 0, 0, 0, 997, 427)
+}
+point_count = 2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grv5e"]
-size = Vector2(34, 40)
+size = Vector2(126.586426, 126.666626)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
-size = Vector2(128.00012, 128)
+size = Vector2(129.88434, 128)
+
+[sub_resource type="Animation" id="Animation_grv5e"]
+resource_name = "spin"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpoolIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpoolIndicator2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+
+[sub_resource type="Animation" id="Animation_irnpm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpoolIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpoolIndicator2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4h6lf"]
+resource_name = "fast_spin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpoolIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpoolIndicator2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+
+[sub_resource type="Animation" id="Animation_kqmtr"]
+resource_name = "miss_spin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpoolIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.1344640137963142]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpoolIndicator2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.1344640137963142]
+}
+
+[sub_resource type="Animation" id="Animation_2d3aw"]
+resource_name = "spin_recover"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpoolIndicator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.1344640137963142, -6.283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpoolIndicator2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.1344640137963142, -6.283185307179586]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4h6lf"]
+_data = {
+&"RESET": SubResource("Animation_irnpm"),
+&"fast_spin": SubResource("Animation_4h6lf"),
+&"miss_spin": SubResource("Animation_kqmtr"),
+&"spin": SubResource("Animation_grv5e"),
+&"spin_recover": SubResource("Animation_2d3aw")
+}
 
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
@@ -26,9 +182,19 @@ texture = ExtResource("1_g6svw")
 
 [node name="VCR" type="Node2D" parent="."]
 
-[node name="Sprite2D2" type="Sprite2D" parent="VCR"]
-position = Vector2(832.99994, 410.99997)
-scale = Vector2(5.886719, 1.4492185)
+[node name="Sprite2D" type="Sprite2D" parent="VCR"]
+position = Vector2(832.99994, 420.625)
+scale = Vector2(5.886719, 1.5996095)
+texture = ExtResource("1_g6svw")
+
+[node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
+position = Vector2(806.00006, 344)
+scale = Vector2(0.6171875, 0.65625)
+texture = ExtResource("1_g6svw")
+
+[node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
+position = Vector2(905, 342)
+scale = Vector2(0.6171875, 0.65625)
 texture = ExtResource("1_g6svw")
 
 [node name="TrackLabel" type="Label" parent="VCR"]
@@ -44,6 +210,13 @@ offset_top = 335.0
 offset_right = 1151.0
 offset_bottom = 358.0
 text = "Tuner"
+
+[node name="RewindButton" type="Button" parent="VCR"]
+offset_left = 788.0
+offset_top = 483.0
+offset_right = 895.0
+offset_bottom = 514.0
+text = "Start Rewind"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
 offset_left = 501.0
@@ -88,6 +261,13 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 text = "5"
 
+[node name="DialLight" type="ColorRect" parent="VCR"]
+offset_left = 1136.0
+offset_top = 338.0
+offset_right = 1146.0
+offset_bottom = 358.0
+color = Color(0, 0, 0, 1)
+
 [node name="Dial" type="Node2D" parent="VCR"]
 position = Vector2(1104, 412)
 
@@ -119,27 +299,45 @@ offset_right = 999.0
 offset_bottom = 436.0
 theme = SubResource("Theme_grv5e")
 
-[node name="HitZone" type="ColorRect" parent="VCR/Ticker"]
-offset_left = 737.0
-offset_top = 406.0
-offset_right = 771.0
-offset_bottom = 446.0
-color = Color(0.35767606, 0.96751696, 0.57527703, 1)
+[node name="Path2D" type="Path2D" parent="VCR/Ticker"]
+curve = SubResource("Curve2D_grv5e")
 
-[node name="Area2D" type="Area2D" parent="VCR/Ticker/HitZone"]
+[node name="HitzonePathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
+position = Vector2(833.19836, 427)
+progress = 109.200005
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/HitZone/Area2D"]
-position = Vector2(17, 20)
-shape = SubResource("RectangleShape2D_grv5e")
-
-[node name="Tick" type="Sprite2D" parent="VCR/Ticker"]
-position = Vector2(861.00006, 426)
-scale = Vector2(0.10937506, 0.328125)
+[node name="HitZone" type="Sprite2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D"]
+modulate = Color(0.78419125, 0.9587417, 0.23863629, 1)
+scale = Vector2(0.05, 0.328)
 texture = ExtResource("1_g6svw")
 
-[node name="Area2D" type="Area2D" parent="VCR/Ticker/Tick"]
+[node name="Area2D" type="Area2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Tick/Area2D"]
-position = Vector2(-0.00048828125, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D"]
+position = Vector2(0.33764648, 0.666626)
+scale = Vector2(1, 0.99999994)
+shape = SubResource("RectangleShape2D_grv5e")
+
+[node name="TickPathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
+position = Vector2(724, 427)
+loop = false
+
+[node name="Tick" type="Sprite2D" parent="VCR/Ticker/Path2D/TickPathFollow2D"]
+scale = Vector2(0.05, 0.5390939)
+texture = ExtResource("1_g6svw")
+
+[node name="Area2D" type="Area2D" parent="VCR/Ticker/Path2D/TickPathFollow2D/Tick"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Path2D/TickPathFollow2D/Tick/Area2D"]
+position = Vector2(-0.9423828, 0)
 scale = Vector2(1.0000004, 1)
 shape = SubResource("RectangleShape2D_irnpm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VCR"]
+libraries = {
+&"": SubResource("AnimationLibrary_4h6lf")
+}
+
+[connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
+[connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
+[connection signal="area_exited" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_exited"]
