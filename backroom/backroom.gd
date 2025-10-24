@@ -40,6 +40,7 @@ var hitzone_scale_lookup = {
 	0: .25,
 }
 
+## TODO: Don't use this, make it more static the further the tracking is to the ideal number
 var track_setting_tv_lookup = {
 	'1': Color.BLUE,
 	'2': Color.RED,
@@ -235,12 +236,14 @@ func on_miss():
 	rotation_tween.parallel().tween_property(right_spool, "rotation", right_spool_rot, 0.2)
 	
 	# Shake VCR
+	## TODO: intesify shake as number of misses grows
+	var original_position = vcr.position
 	var shake_tween := create_tween()
 	shake_tween.tween_property(vcr, 'position', vcr.position + Vector2(5, 0), .117)
 	shake_tween.tween_property(vcr, 'position', vcr.position - Vector2(5, 0), .117)
-	shake_tween.tween_property(vcr, 'position', vcr.position + Vector2(5, 0), .117)
+	shake_tween.tween_property(vcr, 'position', original_position, .117)
 
-	# TODO: small TV flicker feedback
+	## TODO: small TV flicker feedback
 	
 	if num_of_misses >= VHS_DATA.number_of_failures_before_break:
 		broken_tape.show()
