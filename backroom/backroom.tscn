@@ -1,10 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=32 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
 [ext_resource type="Texture2D" uid="uid://bv003381ejsa" path="res://backroom/bgtest.png" id="2_irnpm"]
 [ext_resource type="Texture2D" uid="uid://bd15apu7olipy" path="res://backroom/vcrtest.png" id="4_2d3aw"]
-[ext_resource type="Texture2D" uid="uid://bh5014hcclf3p" path="res://backroom/lilspool.png" id="5_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
 [ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
 [ext_resource type="Texture2D" uid="uid://bitvhwr2jkx53" path="res://backroom/monitortest.png" id="6_ltxvr"]
@@ -221,8 +220,8 @@ texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
 position = Vector2(796, 406)
-scale = Vector2(2, 2)
-texture = ExtResource("5_8mcd7")
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
 position = Vector2(895, 404)
@@ -272,7 +271,6 @@ offset_bottom = 615.0
 text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
-anchors_preset = -1
 offset_left = 488.0
 offset_top = 448.0
 offset_right = 679.0
@@ -336,15 +334,12 @@ offset_right = 1178.0
 offset_bottom = 444.0
 color = Color(0, 0, 0, 1)
 
-[node name="Dial" type="Node2D" parent="VCR"]
-position = Vector2(1082, 429.37503)
-
-[node name="Sprite2D" type="Sprite2D" parent="VCR/Dial"]
-position = Vector2(-2, 42.62497)
+[node name="Dial" type="Sprite2D" parent="VCR"]
+position = Vector2(1079, 472)
 scale = Vector2(2, 2)
 texture = ExtResource("5_cge5e")
 
-[node name="ColorRect" type="ColorRect" parent="VCR/Dial/Sprite2D"]
+[node name="ColorRect" type="ColorRect" parent="VCR/Dial"]
 offset_left = 2.1457672e-05
 offset_top = -11.999996
 offset_right = 2.9092011

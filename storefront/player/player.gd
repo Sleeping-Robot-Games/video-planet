@@ -42,6 +42,6 @@ func play_idle_animation(direction: Vector2) -> void:
 		else:
 			anim_player.play("idle_left")
 	elif direction.y > 0:
-		anim_player.play("idle_down")
+		anim_player.play("idle_front")
 	else:
-		anim_player.play("idle_up")
+		anim_player.play("idle_back")

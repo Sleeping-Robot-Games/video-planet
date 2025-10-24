@@ -206,8 +206,8 @@ func on_success():
 	rotation_tween.parallel().tween_property(right_spool, "rotation", right_spool_rot - full_rot, 0.35)
 	
 	var scale_tween = create_tween()
-	scale_tween.tween_property(left_spool, "scale", left_spool.scale + Vector2(.05, .05), .35)
-	scale_tween.parallel().tween_property(right_spool, "scale", right_spool.scale - Vector2(.05, .05), .35)
+	scale_tween.tween_property(left_spool, "scale", left_spool.scale + Vector2(.2, .2), .35)
+	scale_tween.parallel().tween_property(right_spool, "scale", right_spool.scale - Vector2(.2, .2), .35)
 	
 	if rewinding:
 		# Step 2: resume main spin animation
