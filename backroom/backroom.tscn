@@ -1,7 +1,26 @@
-[gd_scene load_steps=14 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=33 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
+[ext_resource type="Texture2D" uid="uid://bv003381ejsa" path="res://backroom/bgtest.png" id="2_irnpm"]
+[ext_resource type="Texture2D" uid="uid://bd15apu7olipy" path="res://backroom/vcrtest.png" id="4_2d3aw"]
+[ext_resource type="Texture2D" uid="uid://bh5014hcclf3p" path="res://backroom/lilspool.png" id="5_8mcd7"]
+[ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
+[ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
+[ext_resource type="Texture2D" uid="uid://bitvhwr2jkx53" path="res://backroom/monitortest.png" id="6_ltxvr"]
+[ext_resource type="Texture2D" uid="uid://dp185dlso3jd6" path="res://backroom/button1.png" id="7_dwywq"]
+[ext_resource type="Texture2D" uid="uid://hxhhckddmmh0" path="res://backroom/button1pressed.png" id="8_j8cxi"]
+[ext_resource type="Texture2D" uid="uid://b8ue8i67ynelm" path="res://backroom/button2.png" id="9_6dn78"]
+[ext_resource type="Texture2D" uid="uid://bhop6mdbhsm6u" path="res://backroom/button2pressed.png" id="10_iobut"]
+[ext_resource type="Texture2D" uid="uid://b1b2121dobcxb" path="res://backroom/button3.png" id="11_otosh"]
+[ext_resource type="Texture2D" uid="uid://c5nfwrl6rimn1" path="res://backroom/button3pressed.png" id="12_osn8m"]
+[ext_resource type="Texture2D" uid="uid://boanabjswjdpg" path="res://backroom/button4.png" id="13_1r01e"]
+[ext_resource type="Texture2D" uid="uid://clhn1l1yqp7i" path="res://backroom/button4pressed.png" id="14_k50q5"]
+[ext_resource type="Texture2D" uid="uid://d4hs0qibgsni7" path="res://backroom/button5.png" id="15_mssko"]
+[ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
+[ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
+[ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
+[ext_resource type="Texture2D" uid="uid://c033jiekthooi" path="res://backroom/postertest.png" id="21_j8cxi"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
 allow_unpress = true
@@ -173,6 +192,11 @@ _data = {
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
 
+[node name="Bgtest" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("2_irnpm")
+
 [node name="BrokenTape" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 0, 0, 1)
@@ -188,142 +212,152 @@ offset_right = 713.0
 offset_bottom = 693.0
 text = "Fix Tape (F)"
 
-[node name="TV" type="Node2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="TV"]
-position = Vector2(953.00006, 166.37503)
-scale = Vector2(3.216797, 1.8496099)
-texture = ExtResource("1_g6svw")
-
 [node name="VCR" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="VCR"]
-position = Vector2(810.9999, 438.00003)
-scale = Vector2(5.886719, 1.5996095)
-texture = ExtResource("1_g6svw")
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
-position = Vector2(784, 361.37503)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_g6svw")
+position = Vector2(796, 406)
+scale = Vector2(2, 2)
+texture = ExtResource("5_8mcd7")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
-position = Vector2(883, 359.37503)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_g6svw")
+position = Vector2(895, 404)
+scale = Vector2(2, 2)
+texture = ExtResource("6_j4ho4")
 
 [node name="TrackLabel" type="Label" parent="VCR"]
-offset_left = 513.0
-offset_top = 353.37503
-offset_right = 579.0
-offset_bottom = 376.37503
+offset_left = 544.0
+offset_top = 416.0
+offset_right = 610.0
+offset_bottom = 439.0
 text = "Tracking"
 
 [node name="TrackTutorialLabel" type="Label" parent="VCR"]
-offset_left = 388.0
-offset_top = 306.37503
-offset_right = 646.0
-offset_bottom = 329.37503
+offset_left = 496.0
+offset_top = 384.0
+offset_right = 754.0
+offset_bottom = 407.0
 text = "Use 1-5 number keys for Tracking"
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR"]
-offset_left = 975.0
-offset_top = 304.37503
-offset_right = 1233.0
-offset_bottom = 327.37503
+offset_left = 960.0
+offset_top = 520.0
+offset_right = 1218.0
+offset_bottom = 543.0
 text = "Use <- and -> arrow keys for dial"
 
 [node name="DialTutorialLabel3" type="Label" parent="VCR"]
-offset_left = 693.0
-offset_top = 543.375
-offset_right = 951.0
-offset_bottom = 566.375
+offset_left = 736.0
+offset_top = 432.0
+offset_right = 994.0
+offset_bottom = 455.0
 text = "Hit Spacebar to get ticker catch"
 
 [node name="TuningLabel" type="Label" parent="VCR"]
-offset_left = 1063.0
-offset_top = 352.37503
-offset_right = 1129.0
-offset_bottom = 375.37503
+offset_left = 1112.0
+offset_top = 424.0
+offset_right = 1178.0
+offset_bottom = 447.0
 text = "Tuner"
 
 [node name="RewindButton" type="Button" parent="VCR"]
-offset_left = 746.0
-offset_top = 499.37503
-offset_right = 899.0
-offset_bottom = 530.375
+offset_left = 936.0
+offset_top = 584.0
+offset_right = 1089.0
+offset_bottom = 615.0
 text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
-offset_left = 479.0
-offset_top = 388.37503
-offset_right = 670.0
-offset_bottom = 443.37503
+anchors_preset = -1
+offset_left = 488.0
+offset_top = 448.0
+offset_right = 679.0
+offset_bottom = 499.62497
+pivot_offset = Vector2(-15, 3.6249695)
 
-[node name="1" type="Button" parent="VCR/Tracking"]
+[node name="1" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
-text = "1
-"
+texture_normal = ExtResource("7_dwywq")
+texture_pressed = ExtResource("8_j8cxi")
+stretch_mode = 0
 
-[node name="2" type="Button" parent="VCR/Tracking"]
+[node name="2" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
-text = "2
-"
+texture_normal = ExtResource("9_6dn78")
+texture_pressed = ExtResource("10_iobut")
+stretch_mode = 0
 
-[node name="3" type="Button" parent="VCR/Tracking"]
+[node name="3" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
-text = "3"
+texture_normal = ExtResource("11_otosh")
+texture_pressed = ExtResource("12_osn8m")
+stretch_mode = 0
 
-[node name="4" type="Button" parent="VCR/Tracking"]
+[node name="4" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
-text = "4"
+texture_normal = ExtResource("13_1r01e")
+texture_pressed = ExtResource("14_k50q5")
+stretch_mode = 0
 
-[node name="5" type="Button" parent="VCR/Tracking"]
+[node name="5" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
-text = "5"
+texture_normal = ExtResource("15_mssko")
+texture_pressed = ExtResource("16_j82ud")
+stretch_mode = 0
 
 [node name="DialLight" type="ColorRect" parent="VCR"]
-offset_left = 1114.0
-offset_top = 355.37503
-offset_right = 1124.0
-offset_bottom = 375.37503
+offset_left = 1168.0
+offset_top = 424.0
+offset_right = 1178.0
+offset_bottom = 444.0
 color = Color(0, 0, 0, 1)
 
 [node name="Dial" type="Node2D" parent="VCR"]
 position = Vector2(1082, 429.37503)
 
 [node name="Sprite2D" type="Sprite2D" parent="VCR/Dial"]
-scale = Vector2(0.6875, 0.65625)
-texture = ExtResource("1_g6svw")
+position = Vector2(-2, 42.62497)
+scale = Vector2(2, 2)
+texture = ExtResource("5_cge5e")
 
 [node name="ColorRect" type="ColorRect" parent="VCR/Dial/Sprite2D"]
-offset_left = -2.9091582
-offset_top = -59.4286
-offset_right = 4.363547
+offset_left = 2.1457672e-05
+offset_top = -11.999996
+offset_right = 2.9092011
 offset_bottom = 9.142872
 color = Color(1, 0.06666667, 0.023529412, 1)
 
 [node name="Ticker" type="Node2D" parent="VCR"]
+position = Vector2(8, 48)
+
+[node name="Ticker2" type="Sprite2D" parent="VCR/Ticker"]
+position = Vector2(848, 440)
+scale = Vector2(2, 2)
+texture = ExtResource("18_8mcd7")
 
 [node name="TrackBorder" type="ColorRect" parent="VCR/Ticker"]
 offset_left = 698.0
@@ -379,6 +413,23 @@ shape = SubResource("RectangleShape2D_irnpm")
 libraries = {
 &"": SubResource("AnimationLibrary_4h6lf")
 }
+
+[node name="TV" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="TV"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("6_ltxvr")
+
+[node name="Plant" type="Sprite2D" parent="."]
+position = Vector2(656, 272)
+scale = Vector2(2, 2)
+texture = ExtResource("20_dwywq")
+
+[node name="Postertest" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("21_j8cxi")
 
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
