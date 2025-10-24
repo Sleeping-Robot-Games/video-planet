@@ -2,10 +2,14 @@ extends Node
 
 var music_db_override_values = {
 	#'track.ogg': 0,
+	'backroom_bgm_1.ogg': 0
 }
 
 var sfx_db_override_values = {
 	#'track.wav': 0,
+	'tape_player_sound': 0,
+	'vhs_rewind': 0,
+	'vhs_startup': 0
 }
 
 var sfx_pitch_override_values = {
