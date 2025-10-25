@@ -9,7 +9,7 @@ var genre_colors: Dictionary = {
 
 var status_colors: Dictionary = {
 	'STOCKED': Color('#00ff00'),
-	'UNSTOCKED': Color("f2005fff"),
+	'BACKLOG': Color("f2005fff"),
 	'CHECKED OUT': Color("4022baff")
 }
 
@@ -18,7 +18,7 @@ var inventory: Dictionary = {
 		'title': 'FISH LIPS',
 		'genre': 'HORROR',
 		'status': 'STOCKED',
-		'location': 'HOR-SH-02',
+		'location': 'ON SHELF',
 		'reviews': [
 			{
 				'user': '@JDAWG79',
@@ -30,15 +30,15 @@ var inventory: Dictionary = {
 	'002': {
 		'title': 'TBD',
 		'genre': 'HORROR',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'003': {
 		'title': 'TBD',
 		'genre': 'HORROR',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'004': {
@@ -58,78 +58,78 @@ var inventory: Dictionary = {
 	'006': {
 		'title': 'TBD',
 		'genre': 'SCI-FI',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'007': {
 		'title': 'TBD',
 		'genre': 'SCI-FI',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'008': {
 		'title': 'TBD',
 		'genre': 'SCI-FI',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'009': {
 		'title': 'THE BOATNOOK',
 		'genre': 'ROMANCE',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'010': {
 		'title': 'TBD',
 		'genre': 'ROMANCE',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'011': {
 		'title': 'TBD',
 		'genre': 'ROMANCE',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'012': {
 		'title': 'TBD',
 		'genre': 'ROMANCE',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'013': {
 		'title': 'TBD',
 		'genre': 'COMEDY',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'014': {
 		'title': 'TBD',
 		'genre': 'COMEDY',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'015': {
 		'title': 'TBD',
 		'genre': 'COMEDY',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	},
 	'016': {
 		'title': 'TBD',
 		'genre': 'COMEDY',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': []
 	}
 }
@@ -138,8 +138,8 @@ func generate_movie() -> Dictionary:
 	var movie: Dictionary = {
 		'title': 'TBD',
 		'genre': 'TBD',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'BACKLOG',
+		'location': 'NEEDS REWIND',
 		'reviews': [],
 	}
 	# title
