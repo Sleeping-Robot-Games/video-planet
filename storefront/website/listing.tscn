@@ -20,6 +20,12 @@ theme_override_constants/separation = 32
 alignment = 1
 script = ExtResource("1_n7ked")
 
+[node name="RewindButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "REWIND >>"
+
 [node name="Movie" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -127,3 +133,5 @@ custom_minimum_size = Vector2(480, 64)
 layout_mode = 2
 theme_override_constants/separation = 6
 alignment = 1
+
+[connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]

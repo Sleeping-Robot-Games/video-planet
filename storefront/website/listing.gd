@@ -2,6 +2,7 @@ extends HBoxContainer
 
 var review_scene = preload('res://storefront/website/review.tscn')
 
+@onready var rewind_button: Button = $RewindButton
 @onready var movie_poster: TextureRect = $Movie/Poster
 @onready var movie_title: Label = $Movie/Details/Title
 @onready var genre_border: NinePatchRect = $Movie/Details/Genre/Border
@@ -12,7 +13,11 @@ var review_scene = preload('res://storefront/website/review.tscn')
 @onready var neg_review_count: Label = $ReviewCounts/Counts/Negative/Count
 @onready var reviews_container: VBoxContainer = $Reviews/List
 
+var website: ColorRect = null
 var movie_id: String = '000'
+
+func init(_website: ColorRect) -> void:
+	website = _website
 
 func set_movie(_movie_id: String):
 	# id
@@ -54,3 +59,7 @@ func add_review(user: String, content: String, is_positive: bool, bg_color: Colo
 			pos_review_count.text = str(int(pos_review_count.text) + 1)
 		else:
 			neg_review_count.text = str(int(neg_review_count.text) + 1)
+
+
+func _on_rewind_button_pressed() -> void:
+	website.backroom_rewind_selected(movie_id)

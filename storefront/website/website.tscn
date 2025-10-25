@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bahogvabt6amf"]
+[gd_scene load_steps=3 format=3 uid="uid://bahogvabt6amf"]
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://storefront/website/website.gd" id="1_6c0tl"]
+[ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://storefront/website/clear_icon.svg" id="2_6c0tl"]
 
 [node name="Website" type="ColorRect"]
 custom_minimum_size = Vector2(1280, 720)
@@ -47,10 +48,19 @@ theme_override_constants/separation = 16
 [node name="Search" type="LineEdit" parent="Container/Header/VBox/Filters"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
+text = "a"
 placeholder_text = "Search Titles..."
 alignment = 1
+clear_button_enabled = true
 
-[node name="Genre" type="OptionButton" parent="Container/Header/VBox/Filters"]
+[node name="Spacer" type="Control" parent="Container/Header/VBox/Filters"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="Genre" type="HBoxContainer" parent="Container/Header/VBox/Filters"]
+layout_mode = 2
+
+[node name="Picker" type="OptionButton" parent="Container/Header/VBox/Filters/Genre"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -65,7 +75,20 @@ popup/item_3/id = 3
 popup/item_4/text = "Comedy"
 popup/item_4/id = 4
 
-[node name="Status" type="OptionButton" parent="Container/Header/VBox/Filters"]
+[node name="Spacer" type="Control" parent="Container/Header/VBox/Filters/Genre"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="ClearButton" type="Button" parent="Container/Header/VBox/Filters/Genre/Spacer"]
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 31.0
+theme_override_icons/icon = ExtResource("2_6c0tl")
+
+[node name="Status" type="HBoxContainer" parent="Container/Header/VBox/Filters"]
+layout_mode = 2
+
+[node name="Picker" type="OptionButton" parent="Container/Header/VBox/Filters/Status"]
 layout_mode = 2
 selected = 0
 item_count = 4
@@ -77,6 +100,16 @@ popup/item_2/text = "Backlog"
 popup/item_2/id = 2
 popup/item_3/text = "Checked Out"
 popup/item_3/id = 3
+
+[node name="Spacer" type="Control" parent="Container/Header/VBox/Filters/Status"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="ClearButton" type="Button" parent="Container/Header/VBox/Filters/Status/Spacer"]
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 31.0
+theme_override_icons/icon = ExtResource("2_6c0tl")
 
 [node name="Body" type="ScrollContainer" parent="Container"]
 layout_mode = 2
@@ -97,6 +130,8 @@ theme_override_colors/font_color = Color(0.9565968, 3.946722e-06, 0.59827226, 1)
 text = "EXIT >"
 
 [connection signal="text_changed" from="Container/Header/VBox/Filters/Search" to="." method="_on_search_text_changed"]
-[connection signal="item_selected" from="Container/Header/VBox/Filters/Genre" to="." method="_on_genre_item_selected"]
-[connection signal="item_selected" from="Container/Header/VBox/Filters/Status" to="." method="_on_status_item_selected"]
+[connection signal="item_selected" from="Container/Header/VBox/Filters/Genre/Picker" to="." method="_on_genre_item_selected"]
+[connection signal="pressed" from="Container/Header/VBox/Filters/Genre/Spacer/ClearButton" to="." method="_on_clear_genre_pressed"]
+[connection signal="item_selected" from="Container/Header/VBox/Filters/Status/Picker" to="." method="_on_status_item_selected"]
+[connection signal="pressed" from="Container/Header/VBox/Filters/Status/Spacer/ClearButton" to="." method="_on_clear_status_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_close_button_pressed"]

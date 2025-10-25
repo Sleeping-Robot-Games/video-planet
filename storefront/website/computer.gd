@@ -4,8 +4,7 @@ extends Sprite2D
 
 func _input(event):
 	if event.is_action_pressed("interact") and $PressKey.visible:
-		website.show()
-		get_tree().paused = true
+		website.open_by_storefront_computer()
 
 
 func _on_computer_body_entered(body: Node2D) -> void:

@@ -413,3 +413,7 @@ func turn_on_live_lights():
 		index += 1
 		if index <= VHS_DATA.number_of_failures_before_break:
 			light.color = Color.GREEN
+
+
+func _on_backlog_button_pressed() -> void:
+	$Website.open_by_backroom_computer()
