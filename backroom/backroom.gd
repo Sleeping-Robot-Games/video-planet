@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var vcr = $VCR
+@onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
 @onready var tick_path_follow = $VCR/Ticker/Path2D/TickPathFollow2D
 @onready var hitzone_path_follow = $VCR/Ticker/Path2D/HitzonePathFollow2D
@@ -24,6 +25,9 @@ const DIAL_ROTATE_MIN = -100.0
 const DIAL_ROTATE_MAX = 100.0
 
 var rewinding_movie_id: String = ''
+
+var music_player: AudioStreamPlayer
+var rewind_audio_player: AudioStreamPlayer2D
 
 var dial_angle = 0.0
 
@@ -55,80 +59,12 @@ var rewinding = false
 var vhs_phase = 1
 var successful_hits = 0
 
-## Right now the VHS needs 8 successes total based on the spool scale math
-var VHS_DATA = {
-	# The number of miss tick failures before the VHS breaks
-	'number_of_failures_before_break': 5,
-	1: {
-		# the track weight setting of 0 is best and 2 is worst
-		'track_setting_weights': {
-			"1": 1,
-			"2": 0,
-			"3": 1,
-			"4": 2,
-			"5": 2
-		},
-		# the dial zone is the area between 2 rotation degrees between -100 and 100
-		'dial_zone': {
-			'rough_zone': [40, 80],  # yellow light
-			'tight_zone': [50, 60]   # green light
-		},
-		# how fast the tick goes across the track based on dial_zone
-		'tick_speeds': {
-			'no_zone': 1.4,
-			'rough_zone': 1.2,
-			'tight_zone': 1
-		},
-		# position of hitzone on the path between 0 and 1
-		'hitzone_position': .4,
-		# number of times the player needs to hit with the tick in the hitzone to move to the next phase
-		'success_count_to_continue': 2,
-	},
-	2: {
-		'track_setting_weights': {
-			"1": 1,
-			"2": 2,
-			"3": 2,
-			"4": 1,
-			"5": 0
-		},
-		'dial_zone': {
-			'rough_zone': [-10, 30],
-			'tight_zone': [-5, 5]
-		},
-		'tick_speeds': {
-			'no_zone': 1.8,
-			'rough_zone': 1.4,
-			'tight_zone': 1
-		},
-		'hitzone_position': .6,
-		'success_count_to_continue': 4,
-	},
-	3: {
-		'track_setting_weights': {
-			"1": 2,
-			"2": 1,
-			"3": 0,
-			"4": 1,
-			"5": 2
-		},
-		'dial_zone': {
-			'rough_zone': [-70, -40],
-			'tight_zone': [-55, -50]
-		},
-		'tick_speeds': {
-			'no_zone': 1.9,
-			'rough_zone': 1.5,
-			'tight_zone': 1
-		},
-		'hitzone_position': .2,
-		'success_count_to_continue': 2,
-	}
-}
+var VHS_DATA = {}
 
 
 func _ready():
-	a.play_music('backroom_bmg_1')
+	music_player = a.play_music('backroom_bmg_1')
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
 	for tracking_button in tracking.get_children():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
@@ -137,9 +73,7 @@ func _ready():
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('fix'):
 		fix_tape_button.pressed.emit()
-	
-	#if event.is_action_pressed('rewind'):
-		#rewind_button.pressed.emit()
+
 		
 	if not rewinding:
 		return
@@ -171,6 +105,9 @@ func _process(delta):
 	dial_angle = clamp(dial_angle, DIAL_ROTATE_MIN, DIAL_ROTATE_MAX)
 	dial.rotation_degrees = dial_angle
 	
+	if not VHS_DATA.has(vhs_phase):
+		return
+	
 	var dial_zone = VHS_DATA[vhs_phase].dial_zone
 	
 	if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
@@ -195,6 +132,8 @@ func _process(delta):
 func on_success():
 	if not rewinding:
 		return
+
+	a.play_sfx('tape_scratch_good', vcr_sprite)
 		
 	anim_player.pause()
 
@@ -220,6 +159,8 @@ func on_success():
 func on_miss():
 	if not rewinding:
 		return
+		
+	a.play_sfx('tape_scratch_bad', vcr_sprite)
 		
 	num_of_misses += 1
 	
@@ -255,6 +196,7 @@ func on_miss():
 		broken_tape.show()
 		fix_tape_button.show()
 		rewinding = false
+		rewind_audio_player.stop()
 		tv_off_screen.show()
 		video_player.paused = true
 	else:
@@ -299,15 +241,19 @@ func _on_hitzone_area_2d_area_exited(area: Area2D) -> void:
 		tick_in_hitzone = false
 
 func init_vhs():
+	VHS_DATA = generate_vhs_data()
 	vhs_phase = 1
 	hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
 	current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
 	rewinding = true
 	anim_player.play('spin')
 	tv_off_screen.hide()
-	video_player.play()
 	set_rewind_noise()
 	turn_on_live_lights()
+	
+	## play video based on genre
+	video_player.stream = load(get_video_file_by_genre())
+	video_player.play()
 	
 	var hitzone_scale_tween = create_tween()
 	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], .328), 1)
@@ -315,6 +261,31 @@ func init_vhs():
 	var tick_speed_tween = create_tween()
 	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
 	
+	play_vhs_audio()
+
+func play_vhs_audio():
+	# Play startup
+	var startup_player = a.play_sfx('vhs_startup', vcr_sprite)
+
+	# Chain rewind when finished
+	if startup_player:
+		startup_player.finished.connect(func():
+			rewind_audio_player = a.play_sfx('vhs_rewind', vcr_sprite))
+
+func get_video_file_by_genre() -> String:
+	var video_genre = m.inventory[rewinding_movie_id].genre
+	randomize()
+	match video_genre:
+		'HORROR':
+			return ["res://backroom/snapback_rewind.ogv", "res://backroom/hatchlingheroes_rewind.ogv"].pick_random()
+		'SCI-FI':
+			return "res://backroom/apotheosis_rewind.ogv"
+		'ROMANCE':
+			return "res://backroom/tophat_rewind.ogv"
+		'COMEDY':
+			return ["res://backroom/smokinpotions_rewind.ogv", "res://backroom/cats2up_rewind.ogv"].pick_random()
+		_:
+			return ["res://backroom/cats2up_rewind.ogv", "res://backroom/hatchlingheroes_rewind.ogv", "res://backroom/apotheosis_rewind.ogv", "res://backroom/smokinpotions_rewind.ogv", "res://backroom/snapback_rewind.ogv", "res://backroom/tophat_rewind.ogv"].pick_random()
 	
 func start_vhs_rewind_after_fix():
 	num_of_misses = 0
@@ -325,26 +296,34 @@ func start_vhs_rewind_after_fix():
 	rewinding = true
 	$VCR/AnimationPlayer.play('spin')
 	tv_off_screen.hide()
+	video_player.paused = false
 	video_player.play()
 	set_rewind_noise()
 	turn_on_live_lights()
+	rewind_audio_player.play()
 
 
 func next_vhs_phase():
 	successful_hits = 0
 	vhs_phase += 1
 	if not VHS_DATA.has(vhs_phase):
+		rewinding = false
+		rewind_audio_player.stop()
 		## Success!
 		## Player can now select a new tape from the backlog or leave back to the store front
 		m.inventory[rewinding_movie_id].status = 'STOCKED'
 		m.inventory[rewinding_movie_id].location = 'ON SHELF'
 		var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
 		g.add_log_line.emit(log_msg, 'SUCCESS')
-		rewinding = false
 		$VCR/AnimationPlayer.pause()
 		video_player.stop()
 		tv_off_screen.show()
-		## TODO: Reset tracking button and dial state
+		for tracking_btn in tracking.get_children():
+			tracking_btn.button_pressed = false
+			
+		left_spool.scale = Vector2(.4, .4)
+		right_spool.scale = Vector2(2, 2)
+		
 		$BacklogButton.show()
 		$StorefrontButton.show()
 		$VCR/Labels.hide()
@@ -426,11 +405,17 @@ func turn_off_next_light():
 			break
 
 func turn_on_live_lights():
-	var index = 0
+	# Reset all lights first
 	for light in lives_light_container.get_children():
-		index += 1
-		if index <= VHS_DATA.number_of_failures_before_break:
-			light.color = Color.GREEN
+		light.color = Color.BLACK
+	
+	# Turn on correct number of lives
+	var failures = VHS_DATA.number_of_failures_before_break
+	for i in range(failures):
+		lives_light_container.get_child(i).color = Color.GREEN
+	
+	# Reset miss counter for new tape
+	num_of_misses = 0
 
 
 func _on_backlog_button_pressed() -> void:
@@ -438,3 +423,75 @@ func _on_backlog_button_pressed() -> void:
 
 func _on_storefront_button_pressed() -> void:
 	get_tree().change_scene_to_file('res://storefront/storefront.tscn')
+
+
+func generate_vhs_data() -> Dictionary:
+	var data := {}
+	
+	# 1) Number of failures before break (weighted toward 3-5)
+	var failure_options = [3,4,5,5,4,3,2,1] # Weighted list
+	data["number_of_failures_before_break"] = failure_options[randi() % failure_options.size()]
+	
+	# 2) Generate 3 VHS Rewind Phases
+	var total_success_required := 8
+	var remaining := total_success_required
+	var num_phases := 3
+	
+	var used_zero_index := randi() % 5  # Random index 0-4 for best track each phase
+	var hitzone_positions = [.2, .4, .6] # Shuffle for variety
+	hitzone_positions.shuffle()
+
+	for phase in range(1, num_phases + 1):
+		var is_last_phase = (phase == num_phases)
+
+		# --- Success Count Distribution ---
+		var phase_success = 0
+		if is_last_phase:
+			phase_success = remaining
+		else:
+			# Give between 2-4 successes early, but leave enough for end
+			phase_success = clamp(randi() % 3 + 2, 1, remaining - (num_phases - phase))
+		remaining -= phase_success
+
+		# --- Track Setting Weights ---
+		var track_weights := {}
+		for i in range(5):
+			var weight_index := (i - used_zero_index) % 5
+			var weight := 2  # default worst
+			if abs(weight_index) <= 1:
+				weight = 1 # middle quality
+			if weight_index == 0:
+				weight = 0 # BEST setting
+			
+			track_weights[str(i + 1)] = weight
+
+		# Advance pattern shift next phase
+		used_zero_index = (used_zero_index + 1) % 5
+
+		# --- Dial Zones ---
+		var tight_center = randf_range(-80, 80)
+		var tight_half = randf_range(5, 12)
+		var rough_half = tight_half + randf_range(15, 25)
+
+		var dial_zone := {
+			"tight_zone": [tight_center - tight_half, tight_center + tight_half],
+			"rough_zone": [tight_center - rough_half, tight_center + rough_half],
+		}
+
+		# --- Tick Speeds ---
+		var tick_speeds := {
+			"no_zone": randf_range(1.4, 1.9),
+			"rough_zone": randf_range(1.1, 1.4),
+			"tight_zone": randf_range(0.7, 1.0),
+		}
+
+		# Assign phase data
+		data[phase] = {
+			"track_setting_weights": track_weights,
+			"dial_zone": dial_zone,
+			"tick_speeds": tick_speeds,
+			"hitzone_position": hitzone_positions.pop_front(),
+			"success_count_to_continue": phase_success,
+		}
+
+	return data

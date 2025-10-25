@@ -185,7 +185,7 @@ func play_sfx(track_name, parent = self,  overrides = {}):
 		sfx_player.stream = load(track_path)
 		sfx_player.finished.connect(sfx_player.queue_free)
 		parent.call_deferred('add_child', sfx_player)
-		sfx_player.play()
+		sfx_player.call_deferred('play')
 	
 	# Returns a reference to the music player node for signals
 	return sfx_player
