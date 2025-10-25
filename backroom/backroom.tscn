@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=37 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
+[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://c033jiekthooi" path="res://backroom/postertest.png" id="21_j8cxi"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
@@ -188,6 +190,29 @@ _data = {
 &"spin_recover": SubResource("Animation_2d3aw")
 }
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j8cxi"]
+seed = 69
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j8cxi"]
+noise = SubResource("FastNoiseLite_j8cxi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8cxi"]
+shader = ExtResource("21_dwywq")
+shader_parameter/curvature = 2.0
+shader_parameter/skip = 1.0
+shader_parameter/image_flicker = 1.0
+shader_parameter/vignette_flicker_speed = 1.0
+shader_parameter/vignette_strength = 1.0
+shader_parameter/small_scanlines_speed = 1.0
+shader_parameter/small_scanlines_proximity = 1.0
+shader_parameter/small_scanlines_opacity = 4.499999899416
+shader_parameter/scanlines_opacity = 1.0
+shader_parameter/scanlines_speed = 1.0
+shader_parameter/scanline_thickness = 0.249999994412
+shader_parameter/scanlines_spacing = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_j8cxi")
+
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
 
@@ -195,21 +220,6 @@ script = ExtResource("1_grv5e")
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("2_irnpm")
-
-[node name="BrokenTape" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(1, 0, 0, 1)
-position = Vector2(658, 640)
-rotation = -3.1415925
-texture = ExtResource("1_g6svw")
-
-[node name="FixTapeButton" type="Button" parent="."]
-visible = false
-offset_left = 603.0
-offset_top = 662.0
-offset_right = 713.0
-offset_bottom = 693.0
-text = "Fix Tape (F)"
 
 [node name="VCR" type="Node2D" parent="."]
 
@@ -434,7 +444,52 @@ offset_bottom = 92.0
 scale = Vector2(2, 2)
 text = "<- Window here instead?"
 
-[connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
+[node name="BrokenTape" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+position = Vector2(567, 628)
+rotation = -3.1415925
+texture = ExtResource("1_g6svw")
+
+[node name="FixTapeButton" type="Button" parent="."]
+visible = false
+offset_left = 512.0
+offset_top = 653.0
+offset_right = 622.0
+offset_bottom = 684.0
+text = "Fix Tape (F)"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2(50, 50)
+offset_left = 839.0
+offset_top = 188.0
+offset_right = 1015.0
+offset_bottom = 348.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(176, 160)
+render_target_update_mode = 4
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubViewportContainer/SubViewport"]
+offset_right = 176.0
+offset_bottom = 160.0
+stream = ExtResource("21_6dn78")
+autoplay = true
+expand = true
+loop = true
+
+[node name="RewindEffectRect" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_j8cxi")
+offset_right = 177.0
+offset_bottom = 160.0
+
+[node name="TVOff" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+offset_right = 176.0
+offset_bottom = 160.0
+color = Color(0, 0, 0, 1)
+
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
 [connection signal="area_exited" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_exited"]
+[connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
