@@ -1,4 +1,4 @@
-extends ColorRect
+extends TextureRect
 
 var listing_scene = preload('res://website/listing.tscn')
 

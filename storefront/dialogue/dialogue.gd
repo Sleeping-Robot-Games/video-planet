@@ -35,3 +35,4 @@ func close_dialogue() -> void:
 	hide()
 	g.is_dialogue_open = false
 	storefront.show_todo()
+	storefront.show_backroom_label()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bahogvabt6amf"]
+[gd_scene load_steps=5 format=3 uid="uid://bahogvabt6amf"]
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://website/website.gd" id="1_6c0tl"]
+[ext_resource type="Texture2D" uid="uid://i6a1xwtvrwtw" path="res://website/bg_002.png" id="1_sq2lu"]
 [ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://website/clear_icon.svg" id="2_6c0tl"]
 [ext_resource type="Theme" path="res://ui_theme.tres" id="2_fayii"]
 
-[node name="Website" type="ColorRect"]
+[node name="Website" type="TextureRect"]
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 8
 anchor_left = 0.5
@@ -17,7 +18,7 @@ offset_right = 640.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.13333334, 0.08235294, 0.18431373, 1)
+texture = ExtResource("1_sq2lu")
 script = ExtResource("1_6c0tl")
 
 [node name="Container" type="VBoxContainer" parent="."]
@@ -51,7 +52,6 @@ theme_override_constants/separation = 16
 [node name="Search" type="LineEdit" parent="Container/Header/VBox/Filters"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
-text = "a"
 placeholder_text = "Search Titles..."
 alignment = 1
 clear_button_enabled = true

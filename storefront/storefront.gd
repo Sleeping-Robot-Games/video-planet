@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var backroom_label: Label = $HUD/BackroomLabel
 @onready var todo_panel: Panel = $HUD/ToDo
+@onready var fade_black: ColorRect = $HUD/FadeBlack
 
 var music_player: AudioStreamPlayer
 
@@ -11,24 +12,24 @@ func _ready() -> void:
 	init_shelves()
 	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
 	g.player_movement_disabled = true
-	$FadeBlack.color = Color.BLACK
-	$FadeBlack.show()
+	fade_black.color = Color.BLACK
+	fade_black.show()
 		
 	if g.is_new_game:
 		var tween = get_tree().create_tween()
 		tween.tween_interval(1.5)
 		tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
-		tween.tween_property($FadeBlack, 'modulate:a', 0.5, 2)
+		tween.tween_property(fade_black, 'modulate:a', 0.5, 2)
 		tween.tween_callback($HUD/Dialogue.set_player_message.bind('There’s no movies here! I better start rewinding to fill this place back up!'))
-		tween.tween_property($FadeBlack, 'modulate:a', 0.0, 2)
-		tween.tween_callback($FadeBlack.hide)
+		tween.tween_property(fade_black, 'modulate:a', 0.0, 2)
+		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
 		g.is_new_game = false
 	else:
 		var tween = get_tree().create_tween()
 		tween.tween_interval(.75)
-		tween.tween_property($FadeBlack, 'modulate:a', 0.5, 1)
-		tween.tween_callback($FadeBlack.hide)
+		tween.tween_property(fade_black, 'modulate:a', 0.5, 1)
+		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
 	
 	g.is_clocking_in = false
@@ -61,3 +62,9 @@ func show_todo() -> void:
 
 func hide_todo() -> void:
 	todo_panel.hide()
+
+func show_backroom_label() -> void:
+	$HUD/BackroomEntranceLabel.show()
+
+func hide_backroom_label() -> void:
+	$HUD/BackroomEntranceLabel.hide()

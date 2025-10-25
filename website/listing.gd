@@ -13,10 +13,10 @@ var review_scene = preload('res://website/review.tscn')
 @onready var neg_review_count: Label = $ReviewCounts/Counts/Negative/Count
 @onready var reviews_container: VBoxContainer = $Reviews/List
 
-var website: ColorRect = null
+var website: TextureRect = null
 var movie_id: String = '000'
 
-func init(_website: ColorRect) -> void:
+func init(_website: TextureRect) -> void:
 	website = _website
 
 func set_movie(_movie_id: String):

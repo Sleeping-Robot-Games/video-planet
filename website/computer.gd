@@ -1,6 +1,6 @@
 extends Sprite2D
 
-@onready var website: ColorRect = $'../../Website'
+@onready var website: TextureRect = $'../../HUD/Website'
 
 func _input(event):
 	if event.is_action_pressed('interact') and $PressKey.visible:
