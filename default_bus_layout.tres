@@ -4,7 +4,6 @@
 resource_name = "Compressor"
 threshold = -22.0
 attack_us = 25.0
-release_ms = 300.0
 sidechain = &"UI"
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_g28q7"]
