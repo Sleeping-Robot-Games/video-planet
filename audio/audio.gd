@@ -7,6 +7,17 @@ var music_db_override_values = {
 
 var sfx_db_override_values = {
 	#'track.wav': 0,
+	'footstep_carpet_1': 0,
+	'footstep_carpet_2': 0,
+	'footstep_tile_1': 0,
+	'footstep_tile_2': 0,
+	'rental_return_bad_review': 0,
+	'rental_return_good_review': 0,
+	'rental_return_no_review': 0,
+	'storefront_door_entry_1': 0,
+	'storefront_door_entry_2': 0,
+	'storefront_door_exit_1': 0,
+	'storefront_door_exit_2': 0,
 	'tape_player_sound': 0,
 	'vhs_rewind': 0,
 	'vhs_startup': 0
