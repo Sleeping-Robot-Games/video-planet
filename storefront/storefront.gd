@@ -4,6 +4,7 @@ extends Node2D
 @onready var todo_panel: Panel = $HUD/ToDo
 
 func _ready() -> void:
+	init_shelves()
 	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
 	g.player_movement_disabled = true
 	$FadeBlack.color = Color.BLACK
@@ -27,6 +28,9 @@ func _ready() -> void:
 		tween.tween_callback(unfreeze_player)
 	
 	g.is_clocking_in = false
+
+func init_shelves() -> void:
+	pass
 
 func unfreeze_player() -> void:
 	g.player_movement_disabled = false

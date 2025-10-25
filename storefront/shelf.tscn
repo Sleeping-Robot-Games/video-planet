@@ -1,0 +1,324 @@
+[gd_scene load_steps=5 format=3 uid="uid://wid3kytlqks5"]
+
+[ext_resource type="Texture2D" uid="uid://slmacrwpdgwe" path="res://storefront/shelf_empty.png" id="1_5ijmg"]
+[ext_resource type="Script" uid="uid://csjv00qljbbpb" path="res://storefront/shelf.gd" id="2_0u3wd"]
+[ext_resource type="Texture2D" uid="uid://hvh1jt1jipci" path="res://movies/covers/001.png" id="2_5ijmg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apbff"]
+size = Vector2(126, 21.5)
+
+[node name="Shelf" type="Sprite2D"]
+y_sort_enabled = true
+texture = ExtResource("1_5ijmg")
+script = ExtResource("2_0u3wd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -0.75)
+shape = SubResource("RectangleShape2D_apbff")
+
+[node name="01" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(8, 10)
+offset_left = -59.0
+offset_top = -10.0
+offset_right = -6.0
+theme_override_constants/separation = 1
+
+[node name="a" type="TextureRect" parent="01"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="01"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="01"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="01"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="01"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="01"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="02" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(8, 10)
+offset_left = 4.0
+offset_top = -10.0
+offset_right = 57.0
+theme_override_constants/separation = 1
+
+[node name="a" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="03" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(8, 10)
+offset_left = -59.0
+offset_top = 2.0
+offset_right = -6.0
+offset_bottom = 12.0
+theme_override_constants/separation = 1
+
+[node name="a" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="04" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(8, 10)
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 57.0
+offset_bottom = 12.0
+theme_override_constants/separation = 1
+
+[node name="a" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="05" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(8, 10)
+offset_left = -59.0
+offset_top = 14.0
+offset_right = -6.0
+offset_bottom = 24.0
+theme_override_constants/separation = 1
+
+[node name="a" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="06" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(8, 10)
+offset_left = 4.0
+offset_top = 14.0
+offset_right = 57.0
+offset_bottom = 24.0
+theme_override_constants/separation = 1
+
+[node name="a" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(8, 10)
+layout_mode = 2
+texture = ExtResource("2_5ijmg")
+expand_mode = 1
