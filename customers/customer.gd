@@ -1,5 +1,15 @@
 extends CharacterBody2D
 
+### TODO NOTES ###
+# - Stop walking and face player when player approaches
+# - Have a purpose when they enter, renter or returner
+#	- Returners just go to the counter and then walk back out
+#	- Renters come in to browse the shelves, then if not interrupted go to the counter
+# - When player interacts, dialog appears and they say their purpose
+	# - renters will have option to open the website from dialog
+
+
+
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var anim: AnimationPlayer = $AnimationPlayer
 

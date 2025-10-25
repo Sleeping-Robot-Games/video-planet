@@ -15,7 +15,6 @@ var static_sfx_levels = {
 }
 
 var sfx_db_override_values = {
-	#'track.wav': 0,
 	'botton_press_1': 0,
 	'botton_press_2': 0,
 	'crickets': 0,
@@ -34,7 +33,7 @@ var sfx_db_override_values = {
 	'rewind_complete': 0,
 	'rewind_break': -15,
 	'service_bell': 0,
-	'static': static_sfx_levels['quiet'],
+	'static': static_sfx_levels['loudest'],
 	'storefront_door_entry_1': 0,
 	'storefront_door_entry_2': 0,
 	'storefront_door_exit_1': 0,

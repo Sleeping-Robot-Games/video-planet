@@ -242,7 +242,6 @@ func update_rewind_noise_by_tracking_setting():
 			noise_value = 0.02
 			static_audio_player.volume_db = a.static_sfx_levels['loudest']
 	
-
 	set_rewind_noise(noise_value)
 
 	
@@ -325,11 +324,11 @@ func next_vhs_phase():
 	successful_hits = 0
 	vhs_phase += 1
 	if not VHS_DATA.has(vhs_phase):
+		## Success!
+		## Player can now select a new tape from the backlog or leave back to the store front
 		rewinding = false
 		rewind_audio_player.stop()
 		static_audio_player.stop()
-		## Success!
-		## Player can now select a new tape from the backlog or leave back to the store front
 		m.inventory[rewinding_movie_id].status = 'STOCKED'
 		m.inventory[rewinding_movie_id].location = 'ON SHELF'
 		var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
