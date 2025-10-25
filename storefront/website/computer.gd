@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var website: ColorRect = $'../../Website'
 
 func _input(event):
-	if event.is_action_pressed("interact") and $PressKey.visible:
+	if event.is_action_pressed('interact') and $PressKey.visible:
 		website.open_by_storefront_computer()
 
 

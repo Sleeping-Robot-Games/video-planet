@@ -7,6 +7,11 @@ extends CharacterBody2D
 var last_direction := Vector2.DOWN
 
 func _physics_process(_delta: float) -> void:
+	if g.is_dialogue_open:
+		if not anim_player.current_animation.begins_with('idle_'):
+			play_idle_animation(last_direction)
+		return
+	
 	var input_vector := Vector2.ZERO
 	input_vector.x = Input.get_action_strength("walk_right") - Input.get_action_strength("walk_left")
 	input_vector.y = Input.get_action_strength("walk_down") - Input.get_action_strength("walk_up")

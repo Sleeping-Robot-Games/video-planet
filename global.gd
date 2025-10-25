@@ -1,5 +1,7 @@
 extends Node
 
+var is_new_game: bool = true
+var is_dialogue_open: bool = false
 
 func folders_in_dir(path: String) -> Array:
 	var folders = []

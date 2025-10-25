@@ -95,9 +95,20 @@ func create_sfx_player(track_name):
 		sfx_player.bus = sfx_bus_lookup[track_name]
 	else:
 		sfx_player.bus = 'Master'
+	return sfx_player
 
 func play_random_sfx(track_name, parent = self, overrides = {}):
-	var sfx_player = create_sfx_player(track_name)
+	var tracks = g.files_in_dir('res://audio/sfx/', track_name)
+	var random_track = null
+	if tracks.size() > 0:
+		randomize()
+		random_track = tracks.pick_random()
+	
+	if not random_track:
+		print('WARNING: play_random_sfx() failed to resolve random track for ', track_name)
+		return
+	
+	var sfx_player = create_sfx_player(random_track)
 	
 	# Position override
 	if overrides.has('position') and overrides.position:
@@ -107,30 +118,27 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 	if overrides.has('db') and overrides.db: # Override option for some specific event in game that different from the standard
 		sfx_player.volume_db = overrides.db
 	else: # Standard override mix for the track type in the sfx_db_override_values list
-		if track_name in sfx_db_override_values:
-			sfx_player.volume_db = sfx_db_override_values[track_name]
+		if random_track in sfx_db_override_values:
+			sfx_player.volume_db = sfx_db_override_values[random_track]
 		else:
-			push_warning("No standard db override mix for track ", track_name)
+			push_warning("No standard db override mix for track ", random_track)
 			
 	# Pitch override	
 	if overrides.has('pitch') and overrides.pitch:
 		sfx_player.pitch_scale = overrides.pitch
 	else:
-		if track_name in sfx_pitch_override_values:
-			var pitch_range = sfx_pitch_override_values[track_name]['pitch_range']
-			var base_pitch = sfx_pitch_override_values[track_name]['base_pitch']
+		if random_track in sfx_pitch_override_values:
+			var pitch_range = sfx_pitch_override_values[random_track]['pitch_range']
+			var base_pitch = sfx_pitch_override_values[random_track]['base_pitch']
 			sfx_player.pitch_scale = get_pitch(pitch_range, base_pitch)
 		else:
-			push_warning("No standard pitch override mix for track ", track_name)
-			
-	var tracks = g.files_in_dir('res://audio/sfx/', track_name+".wav")
-	if tracks.size() > 0:
-		randomize()
-		var random_track = tracks.pick_random()
-		sfx_player.stream = load('res://audio/sfx/' + random_track+".wav")
-		sfx_player.finished.connect(sfx_player.queue_free)
-		parent.add_child(sfx_player)
-		sfx_player.play()
+			push_warning("No standard pitch override mix for track ", random_track)
+	
+	# Play random track
+	sfx_player.stream = load('res://audio/sfx/' + random_track)
+	sfx_player.finished.connect(sfx_player.queue_free)
+	parent.add_child(sfx_player)
+	sfx_player.play()
 	
 	# Returns a reference to the music player node for signals
 	return sfx_player
