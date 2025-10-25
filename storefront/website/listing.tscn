@@ -1,0 +1,132 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuk327yhulrkj"]
+
+[ext_resource type="Texture2D" uid="uid://hvh1jt1jipci" path="res://movies/covers/001.png" id="1_85w4v"]
+[ext_resource type="Texture2D" uid="uid://bocxi7u3fryxa" path="res://movies/assets/genre_outline.png" id="2_wn40t"]
+[ext_resource type="Texture2D" uid="uid://dbhf302tcdtjx" path="res://movies/assets/thumbs_up.png" id="3_n7ked"]
+[ext_resource type="Texture2D" uid="uid://dvgpngaunwnys" path="res://movies/assets/thumbs_down.png" id="4_pg2s5"]
+[ext_resource type="PackedScene" uid="uid://kqgp8tp155vn" path="res://storefront/website/review.tscn" id="5_wn40t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7l300"]
+
+[node name="Listing" type="HBoxContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -187.0
+offset_right = 187.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Movie" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Poster" type="TextureRect" parent="Movie"]
+layout_mode = 2
+texture = ExtResource("1_85w4v")
+
+[node name="Details" type="VBoxContainer" parent="Movie"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Movie/Details"]
+layout_mode = 2
+text = "BAWS II"
+
+[node name="Genre" type="PanelContainer" parent="Movie/Details"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7l300")
+
+[node name="Border" type="NinePatchRect" parent="Movie/Details/Genre"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_wn40t")
+draw_center = false
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Movie/Details/Genre"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="Label" type="Label" parent="Movie/Details/Genre/MarginContainer"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "HORROR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="State" type="Label" parent="Status"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+text = "◉ STOCKED"
+vertical_alignment = 1
+
+[node name="Location" type="Label" parent="Status"]
+layout_mode = 2
+text = "HOR-SH-02"
+
+[node name="ReviewCounts" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Reviews" type="Label" parent="ReviewCounts"]
+layout_mode = 2
+text = "REVIEWS"
+
+[node name="Counts" type="HBoxContainer" parent="ReviewCounts"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Positive" type="HBoxContainer" parent="ReviewCounts/Counts"]
+layout_mode = 2
+
+[node name="ThumbsUp" type="TextureRect" parent="ReviewCounts/Counts/Positive"]
+layout_mode = 2
+texture = ExtResource("3_n7ked")
+
+[node name="Count" type="Label" parent="ReviewCounts/Counts/Positive"]
+modulate = Color(0.5568628, 1, 0.68235296, 1)
+layout_mode = 2
+text = "3"
+
+[node name="Negative" type="HBoxContainer" parent="ReviewCounts/Counts"]
+layout_mode = 2
+
+[node name="ThumbsDown" type="TextureRect" parent="ReviewCounts/Counts/Negative"]
+layout_mode = 2
+texture = ExtResource("4_pg2s5")
+
+[node name="Count" type="Label" parent="ReviewCounts/Counts/Negative"]
+modulate = Color(0.84313726, 0.1882353, 0.26666668, 1)
+layout_mode = 2
+text = "1"
+
+[node name="Reviews" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+
+[node name="List" type="VBoxContainer" parent="Reviews"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Review" parent="Reviews/List" instance=ExtResource("5_wn40t")]
+layout_mode = 2
+
+[node name="Review2" parent="Reviews/List" instance=ExtResource("5_wn40t")]
+layout_mode = 2
+
+[node name="Review3" parent="Reviews/List" instance=ExtResource("5_wn40t")]
+layout_mode = 2
+
+[node name="Review4" parent="Reviews/List" instance=ExtResource("5_wn40t")]
+layout_mode = 2

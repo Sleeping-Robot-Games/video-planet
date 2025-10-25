@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3 uid="uid://bahogvabt6amf"]
+
+[ext_resource type="PackedScene" uid="uid://cuk327yhulrkj" path="res://storefront/website/listing.tscn" id="1_40bed"]
+
+[node name="Website" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Header"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Header/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "✴️🛸 VIDEO PLANET 🪐🛰️"
+horizontal_alignment = 1
+
+[node name="Filters" type="HBoxContainer" parent="Header/VBox"]
+layout_mode = 2
+
+[node name="Search" type="LineEdit" parent="Header/VBox/Filters"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+placeholder_text = "Search..."
+alignment = 1
+
+[node name="Genre" type="OptionButton" parent="Header/VBox/Filters"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Genre"
+popup/item_0/id = 0
+popup/item_1/text = "Horror"
+popup/item_1/id = 1
+popup/item_2/text = "Sci-fi"
+popup/item_2/id = 2
+popup/item_3/text = "Romance"
+popup/item_3/id = 3
+popup/item_4/text = "Comedy"
+popup/item_4/id = 4
+
+[node name="Status" type="OptionButton" parent="Header/VBox/Filters"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Status"
+popup/item_0/id = 0
+popup/item_1/text = "Stocked"
+popup/item_1/id = 1
+popup/item_2/text = "Unstocked"
+popup/item_2/id = 2
+
+[node name="Body" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MovieList" type="VBoxContainer" parent="Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="001" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="002" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="003" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="004" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="005" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="006" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="007" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="008" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="009" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="010" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2
+
+[node name="011" parent="Body/MovieList" instance=ExtResource("1_40bed")]
+layout_mode = 2

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 a="*res://audio/audio.gd"
 g="*res://global.gd"
+m="*res://movies/movies.gd"
 
 [display]
 
@@ -31,8 +32,10 @@ window/stretch/mode="canvas_items"
 folder_colors={
 "res://audio/": "orange",
 "res://backroom/": "purple",
+"res://movies/": "red",
 "res://storefront/": "blue",
 "res://storefront/player/": "pink",
+"res://storefront/website/": "yellow",
 "res://title/": "teal"
 }
 
