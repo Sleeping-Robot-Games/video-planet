@@ -45,14 +45,3 @@ func play_idle_animation(direction: Vector2) -> void:
 		anim_player.play("idle_front")
 	else:
 		anim_player.play("idle_back")
-
-
-
-func _on_back_room_door_area_2d_body_entered(body: Node2D) -> void:
-	if body.name == 'Player':
-		print('Backroom prompt')
-
-
-func _on_back_room_door_area_2d_body_exited(body: Node2D) -> void:
-	if body.name == 'Player':
-		print('Remove Backroom prompt')

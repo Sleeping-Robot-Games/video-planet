@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=38 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -19,9 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
-[ext_resource type="Shader" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
+[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://c033jiekthooi" path="res://backroom/postertest.png" id="21_j8cxi"]
+[ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://storefront/website/website.tscn" id="23_6dn78"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
 allow_unpress = true
@@ -239,25 +240,26 @@ scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
 
 [node name="TrackLabel" type="Label" parent="VCR"]
-offset_left = 544.0
-offset_top = 416.0
-offset_right = 610.0
-offset_bottom = 439.0
-text = "Tracking"
+offset_left = 524.0
+offset_top = 422.0
+offset_right = 649.0
+offset_bottom = 445.0
+text = "Tracking Setting"
 
 [node name="TrackTutorialLabel" type="Label" parent="VCR"]
 offset_left = 496.0
 offset_top = 384.0
 offset_right = 754.0
 offset_bottom = 407.0
-text = "Use 1-5 number keys for Tracking"
+text = "Use 1-5 number keys for Tracking Setting"
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR"]
-offset_left = 960.0
+offset_left = 1041.0
 offset_top = 520.0
-offset_right = 1218.0
-offset_bottom = 543.0
-text = "Use <- and -> arrow keys for dial"
+offset_right = 1185.0
+offset_bottom = 569.0
+text = "Use <- and -> 
+arrow keys for dial"
 
 [node name="DialTutorialLabel3" type="Label" parent="VCR"]
 offset_left = 736.0
@@ -267,17 +269,17 @@ offset_bottom = 455.0
 text = "Hit Spacebar to get ticker catch"
 
 [node name="TuningLabel" type="Label" parent="VCR"]
-offset_left = 1112.0
-offset_top = 424.0
-offset_right = 1178.0
-offset_bottom = 447.0
-text = "Tuner"
+offset_left = 1041.0
+offset_top = 420.0
+offset_right = 1121.0
+offset_bottom = 443.0
+text = "Tuner Dial"
 
 [node name="RewindButton" type="Button" parent="VCR"]
-offset_left = 936.0
-offset_top = 584.0
-offset_right = 1089.0
-offset_bottom = 615.0
+offset_left = 612.0
+offset_top = 593.0
+offset_right = 765.0
+offset_bottom = 624.0
 text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
@@ -490,6 +492,14 @@ offset_right = 622.0
 offset_bottom = 684.0
 text = "Fix Tape (F)"
 
+[node name="BacklogButton" type="Button" parent="."]
+offset_left = 1068.0
+offset_top = 193.0
+offset_right = 1179.0
+offset_bottom = 247.0
+text = "Choose Tape
+from Backlog"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(50, 50)
 offset_left = 839.0
@@ -518,6 +528,13 @@ offset_bottom = 160.0
 offset_right = 176.0
 offset_bottom = 160.0
 color = Color(0, 0, 0, 1)
+
+[node name="Website" parent="." instance=ExtResource("23_6dn78")]
+visible = false
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 1282.0
+offset_bottom = 719.0
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]

@@ -126,6 +126,7 @@ var VHS_DATA = {
 
 
 func _ready():
+	a.play_music('backroom_bmg_1')
 	for tracking_button in tracking.get_children():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
 		tracking_input_map[tracking_button.name] = tracking_button
@@ -334,7 +335,10 @@ func next_vhs_phase():
 		$VCR/AnimationPlayer.pause()
 		video_player.stop()
 		tv_off_screen.show()
-		## TODO: Success animation, move VHS to desk and wait for new one
+		## TODO: Reset tracking button and dial state
+		## TODO: Success label/button to restock completed tape.
+		## Player can now select a new tape from the backlog or leave back to the store front
+		## TODO: make button to go back to store front
 	else:
 		hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
 		current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
