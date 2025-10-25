@@ -9,9 +9,9 @@ var music_db_override_values = {
 }
 
 var static_sfx_levels = {
-	'loudest': 0,
-	'medium': -5,
-	'quiet': -10
+	'loudest': -10,
+	'medium': -15,
+	'quiet': -20
 }
 
 var sfx_db_override_values = {
@@ -32,7 +32,7 @@ var sfx_db_override_values = {
 	'rental_return_good_review': 0,
 	'rental_return_no_review': 0,
 	'rewind_complete': 0,
-	'rewind_break': 0,
+	'rewind_break': -15,
 	'service_bell': 0,
 	'static': static_sfx_levels['quiet'],
 	'storefront_door_entry_1': 0,
