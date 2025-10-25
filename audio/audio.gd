@@ -15,8 +15,9 @@ var static_sfx_levels = {
 }
 
 var sfx_db_override_values = {
-	'botton_press_1': 0,
-	'botton_press_2': 0,
+	#'track.wav': 0,
+	'botton_press_1': 5,
+	'botton_press_2': 5,
 	'crickets': 0,
 	'footstep_carpet_1': 0,
 	'footstep_carpet_2': 0,
@@ -24,7 +25,7 @@ var sfx_db_override_values = {
 	'footstep_tile_2': 0,
 	'menu_confirm': -20,
 	'menu_select': -20,
-	'place_item': 0,
+	'place_item': -5,
 	'putting_tape_in': 0,
 	'rain': 0,
 	'rental_return_bad_review': 0,

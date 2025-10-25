@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c0wfqeprbst3o" path="res://storefront/doortemp.png" id="9_ur6w1"]
 [ext_resource type="Texture2D" uid="uid://doq7e2ckpcj6n" path="res://storefront/counter.png" id="10_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://byn6noy7k1xhc" path="res://storefront/bekindsign.png" id="11_22fc6"]
-[ext_resource type="PackedScene" uid="uid://wid3kytlqks5" path="res://storefront/shelf.tscn" id="11_fk8fj"]
+[ext_resource type="PackedScene" path="res://storefront/shelf.tscn" id="11_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
 [ext_resource type="PackedScene" uid="uid://c8d7iw846ijg7" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
 [ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="20_22fc6"]
-[ext_resource type="PackedScene" uid="uid://d0cekvv2cl3k2" path="res://customers/customer.tscn" id="20_fk8fj"]
+[ext_resource type="PackedScene" path="res://customers/customer.tscn" id="20_fk8fj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
 vertices = PackedVector2Array(606.22656, 285.5625, 607.2578, 329.5078, 31.03125, 330.47656, 296.32813, 287.5625, 31.460938, 186.02344, 248.5, 186.52344, 294.65625, 237.47656, 605.5781, 122, 605.9219, 166.47656, 301.8828, 165.97656, 248.5, 122, 300.10938, 212.03125, 606.5, 237.97656, 606.5, 211.03125)
