@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://website/website.gd" id="1_6c0tl"]
 [ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://website/clear_icon.svg" id="2_6c0tl"]
-[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="2_fayii"]
+[ext_resource type="Theme" path="res://ui_theme.tres" id="2_fayii"]
 
 [node name="Website" type="ColorRect"]
 custom_minimum_size = Vector2(1280, 720)
@@ -123,19 +123,40 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="Button" type="Button" parent="." groups=["ui_buttons"]]
+[node name="ExitButton" type="Button" parent="." groups=["ui_buttons"]]
 layout_mode = 0
 offset_left = 1194.0
-offset_top = 23.0
+offset_top = 18.0
 offset_right = 1252.0
-offset_bottom = 54.0
+offset_bottom = 49.0
 theme = ExtResource("2_fayii")
 theme_override_colors/font_color = Color(0.9565968, 3.946722e-06, 0.59827226, 1)
+theme_override_font_sizes/font_size = 18
 text = "EXIT >"
+
+[node name="ReviewRewards" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 16.0
+offset_right = 274.0
+offset_bottom = 56.0
+
+[node name="TotalReviews" type="Label" parent="ReviewRewards"]
+layout_mode = 2
+theme = ExtResource("2_fayii")
+theme_override_font_sizes/font_size = 18
+text = "Total Reviews: 0"
+
+[node name="NextUnlock" type="Label" parent="ReviewRewards"]
+layout_mode = 2
+theme = ExtResource("2_fayii")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Positive Reviews Til Next Decoration Unlock: 0"
 
 [connection signal="text_changed" from="Container/Header/VBox/Filters/Search" to="." method="_on_search_text_changed"]
 [connection signal="item_selected" from="Container/Header/VBox/Filters/Genre/Picker" to="." method="_on_genre_item_selected"]
 [connection signal="pressed" from="Container/Header/VBox/Filters/Genre/Spacer/ClearButton" to="." method="_on_clear_genre_pressed"]
 [connection signal="item_selected" from="Container/Header/VBox/Filters/Status/Picker" to="." method="_on_status_item_selected"]
 [connection signal="pressed" from="Container/Header/VBox/Filters/Status/Spacer/ClearButton" to="." method="_on_clear_status_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
