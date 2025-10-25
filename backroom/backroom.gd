@@ -43,14 +43,6 @@ var hitzone_scale_lookup = {
 	0: .25,
 }
 
-## TODO: Don't use this, make it more static the further the tracking is to the ideal number
-#var track_setting_tv_lookup = {
-	#'1': Color.BLUE,
-	#'2': Color.RED,
-	#'3': Color.GREEN,
-	#'4': Color.YELLOW,
-	#'5': Color.DARK_VIOLET
-#}
 var current_ideal_track_setting
 var current_toggled_track_setting
 
@@ -133,8 +125,6 @@ var VHS_DATA = {
 
 
 func _ready():
-	
-	
 	for tracking_button in tracking.get_children():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
 		tracking_input_map[tracking_button.name] = tracking_button
@@ -198,6 +188,9 @@ func _process(delta):
 		tick_direction = 1.0
 
 func on_success():
+	if not rewinding:
+		return
+		
 	anim_player.pause()
 
 	var left_spool_rot = left_spool.rotation
@@ -220,6 +213,9 @@ func on_success():
 
 
 func on_miss():
+	if not rewinding:
+		return
+		
 	num_of_misses += 1
 	
 	anim_player.pause()
@@ -247,9 +243,6 @@ func on_miss():
 	shake_tween.tween_property(vcr, 'position', vcr.position + Vector2(5, 0), .117)
 	shake_tween.tween_property(vcr, 'position', vcr.position - Vector2(5, 0), .117)
 	shake_tween.tween_property(vcr, 'position', original_position, .117)
-
-	# increase noise on tv screen
-	adjust_rewind_noise(-0.1)
 	
 	if num_of_misses >= VHS_DATA.number_of_failures_before_break:
 		broken_tape.show()
@@ -263,10 +256,30 @@ func on_miss():
 
 
 func _on_tracking_button_pressed(track_setting: String):
+	if not rewinding:
+		return
+		
 	current_toggled_track_setting = track_setting
-	var new_scale = Vector2(hitzone_scale_lookup[VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]], .328)
+	var current_tracking_setting_weight = VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]
+	var new_scale = Vector2(hitzone_scale_lookup[current_tracking_setting_weight], .328)
 	var hitzone_tween = create_tween()
 	hitzone_tween.tween_property(hitzone, 'scale', new_scale, .5)
+	
+	update_rewind_noise_by_tracking_setting()
+	
+	
+func update_rewind_noise_by_tracking_setting():
+	var current_tracking_setting_weight = VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]
+
+	var chosen = int(current_tracking_setting_weight)
+
+	var noise_value := 0.2 # Default 
+	if chosen == 1:
+		noise_value = 0.06
+	elif chosen >= 2:
+		noise_value = 0.02
+
+	set_rewind_noise(noise_value)
 
 	
 func _on_hitzone_area_2d_area_entered(area: Area2D) -> void:
@@ -286,7 +299,7 @@ func init_vhs():
 	anim_player.play('spin')
 	tv_off_screen.hide()
 	video_player.play()
-	adjust_rewind_noise()
+	set_rewind_noise()
 	
 	var hitzone_scale_tween = create_tween()
 	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], .328), 1)
@@ -305,7 +318,7 @@ func start_vhs_rewind_after_fix():
 	$VCR/AnimationPlayer.play('spin')
 	tv_off_screen.hide()
 	video_player.play()
-	adjust_rewind_noise()
+	set_rewind_noise()
 	#var tv_state_tween = create_tween()
 	#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
 	
@@ -315,10 +328,14 @@ func next_vhs_phase():
 	if not VHS_DATA.has(vhs_phase):
 		rewinding = false
 		$VCR/AnimationPlayer.pause()
-		## TODO: Success animation, enable stop button?
+		video_player.stop()
+		tv_off_screen.show()
+		## TODO: Success animation, move VHS to desk and wait for new one
 	else:
 		hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
 		current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
+		
+		update_rewind_noise_by_tracking_setting()
 		
 		var hitzone_scale_tween = create_tween()
 		hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]], .328), 1)
@@ -326,10 +343,11 @@ func next_vhs_phase():
 		var tick_speed_tween = create_tween()
 		tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
 		
-		#var tv_state_tween = create_tween()
-		#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
 		
 func _on_rewind_button_pressed() -> void:
+	if rewinding:
+		return 
+		
 	init_vhs()
 	rewind_button.release_focus()
 
@@ -351,7 +369,7 @@ func _on_fix_tape_button_pressed() -> void:
 	tween.parallel().tween_property(broken_tape, 'modulate', Color.WHITE, 1)
 	tween.tween_callback(Callable(self, "start_vhs_rewind_after_fix"))
 
-func adjust_rewind_noise(value: float = .5) -> void:
+func set_rewind_noise(value: float = .02) -> void:
 	# Get the ShaderMaterial on the VCR effect
 	var mat := rewind_effect.material
 	if mat == null:
@@ -368,7 +386,7 @@ func adjust_rewind_noise(value: float = .5) -> void:
 		return
 
 	# Adjust frequency
-	noise.frequency = clamp(noise.frequency + value, 0.1, 0.5)
+	noise.frequency = value
 
 	# Apply change
 	noise_tex.noise = noise

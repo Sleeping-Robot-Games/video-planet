@@ -192,7 +192,7 @@ _data = {
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j8cxi"]
 seed = 69
-frequency = 0.5
+frequency = 0.2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j8cxi"]
 noise = SubResource("FastNoiseLite_j8cxi")
