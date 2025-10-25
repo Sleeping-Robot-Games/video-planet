@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bahogvabt6amf"]
+[gd_scene load_steps=6 format=3 uid="uid://bahogvabt6amf"]
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://website/website.gd" id="1_6c0tl"]
 [ext_resource type="Texture2D" uid="uid://i6a1xwtvrwtw" path="res://website/bg_002.png" id="1_sq2lu"]
 [ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://website/clear_icon.svg" id="2_6c0tl"]
-[ext_resource type="Theme" path="res://ui_theme.tres" id="2_fayii"]
+[ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="2_fayii"]
+[ext_resource type="FontFile" uid="uid://blpu00mjggdxg" path="res://resources/home-video-font/HomeVideo-BLG6G.ttf" id="5_kegp1"]
 
 [node name="Website" type="TextureRect"]
 custom_minimum_size = Vector2(1280, 720)
@@ -41,6 +42,7 @@ theme_override_constants/separation = 16
 [node name="Title" type="Label" parent="Container/Header/VBox"]
 layout_mode = 2
 theme = ExtResource("2_fayii")
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 24
 text = "✴️🛸 VIDEO PLANET 🪐🛰️"
 horizontal_alignment = 1
@@ -50,8 +52,10 @@ layout_mode = 2
 theme_override_constants/separation = 16
 
 [node name="Search" type="LineEdit" parent="Container/Header/VBox/Filters"]
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(240, 24)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_kegp1")
+theme_override_font_sizes/font_size = 16
 placeholder_text = "Search Titles..."
 alignment = 1
 clear_button_enabled = true
@@ -64,7 +68,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Picker" type="OptionButton" parent="Container/Header/VBox/Filters/Genre"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_kegp1")
 selected = 0
 item_count = 5
 popup/item_0/text = "Genre"
@@ -83,16 +89,19 @@ custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 
 [node name="ClearButton" type="Button" parent="Container/Header/VBox/Filters/Genre/Spacer"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 0
-offset_right = 18.0
-offset_bottom = 31.0
+offset_right = 24.0
+offset_bottom = 24.0
 theme_override_icons/icon = ExtResource("2_6c0tl")
 
 [node name="Status" type="HBoxContainer" parent="Container/Header/VBox/Filters"]
 layout_mode = 2
 
 [node name="Picker" type="OptionButton" parent="Container/Header/VBox/Filters/Status"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_kegp1")
 selected = 0
 item_count = 4
 popup/item_0/text = "Status"
@@ -110,8 +119,8 @@ layout_mode = 2
 
 [node name="ClearButton" type="Button" parent="Container/Header/VBox/Filters/Status/Spacer"]
 layout_mode = 0
-offset_right = 18.0
-offset_bottom = 31.0
+offset_right = 24.0
+offset_bottom = 24.0
 theme_override_icons/icon = ExtResource("2_6c0tl")
 
 [node name="Body" type="ScrollContainer" parent="Container"]
@@ -131,6 +140,7 @@ offset_right = 1252.0
 offset_bottom = 49.0
 theme = ExtResource("2_fayii")
 theme_override_colors/font_color = Color(0.9565968, 3.946722e-06, 0.59827226, 1)
+theme_override_fonts/font = ExtResource("5_kegp1")
 theme_override_font_sizes/font_size = 18
 text = "EXIT >"
 
@@ -144,15 +154,20 @@ offset_bottom = 56.0
 [node name="TotalReviews" type="Label" parent="ReviewRewards"]
 layout_mode = 2
 theme = ExtResource("2_fayii")
-theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("5_kegp1")
 text = "Total Reviews: 0"
 
-[node name="NextUnlock" type="Label" parent="ReviewRewards"]
+[node name="NextUnlock" type="RichTextLabel" parent="ReviewRewards"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("2_fayii")
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 18
-text = "Positive Reviews Til Next Decoration Unlock: 0"
+theme_override_colors/default_color = Color(0.54509807, 1, 0.6745098, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("5_kegp1")
+bbcode_enabled = true
+text = "[img=16x16]res://movies/assets/thumbs_up_small.png[/img] Til Next Decoration Unlock: 0"
 
 [connection signal="text_changed" from="Container/Header/VBox/Filters/Search" to="." method="_on_search_text_changed"]
 [connection signal="item_selected" from="Container/Header/VBox/Filters/Genre/Picker" to="." method="_on_genre_item_selected"]

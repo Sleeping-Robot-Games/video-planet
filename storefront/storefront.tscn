@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://ddjy45u84i013" path="res://storefront/deco/plant1.png" id="18_jyqko"]
 [ext_resource type="Texture2D" uid="uid://dabqhcyetx3tg" path="res://storefront/deco/pumpkin.png" id="19_kqfll"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
-[ext_resource type="Theme" path="res://ui_theme.tres" id="20_22fc6"]
+[ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="20_22fc6"]
 [ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="20_aahc8"]
 [ext_resource type="PackedScene" uid="uid://d0cekvv2cl3k2" path="res://customers/customer.tscn" id="20_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://e8ohdrelx0sy" path="res://storefront/deco/videorental.png" id="21_bb0xx"]

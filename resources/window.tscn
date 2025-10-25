@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://wjyhqjq4u2lh"]
+
+[ext_resource type="Texture2D" uid="uid://b4a6myb1cqkey" path="res://resources/window_blank.png" id="1_hdcnv"]
+
+[node name="Window" type="NinePatchRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1148.0
+offset_bottom = -574.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hdcnv")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 4
+patch_margin_top = 12
+patch_margin_right = 14
+patch_margin_bottom = 11
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2

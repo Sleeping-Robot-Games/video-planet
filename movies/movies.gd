@@ -2,7 +2,7 @@ extends Node
 
 var genre_colors: Dictionary = {
 	'HORROR': Color('#ff0000'),
-	'SCI-FI': Color('#0000ff'),
+	'SCI-FI': Color("1854ffff"),
 	'ROMANCE': Color('#ff00ff'),
 	'COMEDY': Color('#ff5600')
 }

@@ -41,7 +41,7 @@ func _ready():
 		if next_unlock == -1:
 			$ReviewRewards/NextUnlock.text = 'All Decorations Unlocked!'
 		else:
-			$ReviewRewards/NextUnlock.text = 'Positive Reviews Til Next Decoration Unlock: %d' % next_unlock
+			$ReviewRewards/NextUnlock.text = '[img=16x16]res://movies/assets/thumbs_up_small.png[/img] Til Next Decoration Unlock: %d' % next_unlock
 		# set total reviews text
 		$ReviewRewards/TotalReviews.text = 'Total Reviews: %d' % total_reviews
 

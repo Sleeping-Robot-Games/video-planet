@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuk327yhulrkj"]
+[gd_scene load_steps=8 format=3 uid="uid://cuk327yhulrkj"]
 
 [ext_resource type="Script" uid="uid://cgxefmqvjorq6" path="res://website/listing.gd" id="1_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bcinmtm7p8i6h" path="res://movies/covers/000.png" id="2_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bocxi7u3fryxa" path="res://movies/assets/genre_outline.png" id="2_wn40t"]
+[ext_resource type="FontFile" uid="uid://blpu00mjggdxg" path="res://resources/home-video-font/HomeVideo-BLG6G.ttf" id="3_l1u4l"]
 [ext_resource type="Texture2D" uid="uid://dbhf302tcdtjx" path="res://movies/assets/thumbs_up.png" id="3_n7ked"]
 [ext_resource type="Texture2D" uid="uid://dvgpngaunwnys" path="res://movies/assets/thumbs_down.png" id="4_pg2s5"]
 
@@ -24,9 +25,11 @@ script = ExtResource("1_n7ked")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "REWIND >>"
 
 [node name="Movie" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 
@@ -41,6 +44,9 @@ alignment = 1
 
 [node name="Title" type="Label" parent="Movie/Details"]
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
+theme_override_font_sizes/font_size = 16
 text = "TBD"
 
 [node name="Genre" type="PanelContainer" parent="Movie/Details"]
@@ -61,13 +67,15 @@ patch_margin_bottom = 2
 [node name="MarginContainer" type="MarginContainer" parent="Movie/Details/Genre"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 1
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 3
 
 [node name="Label" type="Label" parent="Movie/Details/Genre/MarginContainer"]
 modulate = Color(1, 0, 0, 1)
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "HORROR"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -80,11 +88,16 @@ alignment = 1
 [node name="State" type="Label" parent="Status"]
 modulate = Color(0.9490196, 0, 0.37254903, 1)
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "◉ UNSTOCKED"
 vertical_alignment = 1
 
 [node name="Location" type="Label" parent="Status"]
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
+theme_override_font_sizes/font_size = 16
 text = "REWIND-DESK"
 
 [node name="ReviewCounts" type="VBoxContainer" parent="."]
@@ -94,6 +107,9 @@ alignment = 1
 
 [node name="Reviews" type="Label" parent="ReviewCounts"]
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
+theme_override_font_sizes/font_size = 16
 text = "REVIEWS"
 
 [node name="Counts" type="HBoxContainer" parent="ReviewCounts"]

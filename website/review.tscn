@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://kqgp8tp155vn"]
+[gd_scene load_steps=4 format=3 uid="uid://kqgp8tp155vn"]
 
 [ext_resource type="Texture2D" uid="uid://c0ngb78j0qsm5" path="res://movies/assets/thumbs_up_small.png" id="1_ckbdp"]
-[ext_resource type="Script" uid="uid://b4wtp2lloa6u8" path="res://storefront/website/review.gd" id="1_yp31j"]
+[ext_resource type="Script" uid="uid://b4wtp2lloa6u8" path="res://website/review.gd" id="1_yp31j"]
+[ext_resource type="FontFile" uid="uid://blpu00mjggdxg" path="res://resources/home-video-font/HomeVideo-BLG6G.ttf" id="3_bpmg2"]
 
 [node name="Review" type="HBoxContainer"]
 custom_minimum_size = Vector2(480, 0)
@@ -25,4 +26,7 @@ color = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 322.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_bpmg2")
 text = "@USER: REVIEW CONTENT"
+vertical_alignment = 1

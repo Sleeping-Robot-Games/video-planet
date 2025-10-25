@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://7l50i1c8koul"
-path="res://.godot/imported/m6x11.ttf-ff63961dc6d1083279a6b891c29ada53.fontdata"
+uid="uid://blpu00mjggdxg"
+path="res://.godot/imported/HomeVideo-BLG6G.ttf-ff16af3ae59ba8de61c0a9016e577372.fontdata"
 
 [deps]
 
-source_file="res://resources/m6x11.ttf"
-dest_files=["res://.godot/imported/m6x11.ttf-ff63961dc6d1083279a6b891c29ada53.fontdata"]
+source_file="res://resources/home-video-font/HomeVideo-BLG6G.ttf"
+dest_files=["res://.godot/imported/HomeVideo-BLG6G.ttf-ff16af3ae59ba8de61c0a9016e577372.fontdata"]
 
 [params]
 
@@ -34,8 +34,7 @@ preload=[{
 "chars": [],
 "glyphs": [],
 "name": "New Configuration",
-"size": Vector2i(16, 0),
-&"variation_embolden": 0.0
+"size": Vector2i(16, 0)
 }]
 language_support={}
 script_support={}
