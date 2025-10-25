@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://wid3kytlqks5"]
+[gd_scene load_steps=6 format=3 uid="uid://wid3kytlqks5"]
 
 [ext_resource type="Texture2D" uid="uid://slmacrwpdgwe" path="res://storefront/shelf_empty.png" id="1_5ijmg"]
 [ext_resource type="Script" uid="uid://csjv00qljbbpb" path="res://storefront/shelf.gd" id="2_0u3wd"]
 [ext_resource type="Texture2D" uid="uid://hvh1jt1jipci" path="res://movies/covers/001.png" id="2_5ijmg"]
+[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="3_5qko5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_apbff"]
 size = Vector2(126, 21.5)
@@ -30,6 +31,7 @@ offset_right = -45.0
 offset_bottom = -13.5
 grow_horizontal = 2
 size_flags_vertical = 3
+theme = ExtResource("3_5qko5")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
@@ -44,6 +46,7 @@ offset_top = -27.0
 offset_right = 58.0
 offset_bottom = -14.0
 size_flags_vertical = 3
+theme = ExtResource("3_5qko5")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 9

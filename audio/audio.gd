@@ -49,9 +49,18 @@ var sfx_bus_lookup = {
 
 # Tracks that don't need a position
 var non_positional_tracks = [
-	#'track.ogg',
-	#'track.wav'
+	'menu_select',
+	'menu_confirm'
 ]
+
+## Remember this for future projects, this is dope
+func _ready():
+	for button in get_tree().get_nodes_in_group("ui_buttons"):
+		if button is Button:
+			button.mouse_entered.connect(func():
+				a.play_sfx("menu_select"))
+			button.pressed.connect(func():
+				a.play_sfx("menu_confirm"))
 
 func is_track_non_positional(track_name):
 	return track_name in non_positional_tracks

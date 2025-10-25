@@ -523,7 +523,7 @@ offset_right = 622.0
 offset_bottom = 684.0
 text = "Fix Tape (F)"
 
-[node name="BacklogButton" type="Button" parent="."]
+[node name="BacklogButton" type="Button" parent="." groups=["ui_buttons"]]
 offset_left = 1068.0
 offset_top = 193.0
 offset_right = 1179.0
@@ -532,7 +532,7 @@ theme = ExtResource("5_otosh")
 text = "Choose Tape
 from Backlog"
 
-[node name="StorefrontButton" type="Button" parent="."]
+[node name="StorefrontButton" type="Button" parent="." groups=["ui_buttons"]]
 offset_left = 65.0
 offset_top = 443.0
 offset_right = 253.0
