@@ -53,8 +53,11 @@ var non_positional_tracks = [
 	'menu_confirm'
 ]
 
-## Remember this for future projects, this is dope
 func _ready():
+	call_deferred('_connect_ui_buttons')
+
+## Remember this for future projects, this is dope
+func _connect_ui_buttons():
 	for button in get_tree().get_nodes_in_group("ui_buttons"):
 		if button is Button:
 			button.mouse_entered.connect(func():
