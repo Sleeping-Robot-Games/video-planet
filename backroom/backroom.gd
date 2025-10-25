@@ -208,6 +208,8 @@ func _on_tracking_button_pressed(track_setting: String):
 	if not rewinding:
 		return
 		
+	a.play_random_sfx('botton_press', tracking)
+		
 	current_toggled_track_setting = track_setting
 	var current_tracking_setting_weight = VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]
 	var new_scale = Vector2(hitzone_scale_lookup[current_tracking_setting_weight], .328)
