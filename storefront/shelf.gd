@@ -48,7 +48,6 @@ func _ready() -> void:
 	$Genre.text = shelf_genre
 	$Genre.modulate = m.genre_colors[shelf_genre]
 	$Genre.add_theme_color_override('font_color', m.genre_colors[shelf_genre])
-	print('shelf_genre:', shelf_genre, ', color:', m.genre_colors[shelf_genre])
 	$Count.text = '0/36'
 	$Count.add_theme_color_override('font_color', m.genre_colors[shelf_genre])
 	# init stocked movies
@@ -62,9 +61,9 @@ func attempt_add_movie(movie_id: String):
 	var movie = m.inventory[movie_id]
 	if movie.status == 'STOCKED' and movie.genre == shelf_genre:
 		stocked_count += 1
-		if stocked_count > 36:
+		$Count.text = str(stocked_count) + '/36' # allow counter to overflow...
+		if stocked_count > 36: # ...but not movies
 			return
-		$Count.text = str(stocked_count) + '/36'
 		var shelf_space: Dictionary = spaces[stocked_count]
 		shelf_space.movie_id = movie_id
 		var shelf_node: TextureRect = get_node(shelf_space.shelf + '/' + shelf_space.space)

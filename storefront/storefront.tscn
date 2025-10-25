@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=30 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -14,12 +14,12 @@
 [ext_resource type="PackedScene" uid="uid://wid3kytlqks5" path="res://storefront/shelf.tscn" id="11_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
+[ext_resource type="PackedScene" uid="uid://c8d7iw846ijg7" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
 [ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://website/computer.tscn" id="14_qepj0"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
-[ext_resource type="Texture2D" uid="uid://bt0r07rt4b8tn" path="res://storefront/shelflong.png" id="15_k10vf"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
-[ext_resource type="PackedScene" uid="uid://d0cekvv2cl3k2" path="res://customers/customer.tscn" id="20_fk8fj"]
+[ext_resource type="PackedScene" path="res://customers/customer.tscn" id="20_fk8fj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
 texture = ExtResource("2_da638")
@@ -94,9 +94,6 @@ size = Vector2(59.0625, 290.875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o5x3"]
 size = Vector2(189, 13)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dspst"]
-size = Vector2(189, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fk8fj"]
 size = Vector2(13.75, 41.5)
@@ -209,19 +206,11 @@ position = Vector2(-31.5, 0)
 position = Vector2(31.5, -0.5)
 shape = SubResource("RectangleShape2D_5o5x3")
 
-[node name="Shelflong" type="Sprite2D" parent="Furniture"]
-position = Vector2(140, 112)
-texture = ExtResource("15_k10vf")
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="Furniture/Shelflong"]
-position = Vector2(-31, -17.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Furniture/Shelflong/StaticBody2D6"]
-position = Vector2(31.5, 10.5)
-shape = SubResource("RectangleShape2D_dspst")
-
 [node name="Computer" parent="Furniture" instance=ExtResource("14_qepj0")]
 position = Vector2(127.5, 151)
+
+[node name="BacklogShelf" parent="Furniture" instance=ExtResource("14_fk8fj")]
+position = Vector2(140, 112)
 
 [node name="Backroomdoor" type="Sprite2D" parent="."]
 position = Vector2(48, 134)
