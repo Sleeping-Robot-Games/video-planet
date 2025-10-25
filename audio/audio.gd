@@ -26,6 +26,7 @@ var sfx_db_override_values = {
 	'rental_return_good_review': 0,
 	'rental_return_no_review': 0,
 	'rewind_complete': 0,
+	'rewind_break': 0,
 	'service_bell': 0,
 	'static': 0,
 	'storefront_door_entry_1': 0,

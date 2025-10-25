@@ -194,6 +194,7 @@ func on_miss():
 	turn_off_next_light()
 	
 	if num_of_misses >= VHS_DATA.number_of_failures_before_break:
+		a.play_sfx('rewind_break', vcr_sprite)
 		broken_tape.show()
 		fix_tape_button.show()
 		rewinding = false
