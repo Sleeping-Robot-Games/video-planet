@@ -39,6 +39,7 @@ var sfx_db_override_values = {
 	'storefront_door_exit': -2,
 	'tape_scratch_bad': -1.8,
 	'tape_scratch_good': -6,
+	'tape_tear': 0,
 	'vhs_rewind': -5,
 	'vhs_startup': 15
 }
