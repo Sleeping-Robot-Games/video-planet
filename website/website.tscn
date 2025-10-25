@@ -187,6 +187,7 @@ theme_override_fonts/normal_font = ExtResource("5_kegp1")
 bbcode_enabled = true
 text = "[img=16x16]res://movies/assets/thumbs_up_small.png[/img] Til Next Decoration Unlock: 0"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="text_changed" from="Margins/Window/VBox/Header/VBox/Filters/Search" to="." method="_on_search_text_changed"]
 [connection signal="item_selected" from="Margins/Window/VBox/Header/VBox/Filters/Genre/Picker" to="." method="_on_genre_item_selected"]
 [connection signal="pressed" from="Margins/Window/VBox/Header/VBox/Filters/Genre/Spacer/ClearButton" to="." method="_on_clear_genre_pressed"]

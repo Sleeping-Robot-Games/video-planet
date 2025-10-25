@@ -67,7 +67,9 @@ var sfx_bus_lookup = {
 # Tracks that don't need a position
 var non_positional_tracks = [
 	'menu_select',
-	'menu_confirm'
+	'menu_confirm',
+	'pc_login',
+	'pc_logoff'
 ]
 
 func _ready():

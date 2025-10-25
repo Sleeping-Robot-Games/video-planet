@@ -137,3 +137,10 @@ func _on_clear_status_pressed() -> void:
 	status_input.select(0)
 	status_clear.hide()
 	filter_movies()
+
+
+func _on_visibility_changed() -> void:
+	if visible:
+		a.play_sfx('pc_login')
+	else:
+		a.play_sfx('pc_logoff')
