@@ -12,7 +12,11 @@ var review_scene = preload('res://storefront/website/review.tscn')
 @onready var neg_review_count: Label = $ReviewCounts/Counts/Negative/Count
 @onready var reviews_container: VBoxContainer = $Reviews/List
 
-func set_movie(movie_id: String):
+var movie_id: String = '000'
+
+func set_movie(_movie_id: String):
+	# id
+	movie_id = _movie_id
 	# poster
 	movie_poster.texture = load('res://movies/covers/%s.png' % movie_id)
 	# title
