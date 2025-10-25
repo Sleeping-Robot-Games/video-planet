@@ -23,6 +23,8 @@ var sfx_db_override_values = {
 	'footstep_tile': -10,
 	'menu_confirm': -20,
 	'menu_select': -20,
+	'pc_login': -20.,
+	'pc_logoff': -20,
 	'place_item': -5,
 	'putting_tape_in': 0,
 	'rain': 0,
