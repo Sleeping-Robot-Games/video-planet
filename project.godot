@@ -39,9 +39,13 @@ folder_colors={
 "res://storefront/": "blue",
 "res://storefront/dialogue/": "gray",
 "res://storefront/player/": "pink",
-"res://storefront/website/": "yellow",
-"res://title/": "teal"
+"res://title/": "teal",
+"res://website/": "yellow"
 }
+
+[global_group]
+
+ui_buttons=""
 
 [input]
 

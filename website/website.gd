@@ -1,6 +1,6 @@
 extends ColorRect
 
-var listing_scene = preload('res://storefront/website/listing.tscn')
+var listing_scene = preload('res://website/listing.tscn')
 
 @onready var listings_container: VBoxContainer = $Container/Body/MovieList
 @onready var search_input: LineEdit = $Container/Header/VBox/Filters/Search

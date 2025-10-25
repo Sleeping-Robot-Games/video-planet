@@ -2,7 +2,10 @@ extends Node
 
 var music_db_override_values = {
 	#'track.ogg': 0,
-	'backroom_bgm_1': 0
+	'backroom_bmg_1': -10,
+	'backroom_bgm_2': -10,
+	'storefront_bgm_1': -10,
+	'titlescreen_bgm_1': -10
 }
 
 var sfx_db_override_values = {
@@ -14,21 +17,25 @@ var sfx_db_override_values = {
 	'footstep_carpet_2': 0,
 	'footstep_tile_1': 0,
 	'footstep_tile_2': 0,
-	'menu_confirm': 0,
-	'menu_select': 0,
+	'menu_confirm': -20,
+	'menu_select': -20,
 	'place_item': 0,
 	'putting_tape_in': 0,
 	'rain': 0,
 	'rental_return_bad_review': 0,
 	'rental_return_good_review': 0,
 	'rental_return_no_review': 0,
+	'rewind_complete': 0,
 	'service_bell': 0,
+	'static': 0,
 	'storefront_door_entry_1': 0,
 	'storefront_door_entry_2': 0,
 	'storefront_door_exit_1': 0,
 	'storefront_door_exit_2': 0,
-	'vhs_rewind': 0,
-	'vhs_startup': 0,
+	'tape_scratch_bad': -8,
+	'tape_scratch_good': -8,
+	'vhs_rewind': -5,
+	'vhs_startup': 20
 }
 
 var sfx_pitch_override_values = {
@@ -45,9 +52,21 @@ var sfx_bus_lookup = {
 
 # Tracks that don't need a position
 var non_positional_tracks = [
-	#'track.ogg',
-	#'track.wav'
+	'menu_select',
+	'menu_confirm'
 ]
+
+func _ready():
+	call_deferred('_connect_ui_buttons')
+
+## Remember this for future projects, this is dope
+func _connect_ui_buttons():
+	for button in get_tree().get_nodes_in_group("ui_buttons"):
+		if button is Button:
+			button.mouse_entered.connect(func():
+				a.play_sfx("menu_select"))
+			button.pressed.connect(func():
+				a.play_sfx("menu_confirm"))
 
 func is_track_non_positional(track_name):
 	return track_name in non_positional_tracks
@@ -181,7 +200,7 @@ func play_sfx(track_name, parent = self,  overrides = {}):
 		sfx_player.stream = load(track_path)
 		sfx_player.finished.connect(sfx_player.queue_free)
 		parent.call_deferred('add_child', sfx_player)
-		sfx_player.play()
+		sfx_player.call_deferred('play')
 	
 	# Returns a reference to the music player node for signals
 	return sfx_player

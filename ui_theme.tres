@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://2fy1wkk1roaj"]
+
+[ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="1_touxu"]
+
+[resource]
+Button/constants/outline_size = 2
+Button/fonts/font = ExtResource("1_touxu")
+Label/constants/outline_size = 2
+Label/fonts/font = ExtResource("1_touxu")

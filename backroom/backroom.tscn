@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
 [ext_resource type="Texture2D" uid="uid://c1evwjix2hl33" path="res://backroom/tree.png" id="5_j82ud"]
 [ext_resource type="Texture2D" uid="uid://5jjh4uyfwvjs" path="res://backroom/windowframe.png" id="6_4syaj"]
+[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="5_otosh"]
 [ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
 [ext_resource type="Texture2D" uid="uid://bitvhwr2jkx53" path="res://backroom/monitortest.png" id="6_ltxvr"]
 [ext_resource type="Texture2D" uid="uid://dp185dlso3jd6" path="res://backroom/button1.png" id="7_dwywq"]
@@ -23,10 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
-[ext_resource type="Shader" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
-[ext_resource type="Texture2D" uid="uid://d4grk73bpb72h" path="res://backroom/offlight.png" id="22_qqnr8"]
-[ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://storefront/website/website.tscn" id="23_6dn78"]
+[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
+[ext_resource type="Texture2D" uid="uid://c033jiekthooi" path="res://backroom/postertest.png" id="21_j8cxi"]
+[ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="24_iobut"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
@@ -270,6 +271,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme = ExtResource("5_otosh")
 
 [node name="TrackLabel" type="Label" parent="VCR/Labels"]
 layout_mode = 0
@@ -532,19 +534,21 @@ offset_right = 622.0
 offset_bottom = 684.0
 text = "Fix Tape (F)"
 
-[node name="BacklogButton" type="Button" parent="."]
-offset_left = 1128.0
-offset_top = 256.0
-offset_right = 1239.0
-offset_bottom = 310.0
+[node name="BacklogButton" type="Button" parent="." groups=["ui_buttons"]]
+offset_left = 1068.0
+offset_top = 193.0
+offset_right = 1179.0
+offset_bottom = 247.0
+theme = ExtResource("5_otosh")
 text = "Choose Tape
 from Backlog"
 
-[node name="StorefrontButton" type="Button" parent="."]
-offset_left = 48.0
-offset_top = 400.0
-offset_right = 236.0
-offset_bottom = 431.0
+[node name="StorefrontButton" type="Button" parent="." groups=["ui_buttons"]]
+offset_left = 65.0
+offset_top = 443.0
+offset_right = 253.0
+offset_bottom = 474.0
+theme = ExtResource("5_otosh")
 text = "<< Return to Storefront"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -580,9 +584,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="Website" parent="." instance=ExtResource("23_6dn78")]
 visible = false
-offset_left = 2.0
+offset_left = 0.0
 offset_top = -1.0
-offset_right = 1282.0
+offset_right = 1280.0
 offset_bottom = 719.0
 
 [node name="LogContainer" parent="." instance=ExtResource("24_iobut")]

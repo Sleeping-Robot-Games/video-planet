@@ -1,0 +1,1918 @@
+[gd_scene load_steps=10 format=3 uid="uid://c8d7iw846ijg7"]
+
+[ext_resource type="Texture2D" uid="uid://d1xjivup1rmgr" path="res://storefront/shelflong_empty.png" id="1_yokwj"]
+[ext_resource type="Texture2D" uid="uid://3ccrhnd6pyne" path="res://movies/spines/brown.png" id="2_ojmxd"]
+[ext_resource type="Script" uid="uid://doj8cekliaan4" path="res://storefront/backlog_shelf.gd" id="2_q3u0k"]
+[ext_resource type="Texture2D" uid="uid://c1eyeh34k67u6" path="res://movies/spines/blue.png" id="3_q3u0k"]
+[ext_resource type="Texture2D" uid="uid://boydxnew6gqbm" path="res://movies/spines/yellow.png" id="4_ikkg3"]
+[ext_resource type="Texture2D" uid="uid://ccskxdv4qxevs" path="res://movies/spines/purple.png" id="5_kjbw0"]
+[ext_resource type="Texture2D" uid="uid://bosd6t23pxs3w" path="res://movies/spines/green.png" id="6_va0g3"]
+[ext_resource type="Texture2D" uid="uid://br5v2u101jx0l" path="res://movies/spines/pink.png" id="7_ojmxd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3u0k"]
+size = Vector2(189, 35)
+
+[node name="BacklogShelf" type="Sprite2D"]
+texture = ExtResource("1_yokwj")
+script = ExtResource("2_q3u0k")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2(-31, -17.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+position = Vector2(31.5, 10.5)
+shape = SubResource("RectangleShape2D_q3u0k")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.0
+offset_top = -30.5
+offset_right = -77.0
+offset_bottom = -13.5
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.19936451, 0.6089529, 0.5584882, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "BACKLOG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Count" type="Label" parent="."]
+z_index = 1
+offset_left = 45.0
+offset_top = -27.0
+offset_right = 89.0
+offset_bottom = -14.0
+grow_horizontal = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.2, 0.60784316, 0.5568628, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+text = "0/252"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="01" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = -92.0
+offset_top = -10.0
+offset_right = -36.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="01"]
+visible = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="02" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = -30.0
+offset_top = -10.0
+offset_right = 26.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="02"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="03" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = 33.0
+offset_top = -10.0
+offset_right = 89.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="03"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="04" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = -92.0
+offset_top = 2.0
+offset_right = -36.0
+offset_bottom = 12.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="04"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="05" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = -30.0
+offset_top = 2.0
+offset_right = 26.0
+offset_bottom = 12.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="05"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="06" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = 33.0
+offset_top = 2.0
+offset_right = 89.0
+offset_bottom = 12.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="06"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="07" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = -92.0
+offset_top = 14.0
+offset_right = -36.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="07"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="08" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = -30.0
+offset_top = 14.0
+offset_right = 26.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="08"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="09" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(8, 10)
+offset_left = 33.0
+offset_top = 14.0
+offset_right = 89.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="a" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="b" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="c" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="d" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="e" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="f" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="g" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="h" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="i" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="j" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="k" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="l" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="m" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="n" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="o" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="p" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="q" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="r" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="s" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("2_ojmxd")
+expand_mode = 1
+
+[node name="t" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("3_q3u0k")
+expand_mode = 1
+
+[node name="u" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("4_ikkg3")
+expand_mode = 1
+
+[node name="v" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("5_kjbw0")
+expand_mode = 1
+
+[node name="w" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="x" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="y" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="z" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1
+
+[node name="aa" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("6_va0g3")
+expand_mode = 1
+
+[node name="bb" type="TextureRect" parent="09"]
+visible = false
+custom_minimum_size = Vector2(2, 10)
+layout_mode = 2
+texture = ExtResource("7_ojmxd")
+expand_mode = 1

@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-var review_scene = preload('res://storefront/website/review.tscn')
+var review_scene = preload('res://website/review.tscn')
 
 @onready var rewind_button: Button = $RewindButton
 @onready var movie_poster: TextureRect = $Movie/Poster

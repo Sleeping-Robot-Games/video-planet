@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu6mdk8khhg26"
-path="res://.godot/imported/npc_006.png-631eaf96540774a67eaa72760364f77c.ctex"
+uid="uid://ddvwg2gld8k4s"
+path="res://.godot/imported/computer.png-c79b565433e86e790ac089513e242969.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://storefront/npc/npc_006.png"
-dest_files=["res://.godot/imported/npc_006.png-631eaf96540774a67eaa72760364f77c.ctex"]
+source_file="res://website/computer.png"
+dest_files=["res://.godot/imported/computer.png-c79b565433e86e790ac089513e242969.ctex"]
 
 [params]
 

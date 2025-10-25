@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvlg7pga3mrj0"
-path="res://.godot/imported/npc_008.png-51e3c1a4c09f50a647f48b959c38841c.ctex"
+uid="uid://c1eyeh34k67u6"
+path="res://.godot/imported/blue.png-55231613e63be910e16aea6562de2239.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://storefront/npc/npc_008.png"
-dest_files=["res://.godot/imported/npc_008.png-51e3c1a4c09f50a647f48b959c38841c.ctex"]
+source_file="res://movies/spines/blue.png"
+dest_files=["res://.godot/imported/blue.png-55231613e63be910e16aea6562de2239.ctex"]
 
 [params]
 
