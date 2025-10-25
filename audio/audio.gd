@@ -152,20 +152,20 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 		sfx_player.volume_db = overrides.db
 	else: # Standard override mix for the track type in the sfx_db_override_values list
 		if track_name in sfx_db_override_values:
-			sfx_player.volume_db = sfx_db_override_values[random_track]
+			sfx_player.volume_db = sfx_db_override_values[track_name]
 		else:
-			push_warning("No standard db override mix for track ", random_track)
+			push_warning("No standard db override mix for track ", track_name)
 			
 	# Pitch override	
 	if overrides.has('pitch') and overrides.pitch:
 		sfx_player.pitch_scale = overrides.pitch
 	else:
-		if random_track in sfx_pitch_override_values:
-			var pitch_range = sfx_pitch_override_values[random_track]['pitch_range']
-			var base_pitch = sfx_pitch_override_values[random_track]['base_pitch']
+		if track_name in sfx_pitch_override_values:
+			var pitch_range = sfx_pitch_override_values[track_name]['pitch_range']
+			var base_pitch = sfx_pitch_override_values[track_name]['base_pitch']
 			sfx_player.pitch_scale = get_pitch(pitch_range, base_pitch)
 		else:
-			push_warning("No standard pitch override mix for track ", random_track)
+			push_warning("No standard pitch override mix for track ", track_name)
 	
 	# Play random track
 	sfx_player.stream = load('res://audio/sfx/' + random_track)
