@@ -53,9 +53,11 @@ func _ready():
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.navigation_finished.connect(_on_arrived)
 
-
+	_play_idle()
+	
 func init(data):
 	customer_data = data
+	$Sprite2D.texture = load(data.sprite)
 	$Name.text = name
 	
 func enter_store(dest_array):
@@ -142,6 +144,11 @@ func _play_animation(vel: Vector2):
 
 
 func _play_idle():
+	if destinations.is_empty():
+		
+		anim.play("sprite_animations/idle_front")
+		return
+		
 	if player_interacting:
 		match last_facing:
 			"right": anim.play("sprite_animations/idle_right")

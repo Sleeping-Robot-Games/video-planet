@@ -14,10 +14,11 @@ func _ready() -> void:
 	music_player = a.play_music('storefront_bgm_1')
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
-	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
-	g.player_movement_disabled = true
-	fade_black.color = Color.BLACK
-	fade_black.show()
+	if not OS.is_debug_build():
+		$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
+		g.player_movement_disabled = true
+		fade_black.color = Color.BLACK
+		fade_black.show()
 		
 	if g.is_new_game:
 		var tween = get_tree().create_tween()
