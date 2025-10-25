@@ -14,6 +14,9 @@ extends Node2D
 @onready var anim_player = $VCR/AnimationPlayer 
 @onready var broken_tape = $BrokenTape
 @onready var fix_tape_button = $FixTapeButton
+@onready var rewind_effect: ColorRect = $SubViewportContainer/SubViewport/RewindEffectRect
+@onready var tv_off_screen = $SubViewportContainer/SubViewport/TVOff
+@onready var video_player = $SubViewportContainer/SubViewport/VideoStreamPlayer
 
 const DIAL_ROTATE_SPEED = 50.0
 const DIAL_ROTATE_MIN = -100.0
@@ -245,16 +248,15 @@ func on_miss():
 	shake_tween.tween_property(vcr, 'position', vcr.position - Vector2(5, 0), .117)
 	shake_tween.tween_property(vcr, 'position', original_position, .117)
 
-	## TODO: small TV flicker feedback
+	# increase noise on tv screen
+	adjust_rewind_noise(-0.1)
 	
 	if num_of_misses >= VHS_DATA.number_of_failures_before_break:
 		broken_tape.show()
 		fix_tape_button.show()
 		rewinding = false
-		
-		## TODO: turn TV off or go static
-		var tv_state_tween = create_tween()
-		tv_state_tween.tween_property(tv, 'modulate', Color.WHITE, 1)
+		tv_off_screen.show()
+		video_player.paused = true
 	else:
 		# Resume the spin loop
 		rotation_tween.tween_callback(Callable(anim_player, "play").bind("spin"))
@@ -281,7 +283,10 @@ func init_vhs():
 	hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
 	current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
 	rewinding = true
-	$VCR/AnimationPlayer.play('spin')
+	anim_player.play('spin')
+	tv_off_screen.hide()
+	video_player.play()
+	adjust_rewind_noise()
 	
 	var hitzone_scale_tween = create_tween()
 	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], .328), 1)
@@ -289,9 +294,7 @@ func init_vhs():
 	var tick_speed_tween = create_tween()
 	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
 	
-	#var tv_state_tween = create_tween()
-	#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
-
+	
 func start_vhs_rewind_after_fix():
 	num_of_misses = 0
 	broken_tape.hide()
@@ -300,6 +303,9 @@ func start_vhs_rewind_after_fix():
 	fix_tape_button.hide()
 	rewinding = true
 	$VCR/AnimationPlayer.play('spin')
+	tv_off_screen.hide()
+	video_player.play()
+	adjust_rewind_noise()
 	#var tv_state_tween = create_tween()
 	#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
 	
@@ -344,3 +350,25 @@ func _on_fix_tape_button_pressed() -> void:
 	tween.tween_property(broken_tape, 'rotation', 0, 1)
 	tween.parallel().tween_property(broken_tape, 'modulate', Color.WHITE, 1)
 	tween.tween_callback(Callable(self, "start_vhs_rewind_after_fix"))
+
+func adjust_rewind_noise(value: float = .5) -> void:
+	# Get the ShaderMaterial on the VCR effect
+	var mat := rewind_effect.material
+	if mat == null:
+		return
+	
+	# Get the noise texture uniform (must match your shader uniform name!)
+	var noise_tex: NoiseTexture2D = mat.get_shader_parameter("noise_texture")
+	if noise_tex == null:
+		return
+	
+	var noise := noise_tex.noise as FastNoiseLite
+	if noise == null:
+		push_warning("noise_texture does not use FastNoiseLite")
+		return
+
+	# Adjust frequency
+	noise.frequency = clamp(noise.frequency + value, 0.1, 0.5)
+
+	# Apply change
+	noise_tex.noise = noise

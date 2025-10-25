@@ -475,7 +475,6 @@ render_target_update_mode = 4
 offset_right = 176.0
 offset_bottom = 160.0
 stream = ExtResource("21_6dn78")
-autoplay = true
 expand = true
 loop = true
 
