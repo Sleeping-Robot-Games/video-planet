@@ -29,6 +29,7 @@ var customer_data = {}
 
 var exit: Node2D
 var counter: Node2D
+var return_basket: Node2D
 
 ## data example
 	#var customer_data = {
@@ -84,6 +85,8 @@ func _on_arrived():
 	var dest = destinations.pop_front()
 	arrived = true
 	velocity = Vector2.ZERO
+	if dest == return_basket:
+		destinations.append(exit)
 	if dest == counter:
 		destinations.append(exit)
 	if dest == exit:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=43 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -28,14 +28,15 @@
 [ext_resource type="Texture2D" uid="uid://ddjy45u84i013" path="res://storefront/deco/plant1.png" id="18_jyqko"]
 [ext_resource type="Texture2D" uid="uid://dabqhcyetx3tg" path="res://storefront/deco/pumpkin.png" id="19_kqfll"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
-[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="20_22fc6"]
+[ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="20_22fc6"]
 [ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="20_aahc8"]
 [ext_resource type="Texture2D" uid="uid://e8ohdrelx0sy" path="res://storefront/deco/videorental.png" id="21_bb0xx"]
+[ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="32_06rv6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
-vertices = PackedVector2Array(606.21875, 285.5078, 607.2578, 329.5078, 31.046875, 330.47656, 297.0078, 286.02344, 31.9375, 177.96875, 248.5, 177.47656, 294.46094, 237.47656, 301.5, 206.5, 606.89844, 206.5, 606.59375, 237.97656, 301.5, 165.97656, 248.5, 122, 605.5781, 122, 605.9219, 166.47656)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5, 6), PackedInt32Array(7, 8, 9, 6), PackedInt32Array(10, 7, 6, 5, 11), PackedInt32Array(10, 11, 12, 13)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(238.5, 112, 238.5, 167.5, 22, 168, 21, 340.5, 617.5, 339.5, 616, 275.5, 306.5, 276, 305, 247.5, 616.5, 248, 617, 196.5, 311.5, 196.5, 311.5, 176, 616, 176.5, 615.5, 112)])
+vertices = PackedVector2Array(606.21875, 285.5078, 607.2578, 329.5078, 31.046875, 330.47656, 296.42188, 293.21094, 606.89844, 206.5, 606.59375, 237.79688, 309.3125, 231.9375, 301.5, 206.5, 605.5781, 122, 605.9219, 166.47656, 301.5, 165.97656, 247.32031, 122, 238.85938, 189.13281, 294.84375, 242.54688, 31.9375, 178.02344, 209.25, 178.49219, 318.22656, 285.96875)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(12, 11, 10, 7, 13), PackedInt32Array(2, 14, 15, 12, 13, 3), PackedInt32Array(7, 6, 13), PackedInt32Array(0, 3, 16)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(238.5, 112, 230.5, 175.5, 211, 168.5, 22, 168, 21, 340.5, 617.5, 339.5, 616, 275.5, 316.62653, 275.98364, 306, 279.5, 305, 247.5, 312.5, 242, 616.5, 248, 617, 196.5, 311.5, 196.5, 311.5, 176, 616, 176.5, 615.5, 112)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
 texture = ExtResource("2_da638")
@@ -411,6 +412,26 @@ position = Vector2(502, 291)
 
 [node name="Destination8" type="Node2D" parent="ShelfDestinations"]
 position = Vector2(569.5, 290)
+
+[node name="ReturnBasketLocation" type="Node2D" parent="."]
+position = Vector2(205, 181.5)
+
+[node name="Label" type="Label" parent="."]
+z_index = 2
+offset_left = 195.0
+offset_top = 147.5
+offset_right = 214.0
+offset_bottom = 162.75
+theme = ExtResource("20_22fc6")
+theme_override_font_sizes/font_size = 7
+text = "Return
+Basket"
+
+[node name="ReturnBasket" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(205, 156.875)
+scale = Vector2(0.1953126, 0.10351563)
+texture = ExtResource("32_06rv6")
 
 [connection signal="body_entered" from="Backroomdoor/BackRoomDoorArea2D" to="." method="_on_back_room_door_area_2d_body_entered"]
 [connection signal="body_exited" from="Backroomdoor/BackRoomDoorArea2D" to="." method="_on_back_room_door_area_2d_body_exited"]

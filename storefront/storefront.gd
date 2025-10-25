@@ -83,25 +83,25 @@ func _on_customer_timer_timeout() -> void:
 	var new_customer = c.generate_customer()
 	new_customer.store = self
 	new_customer.counter = $CounterDestination
+	new_customer.return_basket = $ReturnBasketLocation
 	new_customer.exit = $Door
 	new_customer.position = $Door.position
 	
+	var destinations = []
 	
 	if new_customer.customer_data.goal == 'return':
-		pass # set destinations as counter, then door again
-		# TODO: Later
-		customer_in_store = false
+		# set destinations as counter, then door again
+		destinations.append($ReturnBasketLocation)
 	else: # renting
 		randomize()
 		
-		var destinations = []
 		for _i in randi() % 5: # set customer desintations to random shelves then counter
 			destinations.append(shelf_desinations.get_children().pick_random())
 		destinations.append($CounterDestination)
 		
-		add_child(new_customer)
-		await get_tree().create_timer(2).timeout
-		new_customer.enter_store(destinations)
+	add_child(new_customer)
+	await get_tree().create_timer(2).timeout
+	new_customer.enter_store(destinations)
 	
 	randomize()
 	$CustomerTimer.wait_time = randi() % 30
