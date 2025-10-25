@@ -1,10 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=40 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
 [ext_resource type="Texture2D" uid="uid://bv003381ejsa" path="res://backroom/bgtest.png" id="2_irnpm"]
 [ext_resource type="Texture2D" uid="uid://bd15apu7olipy" path="res://backroom/vcrtest.png" id="4_2d3aw"]
 [ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
+[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="5_otosh"]
 [ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
 [ext_resource type="Texture2D" uid="uid://bitvhwr2jkx53" path="res://backroom/monitortest.png" id="6_ltxvr"]
 [ext_resource type="Texture2D" uid="uid://dp185dlso3jd6" path="res://backroom/button1.png" id="7_dwywq"]
@@ -246,6 +247,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme = ExtResource("5_otosh")
 
 [node name="TrackLabel" type="Label" parent="VCR/Labels"]
 layout_mode = 0
@@ -526,6 +528,7 @@ offset_left = 1068.0
 offset_top = 193.0
 offset_right = 1179.0
 offset_bottom = 247.0
+theme = ExtResource("5_otosh")
 text = "Choose Tape
 from Backlog"
 
@@ -534,6 +537,7 @@ offset_left = 65.0
 offset_top = 443.0
 offset_right = 253.0
 offset_bottom = 474.0
+theme = ExtResource("5_otosh")
 text = "<< Return to Storefront"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]

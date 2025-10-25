@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bahogvabt6amf"]
+[gd_scene load_steps=4 format=3 uid="uid://bahogvabt6amf"]
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://website/website.gd" id="1_6c0tl"]
 [ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://website/clear_icon.svg" id="2_6c0tl"]
+[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="2_fayii"]
 
 [node name="Website" type="ColorRect"]
 custom_minimum_size = Vector2(1280, 720)
@@ -24,6 +25,7 @@ custom_minimum_size = Vector2(1280, 720)
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+theme = ExtResource("2_fayii")
 
 [node name="Header" type="MarginContainer" parent="Container"]
 layout_mode = 2
@@ -37,6 +39,7 @@ theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="Container/Header/VBox"]
 layout_mode = 2
+theme = ExtResource("2_fayii")
 theme_override_font_sizes/font_size = 24
 text = "✴️🛸 VIDEO PLANET 🪐🛰️"
 horizontal_alignment = 1
@@ -126,6 +129,7 @@ offset_left = 1194.0
 offset_top = 23.0
 offset_right = 1252.0
 offset_bottom = 54.0
+theme = ExtResource("2_fayii")
 theme_override_colors/font_color = Color(0.9565968, 3.946722e-06, 0.59827226, 1)
 text = "EXIT >"
 

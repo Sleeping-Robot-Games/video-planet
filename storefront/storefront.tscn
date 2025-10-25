@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=31 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bt0r07rt4b8tn" path="res://storefront/shelflong.png" id="15_k10vf"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
+[ext_resource type="PackedScene" uid="uid://d0cekvv2cl3k2" path="res://customers/customer.tscn" id="20_fk8fj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
 texture = ExtResource("2_da638")
@@ -319,6 +320,9 @@ offset_bottom = 398.5
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.5, 0.5)
+
+[node name="Customer" parent="." instance=ExtResource("20_fk8fj")]
+position = Vector2(280.5, 135.5)
 
 [connection signal="body_entered" from="Backroomdoor/BackRoomDoorArea2D" to="." method="_on_back_room_door_area_2d_body_entered"]
 [connection signal="body_exited" from="Backroomdoor/BackRoomDoorArea2D" to="." method="_on_back_room_door_area_2d_body_exited"]
