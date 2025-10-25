@@ -3,8 +3,12 @@ extends Node2D
 @onready var backroom_label: Label = $HUD/BackroomLabel
 @onready var todo_panel: Panel = $HUD/ToDo
 @onready var fade_black: ColorRect = $HUD/FadeBlack
+@onready var shelf_desinations = $ShelfDestinations
 
 var music_player: AudioStreamPlayer
+
+var customer_in_store = false
+
 
 func _ready() -> void:
 	music_player = a.play_music('storefront_bgm_1')
@@ -68,3 +72,36 @@ func show_backroom_label() -> void:
 
 func hide_backroom_label() -> void:
 	$HUD/BackroomEntranceLabel.hide()
+
+
+func _on_customer_timer_timeout() -> void:
+	if not customer_in_store:
+		customer_in_store = true
+	else:
+		return 
+		
+	var new_customer = c.generate_customer()
+	new_customer.store = self
+	new_customer.counter = $CounterDestination
+	new_customer.exit = $Door
+	new_customer.position = $Door.position
+	
+	
+	if new_customer.customer_data.goal == 'return':
+		pass # set destinations as counter, then door again
+		# TODO: Later
+		customer_in_store = false
+	else: # renting
+		randomize()
+		
+		var destinations = []
+		for _i in randi() % 5: # set customer desintations to random shelves then counter
+			destinations.append(shelf_desinations.get_children().pick_random())
+		destinations.append($CounterDestination)
+		
+		add_child(new_customer)
+		await get_tree().create_timer(2).timeout
+		new_customer.enter_store(destinations)
+	
+	randomize()
+	$CustomerTimer.wait_time = randi() % 30

@@ -14,7 +14,9 @@ extends CharacterBody2D
 
 @export var speed: float = 85.0
 
-@export var destination: Node2D 
+var destinations = []
+
+var store
 
 
 var last_facing: String = "down" # or "back" depending on how you name directions
@@ -23,6 +25,21 @@ var last_facing: String = "down" # or "back" depending on how you name direction
 var current_target: Node2D
 var arrived := false
 
+var customer_data = {}
+
+var exit: Node2D
+var counter: Node2D
+
+## data example
+	#var customer_data = {
+		#"name": customer_name,
+		#"fave_genre": genre_pool.pick_random(),
+		#"friendship_level": 0,
+		#"extrovert": randf() > 0.5,
+		#"goal": goal,
+		#"movie_id": null,
+		#"movie_data": null
+	#}
 
 func _ready():
 	nav_agent.path_desired_distance = 8.0
@@ -32,8 +49,14 @@ func _ready():
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.navigation_finished.connect(_on_arrived)
 
-	_pick_new_target()
 
+func init(data):
+	customer_data = data
+	
+func enter_store(dest_array):
+	destinations = dest_array
+	
+	_pick_new_target()
 
 func _physics_process(_delta):
 	if arrived or not current_target:
@@ -58,19 +81,29 @@ func _on_velocity_computed(safe_velocity: Vector2):
 
 
 func _on_arrived():
+	var dest = destinations.pop_front()
 	arrived = true
 	velocity = Vector2.ZERO
+	if dest == counter:
+		destinations.append(exit)
+	if dest == exit:
+		store.customer_in_store = false
+		queue_free()
+		
 	_play_idle()
-	await get_tree().create_timer(randf_range(1.0, 3.0)).timeout
+	await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
 	_pick_new_target()
 
 
 func _pick_new_target():
-	if not destination:
+	if destinations.is_empty():
+		await get_tree().create_timer(5).timeout
+		
+		destinations.append(exit)
 		return
 
 	arrived = false
-	current_target = destination
+	current_target = destinations[0]
 	nav_agent.target_position = current_target.global_position
 
 	# Debug logging
