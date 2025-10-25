@@ -9,12 +9,12 @@ extends CharacterBody2D
 	# - renters will have option to open the website from dialog
 
 
-
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var anim: AnimationPlayer = $AnimationPlayer
 
 @export var speed: float = 85.0
-@export var destinations: Array[Node2D]
+
+@export var destination: Node2D 
 
 
 var last_facing: String = "down" # or "back" depending on how you name directions
@@ -66,12 +66,11 @@ func _on_arrived():
 
 
 func _pick_new_target():
-	if destinations.is_empty():
-		print("No destinations!")
+	if not destination:
 		return
 
 	arrived = false
-	current_target = destinations.pick_random()
+	current_target = destination
 	nav_agent.target_position = current_target.global_position
 
 	# Debug logging

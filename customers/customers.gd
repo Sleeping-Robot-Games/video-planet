@@ -2,9 +2,11 @@ extends Node
 
 var customers: Dictionary = {
 	'Ari W': {
-		'fave_genre': 'HORROR',
+		'fave_genre': 'HORROR', # other options 
 		'friendship_level': 0,
-		'extrovert': true
+		'extrovert': true,
+		'goal': 'rent', # other option is 'return'
+		
 	},
 }
 

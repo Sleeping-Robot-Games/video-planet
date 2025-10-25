@@ -124,6 +124,7 @@ scale = Vector2(2, 2)
 script = ExtResource("1_dspst")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_22fc6")
 
 [node name="Floor" type="TileMapLayer" parent="."]
@@ -306,9 +307,9 @@ position = Vector2(394, 217)
 y_sort_enabled = true
 position = Vector2(73, 139)
 
-[node name="Customer" parent="." node_paths=PackedStringArray("destinations") instance=ExtResource("20_fk8fj")]
+[node name="Customer" parent="." node_paths=PackedStringArray("destination") instance=ExtResource("20_fk8fj")]
 position = Vector2(110, 221)
-destinations = [NodePath("../Target1"), NodePath("../Target2"), NodePath("../Target3"), NodePath("../Target4")]
+destination = NodePath("../Target2")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
