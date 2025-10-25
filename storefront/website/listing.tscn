@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cuk327yhulrkj"]
 
-[ext_resource type="Texture2D" uid="uid://hvh1jt1jipci" path="res://movies/covers/001.png" id="1_85w4v"]
+[ext_resource type="Script" uid="uid://cgxefmqvjorq6" path="res://storefront/website/listing.gd" id="1_n7ked"]
+[ext_resource type="Texture2D" uid="uid://bcinmtm7p8i6h" path="res://movies/covers/000.png" id="2_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bocxi7u3fryxa" path="res://movies/assets/genre_outline.png" id="2_wn40t"]
 [ext_resource type="Texture2D" uid="uid://dbhf302tcdtjx" path="res://movies/assets/thumbs_up.png" id="3_n7ked"]
 [ext_resource type="Texture2D" uid="uid://dvgpngaunwnys" path="res://movies/assets/thumbs_down.png" id="4_pg2s5"]
-[ext_resource type="PackedScene" uid="uid://kqgp8tp155vn" path="res://storefront/website/review.tscn" id="5_wn40t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7l300"]
 
@@ -18,6 +18,7 @@ offset_bottom = 64.0
 grow_horizontal = 2
 theme_override_constants/separation = 32
 alignment = 1
+script = ExtResource("1_n7ked")
 
 [node name="Movie" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -25,18 +26,20 @@ theme_override_constants/separation = 16
 
 [node name="Poster" type="TextureRect" parent="Movie"]
 layout_mode = 2
-texture = ExtResource("1_85w4v")
+texture = ExtResource("2_n7ked")
 
 [node name="Details" type="VBoxContainer" parent="Movie"]
+custom_minimum_size = Vector2(148, 0)
 layout_mode = 2
 alignment = 1
 
 [node name="Title" type="Label" parent="Movie/Details"]
 layout_mode = 2
-text = "BAWS II"
+text = "TBD"
 
 [node name="Genre" type="PanelContainer" parent="Movie/Details"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7l300")
 
 [node name="Border" type="NinePatchRect" parent="Movie/Details/Genre"]
@@ -51,8 +54,10 @@ patch_margin_bottom = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Movie/Details/Genre"]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_right = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 1
 
 [node name="Label" type="Label" parent="Movie/Details/Genre/MarginContainer"]
 modulate = Color(1, 0, 0, 1)
@@ -62,20 +67,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Status" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 alignment = 1
 
 [node name="State" type="Label" parent="Status"]
-modulate = Color(0, 1, 0, 1)
+modulate = Color(0.9490196, 0, 0.37254903, 1)
 layout_mode = 2
-text = "◉ STOCKED"
+text = "◉ UNSTOCKED"
 vertical_alignment = 1
 
 [node name="Location" type="Label" parent="Status"]
 layout_mode = 2
-text = "HOR-SH-02"
+text = "REWIND-DESK"
 
 [node name="ReviewCounts" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 alignment = 1
 
@@ -97,7 +104,7 @@ texture = ExtResource("3_n7ked")
 [node name="Count" type="Label" parent="ReviewCounts/Counts/Positive"]
 modulate = Color(0.5568628, 1, 0.68235296, 1)
 layout_mode = 2
-text = "3"
+text = "0"
 
 [node name="Negative" type="HBoxContainer" parent="ReviewCounts/Counts"]
 layout_mode = 2
@@ -109,24 +116,14 @@ texture = ExtResource("4_pg2s5")
 [node name="Count" type="Label" parent="ReviewCounts/Counts/Negative"]
 modulate = Color(0.84313726, 0.1882353, 0.26666668, 1)
 layout_mode = 2
-text = "1"
+text = "0"
 
 [node name="Reviews" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 
 [node name="List" type="VBoxContainer" parent="Reviews"]
+custom_minimum_size = Vector2(480, 64)
 layout_mode = 2
 theme_override_constants/separation = 6
-
-[node name="Review" parent="Reviews/List" instance=ExtResource("5_wn40t")]
-layout_mode = 2
-
-[node name="Review2" parent="Reviews/List" instance=ExtResource("5_wn40t")]
-layout_mode = 2
-
-[node name="Review3" parent="Reviews/List" instance=ExtResource("5_wn40t")]
-layout_mode = 2
-
-[node name="Review4" parent="Reviews/List" instance=ExtResource("5_wn40t")]
-layout_mode = 2
+alignment = 1

@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://kqgp8tp155vn"]
+[gd_scene load_steps=3 format=3 uid="uid://kqgp8tp155vn"]
 
 [ext_resource type="Texture2D" uid="uid://c0ngb78j0qsm5" path="res://movies/assets/thumbs_up_small.png" id="1_ckbdp"]
+[ext_resource type="Script" uid="uid://b4wtp2lloa6u8" path="res://storefront/website/review.gd" id="1_yp31j"]
 
 [node name="Review" type="HBoxContainer"]
 custom_minimum_size = Vector2(480, 0)
 offset_right = 480.0
 offset_bottom = 24.0
 size_flags_horizontal = 3
+script = ExtResource("1_yp31j")
 
 [node name="ThumbIcon" type="TextureRect" parent="."]
 layout_mode = 2
+size_flags_vertical = 4
 texture = ExtResource("1_ckbdp")
-stretch_mode = 5
+stretch_mode = 4
 
 [node name="BG" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(452, 0)
@@ -22,4 +25,4 @@ color = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 322.0
 offset_bottom = 23.0
-text = "@JDAWG79: BAWS II IS WHERE IT'S AT YO!!"
+text = "@USER: REVIEW CONTENT"

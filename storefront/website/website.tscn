@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bahogvabt6amf"]
 
-[ext_resource type="PackedScene" uid="uid://cuk327yhulrkj" path="res://storefront/website/listing.tscn" id="1_40bed"]
+[ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://storefront/website/website.gd" id="1_6c0tl"]
 
 [node name="Website" type="VBoxContainer"]
 anchors_preset = 15
@@ -8,6 +8,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6c0tl")
 
 [node name="Header" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -68,36 +69,3 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
-
-[node name="001" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="002" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="003" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="004" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="005" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="006" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="007" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="008" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="009" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="010" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
-
-[node name="011" parent="Body/MovieList" instance=ExtResource("1_40bed")]
-layout_mode = 2
