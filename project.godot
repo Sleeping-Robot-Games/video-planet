@@ -43,6 +43,10 @@ folder_colors={
 "res://website/": "yellow"
 }
 
+[global_group]
+
+ui_buttons=""
+
 [input]
 
 1={

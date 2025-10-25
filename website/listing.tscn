@@ -20,7 +20,7 @@ theme_override_constants/separation = 32
 alignment = 1
 script = ExtResource("1_n7ked")
 
-[node name="RewindButton" type="Button" parent="."]
+[node name="RewindButton" type="Button" parent="." groups=["ui_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
