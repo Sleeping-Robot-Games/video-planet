@@ -43,7 +43,6 @@ vertical_alignment = 1
 
 [node name="Count" type="Label" parent="."]
 z_index = 1
-anchors_preset = -1
 offset_left = 45.0
 offset_top = -27.0
 offset_right = 89.0
@@ -58,7 +57,6 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="01" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = -92.0
 offset_top = -10.0
@@ -290,7 +288,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="02" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = -30.0
 offset_top = -10.0
@@ -494,7 +491,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="03" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = 33.0
 offset_top = -10.0
@@ -698,7 +694,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="04" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = -92.0
 offset_top = 2.0
@@ -903,7 +898,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="05" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = -30.0
 offset_top = 2.0
@@ -1108,7 +1102,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="06" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = 33.0
 offset_top = 2.0
@@ -1313,7 +1306,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="07" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = -92.0
 offset_top = 14.0
@@ -1518,7 +1510,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="08" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = -30.0
 offset_top = 14.0
@@ -1723,7 +1714,6 @@ texture = ExtResource("7_ojmxd")
 expand_mode = 1
 
 [node name="09" type="HBoxContainer" parent="."]
-z_index = 1
 custom_minimum_size = Vector2(8, 10)
 offset_left = 33.0
 offset_top = 14.0
