@@ -369,8 +369,8 @@ func get_best_track_setting_for_phase(phase: int) -> String:
 
 func _on_fix_tape_button_pressed() -> void:
 	var tween = create_tween()
-	tween.tween_property(broken_tape, 'rotation', 0, 1)
-	tween.parallel().tween_property(broken_tape, 'modulate', Color.WHITE, 1)
+	tween.tween_property(broken_tape, 'rotation', 0, 4)
+	tween.parallel().tween_property(broken_tape, 'modulate', Color.WHITE, 4)
 	tween.tween_callback(Callable(self, "start_vhs_rewind_after_fix"))
 
 func set_rewind_noise(value: float = .02) -> void:
