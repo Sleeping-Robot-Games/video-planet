@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cuk327yhulrkj"]
 
-[ext_resource type="Script" uid="uid://cgxefmqvjorq6" path="res://storefront/website/listing.gd" id="1_n7ked"]
+[ext_resource type="Script" uid="uid://cgxefmqvjorq6" path="res://website/listing.gd" id="1_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bcinmtm7p8i6h" path="res://movies/covers/000.png" id="2_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bocxi7u3fryxa" path="res://movies/assets/genre_outline.png" id="2_wn40t"]
 [ext_resource type="Texture2D" uid="uid://dbhf302tcdtjx" path="res://movies/assets/thumbs_up.png" id="3_n7ked"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgu0bn1qsc7m1"
-path="res://.godot/imported/npc_001.png-b0aefcb9ed5d07dc0c1aa3af0199fb6c.ctex"
+uid="uid://bo3occen3lknt"
+path="res://.godot/imported/clear_icon.svg-4a987fee35e653b1aba29ea8ba84927d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://storefront/npc/npc_001.png"
-dest_files=["res://.godot/imported/npc_001.png-b0aefcb9ed5d07dc0c1aa3af0199fb6c.ctex"]
+source_file="res://website/clear_icon.svg"
+dest_files=["res://.godot/imported/clear_icon.svg-4a987fee35e653b1aba29ea8ba84927d.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

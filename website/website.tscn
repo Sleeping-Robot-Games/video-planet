@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bahogvabt6amf"]
 
-[ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://storefront/website/website.gd" id="1_6c0tl"]
-[ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://storefront/website/clear_icon.svg" id="2_6c0tl"]
+[ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://website/website.gd" id="1_6c0tl"]
+[ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://website/clear_icon.svg" id="2_6c0tl"]
 
 [node name="Website" type="ColorRect"]
 custom_minimum_size = Vector2(1280, 720)

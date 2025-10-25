@@ -14,10 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://wid3kytlqks5" path="res://storefront/shelf.tscn" id="11_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
-[ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://storefront/website/computer.tscn" id="14_qepj0"]
+[ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://website/computer.tscn" id="14_qepj0"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
 [ext_resource type="Texture2D" uid="uid://bt0r07rt4b8tn" path="res://storefront/shelflong.png" id="15_k10vf"]
-[ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://storefront/website/website.tscn" id="17_qepj0"]
+[ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
