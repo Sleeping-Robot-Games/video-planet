@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var backroom_label: Label = $Backroomdoor/BackroomLabel
+@onready var backroom_label: Label = $HUD/BackroomLabel
 @onready var todo_panel: Panel = $HUD/ToDo
 
 func _ready() -> void:
@@ -15,7 +15,7 @@ func _ready() -> void:
 		tween.tween_interval(1.5)
 		tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
 		tween.tween_property($FadeBlack, 'modulate:a', 0.5, 2)
-		tween.tween_callback($Dialogue.set_player_message.bind('There’s no movies here! I better start rewinding to fill this place back up!'))
+		tween.tween_callback($HUD/Dialogue.set_player_message.bind('There’s no movies here! I better start rewinding to fill this place back up!'))
 		tween.tween_property($FadeBlack, 'modulate:a', 0.0, 2)
 		tween.tween_callback($FadeBlack.hide)
 		tween.tween_callback(unfreeze_player)

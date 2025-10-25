@@ -1,6 +1,6 @@
 extends Panel
 
-@onready var storefront: Node2D = $'..'
+@onready var storefront: Node2D = $"../.."
 @onready var player_msg: Label = $Player/VBoxContainer/Message
 @onready var player_continue: RichTextLabel = $Player/VBoxContainer/Continue
 
