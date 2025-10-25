@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpieq2d3ljva3"
-path="res://.godot/imported/greenlight.png-9d89de9bfd950f770f519eaf23b8ccad.ctex"
+uid="uid://c1evwjix2hl33"
+path="res://.godot/imported/tree.png-c8a7ec4d8e0700d7791e44be5cd9c157.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://backroom/greenlight.png"
-dest_files=["res://.godot/imported/greenlight.png-9d89de9bfd950f770f519eaf23b8ccad.ctex"]
+source_file="res://backroom/tree.png"
+dest_files=["res://.godot/imported/tree.png-c8a7ec4d8e0700d7791e44be5cd9c157.ctex"]
 
 [params]
 

@@ -1,10 +1,14 @@
-[gd_scene load_steps=40 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=43 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
 [ext_resource type="Texture2D" uid="uid://bv003381ejsa" path="res://backroom/bgtest.png" id="2_irnpm"]
+[ext_resource type="Texture2D" uid="uid://7gi4guha6vve" path="res://backroom/sky.png" id="3_k50q5"]
 [ext_resource type="Texture2D" uid="uid://bd15apu7olipy" path="res://backroom/vcrtest.png" id="4_2d3aw"]
+[ext_resource type="Texture2D" uid="uid://cl558u8urnwfv" path="res://backroom/cloud.png" id="4_mssko"]
 [ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
+[ext_resource type="Texture2D" uid="uid://c1evwjix2hl33" path="res://backroom/tree.png" id="5_j82ud"]
+[ext_resource type="Texture2D" uid="uid://5jjh4uyfwvjs" path="res://backroom/windowframe.png" id="6_4syaj"]
 [ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="5_otosh"]
 [ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
 [ext_resource type="Texture2D" uid="uid://bitvhwr2jkx53" path="res://backroom/monitortest.png" id="6_ltxvr"]
@@ -223,6 +227,26 @@ script = ExtResource("1_grv5e")
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("2_irnpm")
+
+[node name="Sky" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("3_k50q5")
+
+[node name="Cloud" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("4_mssko")
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("5_j82ud")
+
+[node name="Windowframe" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("6_4syaj")
 
 [node name="VCR" type="Node2D" parent="."]
 
@@ -483,30 +507,17 @@ custom_minimum_size = Vector2(0, 2.5)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Offlight" type="Sprite2D" parent="VCR"]
+position = Vector2(1173, 432)
+scale = Vector2(2, 2)
+texture = ExtResource("22_qqnr8")
+
 [node name="TV" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="TV"]
-position = Vector2(640, 360)
-scale = Vector2(2, 2)
-texture = ExtResource("6_ltxvr")
-
 [node name="Plant" type="Sprite2D" parent="."]
-position = Vector2(656, 272)
+position = Vector2(632, 304)
 scale = Vector2(2, 2)
 texture = ExtResource("20_dwywq")
-
-[node name="Postertest" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(2, 2)
-texture = ExtResource("21_j8cxi")
-
-[node name="Postertest2" type="Label" parent="."]
-offset_left = 308.0
-offset_top = 69.0
-offset_right = 498.0
-offset_bottom = 92.0
-scale = Vector2(2, 2)
-text = "<- Window here instead?"
 
 [node name="BrokenTape" type="Sprite2D" parent="."]
 visible = false
@@ -542,10 +553,10 @@ text = "<< Return to Storefront"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(50, 50)
-offset_left = 839.0
-offset_top = 188.0
-offset_right = 1015.0
-offset_bottom = 348.0
+offset_left = 916.0
+offset_top = 202.0
+offset_right = 1092.0
+offset_bottom = 362.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -565,7 +576,9 @@ offset_right = 177.0
 offset_bottom = 160.0
 
 [node name="TVOff" type="ColorRect" parent="SubViewportContainer/SubViewport"]
-offset_right = 176.0
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 177.0
 offset_bottom = 160.0
 color = Color(0, 0, 0, 1)
 
@@ -582,6 +595,11 @@ offset_left = 33.0
 offset_top = 683.0
 offset_right = 533.0
 offset_bottom = 683.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("6_ltxvr")
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
