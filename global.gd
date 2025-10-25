@@ -6,6 +6,50 @@ var is_new_game: bool = true
 var is_clocking_in: bool = true
 var is_dialogue_open: bool = false
 var player_movement_disabled: bool = true
+var decoration_unlocks: Array = [
+	{
+		'name': 'rug_a',
+		'slot': 'rug',
+		'unlocks_at': 0,
+		'is_unlocked': true
+	},
+	{
+		'name': 'rug_b',
+		'slot': 'rug',
+		'unlocks_at': 1,
+		'is_unlocked': false
+	},
+	{
+		'name': 'cobwebs',
+		'slot': 'ceiling',
+		'unlocks_at': 3,
+		'is_unlocked': false
+	},
+	{
+		'name': 'string_lights',
+		'slot': 'ceiling',
+		'unlocks_at': 5,
+		'is_unlocked': false
+	},
+	{
+		'name': '???',
+		'slot': '???',
+		'unlocks_at': 8,
+		'is_unlocked': false
+	},
+	{
+		'name': '???',
+		'slot': '???',
+		'unlocks_at': 12,
+		'is_unlocked': false
+	},
+	{
+		'name': '???',
+		'slot': '???',
+		'unlocks_at': 16,
+		'is_unlocked': false
+	}
+]
 
 func folders_in_dir(path: String) -> Array:
 	var folders = []
