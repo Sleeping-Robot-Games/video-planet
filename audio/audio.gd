@@ -4,6 +4,7 @@ var music_db_override_values = {
 	#'track.ogg': 0,
 	'backroom_bgm_1': -10,
 	'backroom_bgm_2': -10,
+	'backroom_bgm_3': -10,
 	'storefront_bgm_1': -10,
 	'titlescreen_bgm_1': -10
 }
@@ -27,7 +28,7 @@ var sfx_db_override_values = {
 	'place_item': 0,
 	'putting_tape_in': 0,
 	'rain': 0,
-	'rental_return_bad_review': 0,
+	'rental_re turn_bad_review': 0,
 	'rental_return_good_review': 0,
 	'rental_return_no_review': 0,
 	'rewind_complete': 0,
