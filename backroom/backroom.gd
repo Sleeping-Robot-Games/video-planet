@@ -280,13 +280,12 @@ func init_vhs():
 func play_vhs_audio():
 	# Play startup
 	var startup_player = a.play_sfx('vhs_startup', vcr_sprite)
-
+	static_audio_player = a.play_sfx('static', vcr_sprite)
+	
 	# Chain rewind when finished
 	if startup_player:
 		startup_player.finished.connect(func():
-			rewind_audio_player = a.play_sfx('vhs_rewind', vcr_sprite)
-			static_audio_player = a.play_sfx('static', vcr_sprite)
-			)
+			rewind_audio_player = a.play_sfx('vhs_rewind', vcr_sprite))
 
 func get_video_file_by_genre() -> String:
 	var video_genre = m.inventory[rewinding_movie_id].genre
