@@ -2,7 +2,10 @@ extends Node
 
 var music_db_override_values = {
 	#'track.ogg': 0,
-	'backroom_bmg_1': -10
+	'backroom_bmg_1': -10,
+	'backroom_bgm_2': -10,
+	'storefront_bgm_1': -10,
+	'titlescreen_bgm_1': -10
 }
 
 var sfx_db_override_values = {
@@ -32,7 +35,7 @@ var sfx_db_override_values = {
 	'tape_scratch_bad': -8,
 	'tape_scratch_good': -8,
 	'vhs_rewind': -5,
-	'vhs_startup': 20, 
+	'vhs_startup': 20
 }
 
 var sfx_pitch_override_values = {
