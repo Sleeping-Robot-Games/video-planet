@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=43 format=4 uid="uid://cyho1whe3gxjh"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -7,20 +7,31 @@
 [ext_resource type="Texture2D" uid="uid://bsn6d41mlipug" path="res://storefront/rug2.png" id="3_s766h"]
 [ext_resource type="Texture2D" uid="uid://dlvsx8yuxmlcb" path="res://storefront/poster1.png" id="5_k10vf"]
 [ext_resource type="Texture2D" uid="uid://bygh5etrg3hbj" path="res://storefront/poster2.png" id="6_5o5x3"]
+[ext_resource type="Texture2D" uid="uid://ninpfwf6ibiq" path="res://storefront/poster3.png" id="8_06rv6"]
 [ext_resource type="Texture2D" uid="uid://cpctj11abddkq" path="res://storefront/windowtets.png" id="8_dspst"]
+[ext_resource type="Texture2D" uid="uid://bjggvbkivooo1" path="res://storefront/windowbg.png" id="9_k7jv3"]
 [ext_resource type="Texture2D" uid="uid://c0wfqeprbst3o" path="res://storefront/doortemp.png" id="9_ur6w1"]
 [ext_resource type="Texture2D" uid="uid://doq7e2ckpcj6n" path="res://storefront/counter.png" id="10_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://byn6noy7k1xhc" path="res://storefront/bekindsign.png" id="11_22fc6"]
 [ext_resource type="PackedScene" uid="uid://wid3kytlqks5" path="res://storefront/shelf.tscn" id="11_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
+[ext_resource type="Texture2D" uid="uid://dqc7rrj31qp2" path="res://storefront/deco/fairyright.png" id="13_5pv7o"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
+[ext_resource type="Texture2D" uid="uid://dussuvmi0jmxj" path="res://storefront/deco/flowerdecalleft.png" id="14_0atvx"]
 [ext_resource type="PackedScene" uid="uid://c8d7iw846ijg7" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
 [ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://website/computer.tscn" id="14_qepj0"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
+[ext_resource type="Texture2D" uid="uid://b3h3j035njc7d" path="res://storefront/deco/flowerdecalright.png" id="15_pl8ui"]
+[ext_resource type="Texture2D" uid="uid://cvawi65rmt4sw" path="res://storefront/deco/ghostdecal.png" id="16_vp1t1"]
+[ext_resource type="Texture2D" uid="uid://oy76pauudpdq" path="res://storefront/deco/gumball.png" id="17_fimd7"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
+[ext_resource type="Texture2D" uid="uid://ddjy45u84i013" path="res://storefront/deco/plant1.png" id="18_jyqko"]
+[ext_resource type="Texture2D" uid="uid://dabqhcyetx3tg" path="res://storefront/deco/pumpkin.png" id="19_kqfll"]
 [ext_resource type="PackedScene" uid="uid://cjbq7i68tenl6" path="res://storefront/dialogue/dialogue.tscn" id="19_ur6w1"]
 [ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="20_22fc6"]
+[ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="20_aahc8"]
 [ext_resource type="PackedScene" uid="uid://d0cekvv2cl3k2" path="res://customers/customer.tscn" id="20_fk8fj"]
+[ext_resource type="Texture2D" uid="uid://e8ohdrelx0sy" path="res://storefront/deco/videorental.png" id="21_bb0xx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
 vertices = PackedVector2Array(606.22656, 285.5625, 607.2578, 329.5078, 31.03125, 330.47656, 296.32813, 287.5625, 31.460938, 186.02344, 248.5, 186.52344, 294.65625, 237.47656, 605.5781, 122, 605.9219, 166.47656, 301.8828, 165.97656, 248.5, 122, 300.10938, 212.03125, 606.5, 237.97656, 606.5, 211.03125)
@@ -169,6 +180,14 @@ y_sort_enabled = true
 position = Vector2(72, 48)
 texture = ExtResource("6_5o5x3")
 
+[node name="Poster3" type="Sprite2D" parent="Deco"]
+position = Vector2(104, 48)
+texture = ExtResource("8_06rv6")
+
+[node name="Windowbg" type="Sprite2D" parent="Deco"]
+position = Vector2(444, 96)
+texture = ExtResource("9_k7jv3")
+
 [node name="Windowtets" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
 position = Vector2(444, 96)
@@ -181,8 +200,44 @@ texture = ExtResource("9_ur6w1")
 
 [node name="Bekindsign" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
-position = Vector2(280, 56)
+position = Vector2(140, 76)
 texture = ExtResource("11_22fc6")
+
+[node name="Fairyright" type="Sprite2D" parent="Deco"]
+position = Vector2(584, 48)
+texture = ExtResource("13_5pv7o")
+
+[node name="Flowerdecalleft" type="Sprite2D" parent="Deco"]
+position = Vector2(340, 96)
+texture = ExtResource("14_0atvx")
+
+[node name="Flowerdecalright" type="Sprite2D" parent="Deco"]
+position = Vector2(548, 96)
+texture = ExtResource("15_pl8ui")
+
+[node name="Ghostdecal" type="Sprite2D" parent="Deco"]
+position = Vector2(508, 96)
+texture = ExtResource("16_vp1t1")
+
+[node name="Gumball" type="Sprite2D" parent="Deco"]
+position = Vector2(248, 120)
+texture = ExtResource("17_fimd7")
+
+[node name="Plant1" type="Sprite2D" parent="Deco"]
+position = Vector2(604, 128)
+texture = ExtResource("18_jyqko")
+
+[node name="Pumpkin" type="Sprite2D" parent="Deco"]
+position = Vector2(304, 128)
+texture = ExtResource("19_kqfll")
+
+[node name="Videoplanet" type="Sprite2D" parent="Deco"]
+position = Vector2(280, 44)
+texture = ExtResource("20_aahc8")
+
+[node name="Videorental" type="Sprite2D" parent="Deco"]
+position = Vector2(588, 96)
+texture = ExtResource("21_bb0xx")
 
 [node name="Furniture" type="Node2D" parent="."]
 y_sort_enabled = true
