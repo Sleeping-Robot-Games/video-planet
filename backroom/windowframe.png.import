@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y6yqdj3ndcl6"
-path="res://.godot/imported/redlight.png-0d9e4f319c46bed8616bedff99f4d705.ctex"
+uid="uid://5jjh4uyfwvjs"
+path="res://.godot/imported/windowframe.png-76966e1a211320baaf37104678b1a1da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://backroom/redlight.png"
-dest_files=["res://.godot/imported/redlight.png-0d9e4f319c46bed8616bedff99f4d705.ctex"]
+source_file="res://backroom/windowframe.png"
+dest_files=["res://.godot/imported/windowframe.png-76966e1a211320baaf37104678b1a1da.ctex"]
 
 [params]
 
