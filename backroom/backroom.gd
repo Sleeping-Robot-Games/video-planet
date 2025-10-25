@@ -338,8 +338,8 @@ func next_vhs_phase():
 		## Player can now select a new tape from the backlog or leave back to the store front
 		m.inventory[rewinding_movie_id].status = 'STOCKED'
 		m.inventory[rewinding_movie_id].location = 'ON SHELF'
-		var log_msg: String = '%s rewound & stocked' % m.inventory[rewinding_movie_id].title
-		g.add_log_line.emit(log_msg, Color.WEB_GREEN)
+		var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
+		g.add_log_line.emit(log_msg, 'SUCCESS')
 		rewinding = false
 		$VCR/AnimationPlayer.pause()
 		video_player.stop()

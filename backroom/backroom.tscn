@@ -568,10 +568,11 @@ offset_right = 1282.0
 offset_bottom = 719.0
 
 [node name="LogContainer" parent="." instance=ExtResource("24_iobut")]
-offset_left = 1033.0
-offset_top = 89.0
-offset_right = 1248.0
-offset_bottom = 89.0
+anchors_preset = 0
+offset_left = 33.0
+offset_top = 683.0
+offset_right = 533.0
+offset_bottom = 683.0
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]

@@ -5,7 +5,6 @@ extends Node2D
 
 func _ready() -> void:
 	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
-	print('player position: ', $Player.position)
 	g.player_movement_disabled = true
 	$FadeBlack.color = Color.BLACK
 	$FadeBlack.show()
