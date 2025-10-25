@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 ### TODO NOTES ###
-# - Stop walking and face player when player approaches
 # - Have a purpose when they enter, renter or returner
 #	- Returners just go to the counter and then walk back out
 #	- Renters come in to browse the shelves, then if not interrupted go to the counter
+# - Stop walking and face player when player approaches
 # - When player interacts, dialog appears and they say their purpose
 	# - renters will have option to open the website from dialog
 
@@ -23,7 +23,10 @@ var last_facing: String = "down" # or "back" depending on how you name direction
 
 
 var current_target: Node2D
-var arrived := false
+var arrived = false
+
+var player_interacting = false
+var player_ref
 
 var customer_data = {}
 
@@ -53,6 +56,7 @@ func _ready():
 
 func init(data):
 	customer_data = data
+	$Name.text = name
 	
 func enter_store(dest_array):
 	destinations = dest_array
@@ -60,7 +64,7 @@ func enter_store(dest_array):
 	_pick_new_target()
 
 func _physics_process(_delta):
-	if arrived or not current_target:
+	if arrived or not current_target or player_interacting:
 		return
 
 	# Just set the target — do NOT manually steer
@@ -77,8 +81,14 @@ func _physics_process(_delta):
 
 
 func _on_velocity_computed(safe_velocity: Vector2):
+	if player_interacting:
+		velocity = Vector2.ZERO
+		_play_idle()
+		return
+
 	velocity = safe_velocity
 	move_and_slide()
+
 
 
 func _on_arrived():
@@ -132,10 +142,52 @@ func _play_animation(vel: Vector2):
 
 
 func _play_idle():
-	anim.play("sprite_animations/idle_back")
+	if player_interacting:
+		match last_facing:
+			"right": anim.play("sprite_animations/idle_right")
+			"left": anim.play("sprite_animations/idle_left")
+			"down": anim.play("sprite_animations/idle_front")
+			"up": anim.play("sprite_animations/idle_back")
+	else:
+		anim.play("sprite_animations/idle_back")
+
+
+
+func _on_player_watch_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		player_ref = body
+		player_interacting = true
+		velocity = Vector2.ZERO
+		nav_agent.set_velocity(Vector2.ZERO)
+
+		_face_player()
+		_play_idle()
+
+
+
+func _on_player_watch_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		player_ref = null
+		player_interacting = false
+		arrived = false  # Allow movement again
+		_pick_new_target()
+
+
+func _face_player() -> void:
+	if not player_ref:
+		return
 	
-	#match last_facing:
-		#"right": anim.play("sprite_animations/idle_right")
-		#"left": anim.play("sprite_animations/idle_left")
-		#"down": anim.play("sprite_animations/idle_back")
-		#"up": anim.play("sprite_animations/idle_front")
+	var dir = player_ref.global_position - global_position
+	
+	if abs(dir.x) > abs(dir.y):
+		# Horizontal bias
+		if dir.x > 0:
+			last_facing = "right"
+		else:
+			last_facing = "left"
+	else:
+		# Vertical bias
+		if dir.y > 0:
+			last_facing = "down"
+		else:
+			last_facing = "up"

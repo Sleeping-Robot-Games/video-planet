@@ -104,4 +104,4 @@ func _on_customer_timer_timeout() -> void:
 	new_customer.enter_store(destinations)
 	
 	randomize()
-	$CustomerTimer.wait_time = randi() % 30
+	$CustomerTimer.wait_time = clamp(randi() % 30, 1, 30)

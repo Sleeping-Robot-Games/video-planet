@@ -17,33 +17,32 @@ var static_sfx_levels = {
 
 var sfx_db_override_values = {
 	#'track.wav': 0,
-	'botton_press_1': -99,
-	'botton_press_2': -99,
+	'botton_press': 8,
 	'crickets': 0,
-	'footstep_carpet_1': -10,
-	'footstep_carpet_2': -10,
-	'footstep_tile_1': -10,
-	'footstep_tile_2': -10,
+	'footstep_carpet_1': 0,
+	'footstep_carpet_2': 0,
+	'footstep_tile_1': 0,
+	'footstep_tile_2': 0,
 	'menu_confirm': -20,
 	'menu_select': -20,
 	'place_item': -5,
 	'putting_tape_in': 0,
 	'rain': 0,
-	'rental_return_bad_review': 0,
+	'rental_re turn_bad_review': 0,
 	'rental_return_good_review': 0,
 	'rental_return_no_review': 0,
-	'rewind_complete': 13,
-	'rewind_break': -10,
+	'rewind_complete': 0,
+	'rewind_break': -15,
 	'service_bell': 0,
 	'static': static_sfx_levels['loudest'],
 	'storefront_door_entry_1': 0,
 	'storefront_door_entry_2': 0,
 	'storefront_door_exit_1': 0,
 	'storefront_door_exit_2': 0,
-	'tape_scratch_bad': -1.8,
-	'tape_scratch_good': -6,
+	'tape_scratch_bad': -8,
+	'tape_scratch_good': -8,
 	'vhs_rewind': -5,
-	'vhs_startup': 15
+	'vhs_startup': 20
 }
 
 
@@ -53,16 +52,10 @@ var sfx_pitch_override_values = {
 		#'base_pitch': 0
 	#},
 }
-# SFX Bus declarations not needed, as the default Audio Bus to SFX
+
 var sfx_bus_lookup = {
-	#'track.wav': 'UI'
-	'menu_confirm': 'UI',
-	'menu_select': 'UI',
-	'crickets': 'Ambience',
-	'rain': 'Ambience',
-	'static': 'Ambience',
-	'vhs_rewind': 'Ambience'
-	
+	#'track.ogg': 'BGM',
+	#'track'.wav': 'UI'
 }
 
 # Tracks that don't need a position
@@ -93,7 +86,7 @@ func get_pitch(pitch_range, base_pitch):
 
 func play_music(track_name, overrides = {}):
 	var music_player = AudioStreamPlayer.new()
-	music_player.bus = "BGM"
+	music_player.bus = "Music"
 	music_player.name = track_name
 		
 	# Volume override
@@ -134,7 +127,7 @@ func create_sfx_player(track_name):
 	if sfx_bus_lookup.has(track_name):
 		sfx_player.bus = sfx_bus_lookup[track_name]
 	else:
-		sfx_player.bus = 'SFX'
+		sfx_player.bus = 'Master'
 	return sfx_player
 
 func play_random_sfx(track_name, parent = self, overrides = {}):
@@ -158,7 +151,7 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 	if overrides.has('db') and overrides.db: # Override option for some specific event in game that different from the standard
 		sfx_player.volume_db = overrides.db
 	else: # Standard override mix for the track type in the sfx_db_override_values list
-		if random_track in sfx_db_override_values:
+		if track_name in sfx_db_override_values:
 			sfx_player.volume_db = sfx_db_override_values[random_track]
 		else:
 			push_warning("No standard db override mix for track ", random_track)

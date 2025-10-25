@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dqc7rrj31qp2" path="res://storefront/deco/fairyright.png" id="13_5pv7o"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
 [ext_resource type="Texture2D" uid="uid://dussuvmi0jmxj" path="res://storefront/deco/flowerdecalleft.png" id="14_0atvx"]
-[ext_resource type="PackedScene" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
+[ext_resource type="PackedScene" uid="uid://c8d7iw846ijg7" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
 [ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://website/computer.tscn" id="14_qepj0"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
 [ext_resource type="Texture2D" uid="uid://b3h3j035njc7d" path="res://storefront/deco/flowerdecalright.png" id="15_pl8ui"]
