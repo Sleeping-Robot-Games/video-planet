@@ -8,6 +8,12 @@ var music_db_override_values = {
 	'titlescreen_bgm_1': -10
 }
 
+var static_sfx_levels = {
+	'loudest': 0,
+	'medium': -5,
+	'quiet': -10
+}
+
 var sfx_db_override_values = {
 	#'track.wav': 0,
 	'botton_press_1': 0,
@@ -28,7 +34,7 @@ var sfx_db_override_values = {
 	'rewind_complete': 0,
 	'rewind_break': 0,
 	'service_bell': 0,
-	'static': 0,
+	'static': static_sfx_levels['quiet'],
 	'storefront_door_entry_1': 0,
 	'storefront_door_entry_2': 0,
 	'storefront_door_exit_1': 0,
@@ -38,6 +44,7 @@ var sfx_db_override_values = {
 	'vhs_rewind': -5,
 	'vhs_startup': 20
 }
+
 
 var sfx_pitch_override_values = {
 	#'track.wav': {

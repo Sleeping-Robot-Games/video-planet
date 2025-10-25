@@ -27,6 +27,7 @@ var rewinding_movie_id: String = ''
 
 var music_player: AudioStreamPlayer
 var rewind_audio_player: AudioStreamPlayer2D
+var static_audio_player: AudioStreamPlayer2D
 
 var dial_angle = 0.0
 
@@ -198,6 +199,7 @@ func on_miss():
 		fix_tape_button.show()
 		rewinding = false
 		rewind_audio_player.stop()
+		static_audio_player.stop()
 		tv_off_screen.show()
 		video_player.paused = true
 	else:
@@ -225,11 +227,21 @@ func update_rewind_noise_by_tracking_setting():
 
 	var chosen = int(current_tracking_setting_weight)
 
-	var noise_value := 0.2 # Default 
-	if chosen == 1:
-		noise_value = 0.06
-	elif chosen >= 2:
-		noise_value = 0.02
+	var noise_value := 0.2 # Default
+	match chosen:
+		0:
+			noise_value = 0.2
+			static_audio_player.volume_db = a.static_sfx_levels['quiet']
+		1:
+			noise_value = 0.06
+			static_audio_player.volume_db = a.static_sfx_levels['medium']
+		2:
+			noise_value = 0.02
+			static_audio_player.volume_db = a.static_sfx_levels['loudest']
+		_:
+			noise_value = 0.02
+			static_audio_player.volume_db = a.static_sfx_levels['loudest']
+	
 
 	set_rewind_noise(noise_value)
 
@@ -273,7 +285,9 @@ func play_vhs_audio():
 	# Chain rewind when finished
 	if startup_player:
 		startup_player.finished.connect(func():
-			rewind_audio_player = a.play_sfx('vhs_rewind', vcr_sprite))
+			rewind_audio_player = a.play_sfx('vhs_rewind', vcr_sprite)
+			static_audio_player = a.play_sfx('static', vcr_sprite)
+			)
 
 func get_video_file_by_genre() -> String:
 	var video_genre = m.inventory[rewinding_movie_id].genre
@@ -304,6 +318,7 @@ func start_vhs_rewind_after_fix():
 	set_rewind_noise()
 	turn_on_live_lights()
 	rewind_audio_player.play()
+	static_audio_player.play()
 
 
 func next_vhs_phase():
@@ -312,6 +327,7 @@ func next_vhs_phase():
 	if not VHS_DATA.has(vhs_phase):
 		rewinding = false
 		rewind_audio_player.stop()
+		static_audio_player.stop()
 		## Success!
 		## Player can now select a new tape from the backlog or leave back to the store front
 		m.inventory[rewinding_movie_id].status = 'STOCKED'

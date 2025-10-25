@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://wid3kytlqks5" path="res://storefront/shelf.tscn" id="11_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
-[ext_resource type="PackedScene" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
+[ext_resource type="PackedScene" uid="uid://c8d7iw846ijg7" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
 [ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://website/computer.tscn" id="14_qepj0"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
@@ -276,10 +276,10 @@ color = Color(0, 0, 0, 1)
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="ToDo" type="Panel" parent="HUD"]
-offset_left = 994.0
-offset_top = 68.0
-offset_right = 1217.0
-offset_bottom = 113.0
+offset_left = 678.0
+offset_top = 65.0
+offset_right = 949.0
+offset_bottom = 120.0
 theme = ExtResource("20_22fc6")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ur6w1")
 
@@ -288,6 +288,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 23.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 4
@@ -302,7 +306,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 12
 text = "TO DO:
 - Approach backroom door and enter"
 
@@ -312,13 +315,12 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 368.0
-offset_top = 601.0
-offset_right = 1368.0
-offset_bottom = 721.0
+offset_left = 145.0
+offset_top = 559.0
+offset_right = 1145.0
+offset_bottom = 679.0
 grow_horizontal = 1
 grow_vertical = 1
-scale = Vector2(0.5, 0.5)
 theme = ExtResource("20_22fc6")
 
 [node name="BackroomLabel" type="Label" parent="HUD"]
