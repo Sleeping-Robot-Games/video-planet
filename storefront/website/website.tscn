@@ -2,40 +2,55 @@
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://storefront/website/website.gd" id="1_6c0tl"]
 
-[node name="Website" type="VBoxContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Website" type="ColorRect"]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.13333334, 0.08235294, 0.18431373, 1)
 script = ExtResource("1_6c0tl")
 
-[node name="Header" type="MarginContainer" parent="."]
+[node name="Container" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Header" type="MarginContainer" parent="Container"]
 layout_mode = 2
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBox" type="VBoxContainer" parent="Header"]
+[node name="VBox" type="VBoxContainer" parent="Container/Header"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
-[node name="Title" type="Label" parent="Header/VBox"]
+[node name="Title" type="Label" parent="Container/Header/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "✴️🛸 VIDEO PLANET 🪐🛰️"
 horizontal_alignment = 1
 
-[node name="Filters" type="HBoxContainer" parent="Header/VBox"]
+[node name="Filters" type="HBoxContainer" parent="Container/Header/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
-[node name="Search" type="LineEdit" parent="Header/VBox/Filters"]
+[node name="Search" type="LineEdit" parent="Container/Header/VBox/Filters"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
-placeholder_text = "Search..."
+placeholder_text = "Search Titles..."
 alignment = 1
 
-[node name="Genre" type="OptionButton" parent="Header/VBox/Filters"]
+[node name="Genre" type="OptionButton" parent="Container/Header/VBox/Filters"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -50,22 +65,35 @@ popup/item_3/id = 3
 popup/item_4/text = "Comedy"
 popup/item_4/id = 4
 
-[node name="Status" type="OptionButton" parent="Header/VBox/Filters"]
+[node name="Status" type="OptionButton" parent="Container/Header/VBox/Filters"]
 layout_mode = 2
 selected = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "Status"
 popup/item_0/id = 0
 popup/item_1/text = "Stocked"
 popup/item_1/id = 1
 popup/item_2/text = "Unstocked"
 popup/item_2/id = 2
+popup/item_3/text = "CHECKED OUT"
+popup/item_3/id = 3
 
-[node name="Body" type="ScrollContainer" parent="."]
+[node name="Body" type="ScrollContainer" parent="Container"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MovieList" type="VBoxContainer" parent="Body"]
+[node name="MovieList" type="VBoxContainer" parent="Container/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1194.0
+offset_top = 23.0
+offset_right = 1252.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.9565968, 3.946722e-06, 0.59827226, 1)
+text = "EXIT >"
+
+[connection signal="pressed" from="Button" to="." method="_on_close_button_pressed"]

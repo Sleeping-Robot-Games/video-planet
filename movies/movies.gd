@@ -9,7 +9,8 @@ var genre_colors: Dictionary = {
 
 var status_colors: Dictionary = {
 	'STOCKED': Color('#00ff00'),
-	'UNSTOCKED': Color("f2005fff")
+	'UNSTOCKED': Color("f2005fff"),
+	'CHECKED OUT': Color("4022baff")
 }
 
 var inventory: Dictionary = {
@@ -43,15 +44,15 @@ var inventory: Dictionary = {
 	'004': {
 		'title': 'TBD',
 		'genre': 'HORROR',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'CHECKED OUT',
+		'location': 'ARI W',
 		'reviews': []
 	},
 	'005': {
 		'title': 'TBD',
 		'genre': 'SCI-FI',
-		'status': 'UNSTOCKED',
-		'location': 'REWIND-DESK',
+		'status': 'CHECKED OUT',
+		'location': 'JOAN G',
 		'reviews': []
 	},
 	'006': {
@@ -132,3 +133,16 @@ var inventory: Dictionary = {
 		'reviews': []
 	}
 }
+
+func generate_movie() -> Dictionary:
+	var movie: Dictionary = {
+		'title': 'TBD',
+		'genre': 'TBD',
+		'status': 'UNSTOCKED',
+		'location': 'REWIND-DESK',
+		'reviews': [],
+	}
+	# title
+	
+	
+	return movie
