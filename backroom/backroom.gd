@@ -9,7 +9,6 @@ extends Node2D
 @onready var dial = $VCR/Dial
 @onready var dial_light = $VCR/DialLight
 @onready var rewind_button = $VCR/RewindButton
-@onready var tv = $TV/Sprite2D
 @onready var left_spool = $VCR/SpoolIndicator
 @onready var right_spool = $VCR/SpoolIndicator2
 @onready var anim_player = $VCR/AnimationPlayer 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=44 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cl558u8urnwfv" path="res://backroom/cloud.png" id="4_mssko"]
 [ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
 [ext_resource type="Texture2D" uid="uid://c1evwjix2hl33" path="res://backroom/tree.png" id="5_j82ud"]
-[ext_resource type="Texture2D" uid="uid://5jjh4uyfwvjs" path="res://backroom/windowframe.png" id="6_4syaj"]
 [ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="5_otosh"]
+[ext_resource type="Texture2D" uid="uid://5jjh4uyfwvjs" path="res://backroom/windowframe.png" id="6_4syaj"]
 [ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
 [ext_resource type="Texture2D" uid="uid://bitvhwr2jkx53" path="res://backroom/monitortest.png" id="6_ltxvr"]
 [ext_resource type="Texture2D" uid="uid://dp185dlso3jd6" path="res://backroom/button1.png" id="7_dwywq"]
@@ -24,10 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
-[ext_resource type="Shader" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
-[ext_resource type="Texture2D" uid="uid://c033jiekthooi" path="res://backroom/postertest.png" id="21_j8cxi"]
+[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
+[ext_resource type="Texture2D" uid="uid://d4grk73bpb72h" path="res://backroom/offlight.png" id="23_mssko"]
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="24_iobut"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
@@ -510,12 +510,15 @@ color = Color(0, 0, 0, 1)
 [node name="Offlight" type="Sprite2D" parent="VCR"]
 position = Vector2(1173, 432)
 scale = Vector2(2, 2)
-texture = ExtResource("22_qqnr8")
+texture = ExtResource("23_mssko")
 
-[node name="TV" type="Node2D" parent="."]
+[node name="TV" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("6_ltxvr")
 
 [node name="Plant" type="Sprite2D" parent="."]
-position = Vector2(632, 304)
+position = Vector2(642, 306)
 scale = Vector2(2, 2)
 texture = ExtResource("20_dwywq")
 
@@ -535,19 +538,19 @@ offset_bottom = 684.0
 text = "Fix Tape (F)"
 
 [node name="BacklogButton" type="Button" parent="." groups=["ui_buttons"]]
-offset_left = 1068.0
-offset_top = 193.0
-offset_right = 1179.0
-offset_bottom = 247.0
+offset_left = 726.0
+offset_top = 351.0
+offset_right = 837.0
+offset_bottom = 405.0
 theme = ExtResource("5_otosh")
 text = "Choose Tape
 from Backlog"
 
 [node name="StorefrontButton" type="Button" parent="." groups=["ui_buttons"]]
-offset_left = 65.0
-offset_top = 443.0
-offset_right = 253.0
-offset_bottom = 474.0
+offset_left = 39.0
+offset_top = 450.0
+offset_right = 227.0
+offset_bottom = 481.0
 theme = ExtResource("5_otosh")
 text = "<< Return to Storefront"
 
@@ -595,11 +598,6 @@ offset_left = 33.0
 offset_top = 683.0
 offset_right = 533.0
 offset_bottom = 683.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(2, 2)
-texture = ExtResource("6_ltxvr")
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]

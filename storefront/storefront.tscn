@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=32 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://wid3kytlqks5" path="res://storefront/shelf.tscn" id="11_fk8fj"]
 [ext_resource type="Texture2D" uid="uid://omdss3dijti0" path="res://storefront/backroomdoorframe.png" id="12_74fhw"]
 [ext_resource type="Texture2D" uid="uid://tjcy02kvf1v4" path="res://storefront/backroomdoor.png" id="13_kcm8m"]
-[ext_resource type="PackedScene" uid="uid://c8d7iw846ijg7" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
+[ext_resource type="PackedScene" path="res://storefront/backlog_shelf.tscn" id="14_fk8fj"]
 [ext_resource type="PackedScene" uid="uid://ddd34ljonfufo" path="res://website/computer.tscn" id="14_qepj0"]
 [ext_resource type="PackedScene" uid="uid://x2l0pltsea0m" path="res://storefront/player/player.tscn" id="14_s766h"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="17_qepj0"]
@@ -23,9 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://d0cekvv2cl3k2" path="res://customers/customer.tscn" id="20_fk8fj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
-vertices = PackedVector2Array(606.21875, 285.47656, 607.2578, 329.5078, 31.03125, 330.47656, 301.3672, 284.9922, 31.460938, 186.02344, 248.5, 186.52344, 297.04688, 237.47656, 605.5781, 122, 605.9219, 166.47656, 301.8828, 165.97656, 248.5, 122, 300.10938, 212.03125, 606.5, 237.97656, 606.5, 211.03125)
+vertices = PackedVector2Array(606.22656, 285.5625, 607.2578, 329.5078, 31.03125, 330.47656, 296.32813, 287.5625, 31.460938, 186.02344, 248.5, 186.52344, 294.65625, 237.47656, 605.5781, 122, 605.9219, 166.47656, 301.8828, 165.97656, 248.5, 122, 300.10938, 212.03125, 606.5, 237.97656, 606.5, 211.03125)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(5, 10, 9, 11, 6), PackedInt32Array(12, 6, 11, 13)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(238.5, 112, 238.5, 176.5, 21.5, 176, 21, 340.5, 617.5, 339.5, 616, 275.5, 310.5, 275, 308, 247.5, 616.5, 248, 616.5, 201, 310.5, 202, 311.5, 176, 616, 176.5, 615.5, 112)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(238.5, 112, 238.5, 176.5, 21.5, 176, 21, 340.5, 617.5, 339.5, 616, 275.5, 306, 277.5, 305, 247.5, 616.5, 248, 617, 196.5, 311.5, 196.5, 311.5, 176, 616, 176.5, 615.5, 112)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6yji"]
 texture = ExtResource("2_da638")
@@ -239,20 +239,20 @@ texture = ExtResource("12_74fhw")
 position = Vector2(573, 293)
 
 [node name="Target2" type="Node2D" parent="."]
-position = Vector2(564, 223.5)
+position = Vector2(564, 215.5)
 
 [node name="Target3" type="Node2D" parent="."]
 position = Vector2(329.5, 291)
 
 [node name="Target4" type="Node2D" parent="."]
-position = Vector2(403.5, 220.5)
+position = Vector2(394, 217)
 
 [node name="Player" parent="." instance=ExtResource("14_s766h")]
 y_sort_enabled = true
 position = Vector2(73, 139)
 
 [node name="Customer" parent="." node_paths=PackedStringArray("destinations") instance=ExtResource("20_fk8fj")]
-position = Vector2(280.5, 135.5)
+position = Vector2(110, 221)
 destinations = [NodePath("../Target1"), NodePath("../Target2"), NodePath("../Target3"), NodePath("../Target4")]
 
 [node name="Website" parent="." instance=ExtResource("17_qepj0")]
