@@ -17,8 +17,8 @@ var static_sfx_levels = {
 
 var sfx_db_override_values = {
 	#'track.wav': 0,
-	'botton_press_1': 5,
-	'botton_press_2': 5,
+	'botton_press_1': 8,
+	'botton_press_2': 8,
 	'crickets': 0,
 	'footstep_carpet_1': 0,
 	'footstep_carpet_2': 0,
