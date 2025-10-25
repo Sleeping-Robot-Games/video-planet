@@ -3,7 +3,11 @@ extends Node2D
 @onready var backroom_label: Label = $HUD/BackroomLabel
 @onready var todo_panel: Panel = $HUD/ToDo
 
+var music_player: AudioStreamPlayer
+
 func _ready() -> void:
+	music_player = a.play_music('storefront_bgm_1')
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
 	g.player_movement_disabled = true
@@ -38,6 +42,8 @@ func unfreeze_player() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and backroom_label.visible:
 		hide_todo()
+		music_player.stop()
+		music_player.queue_free()
 		get_tree().change_scene_to_file("res://backroom/backroom.tscn")
 
 

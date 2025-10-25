@@ -63,7 +63,7 @@ var VHS_DATA = {}
 
 
 func _ready():
-	music_player = a.play_music('backroom_bmg_1')
+	music_player = a.play_music('backroom_bgm_1')
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
 	for tracking_button in tracking.get_children():
@@ -441,6 +441,8 @@ func _on_backlog_button_pressed() -> void:
 	$Website.open_by_backroom_computer()
 
 func _on_storefront_button_pressed() -> void:
+	music_player.stop()
+	music_player.queue_free()
 	get_tree().change_scene_to_file('res://storefront/storefront.tscn')
 
 

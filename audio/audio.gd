@@ -2,7 +2,7 @@ extends Node
 
 var music_db_override_values = {
 	#'track.ogg': 0,
-	'backroom_bmg_1': -10,
+	'backroom_bgm_1': -10,
 	'backroom_bgm_2': -10,
 	'storefront_bgm_1': -10,
 	'titlescreen_bgm_1': -10
