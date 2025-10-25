@@ -23,6 +23,8 @@ const DIAL_ROTATE_SPEED = 50.0
 const DIAL_ROTATE_MIN = -100.0
 const DIAL_ROTATE_MAX = 100.0
 
+var rewinding_movie_id: String = ''
+
 var dial_angle = 0.0
 
 var tracking_input_map = {
@@ -127,6 +129,7 @@ var VHS_DATA = {
 
 func _ready():
 	a.play_music('backroom_bmg_1')
+	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
 	for tracking_button in tracking.get_children():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
 		tracking_input_map[tracking_button.name] = tracking_button
@@ -135,8 +138,8 @@ func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('fix'):
 		fix_tape_button.pressed.emit()
 	
-	if event.is_action_pressed('rewind'):
-		rewind_button.pressed.emit()
+	#if event.is_action_pressed('rewind'):
+		#rewind_button.pressed.emit()
 		
 	if not rewinding:
 		return
@@ -331,14 +334,20 @@ func next_vhs_phase():
 	successful_hits = 0
 	vhs_phase += 1
 	if not VHS_DATA.has(vhs_phase):
+		## Success!
+		## Player can now select a new tape from the backlog or leave back to the store front
+		m.inventory[rewinding_movie_id].status = 'STOCKED'
+		m.inventory[rewinding_movie_id].location = 'ON SHELF'
+		var log_msg: String = '%s rewound & stocked' % m.inventory[rewinding_movie_id].title
+		g.add_log_line.emit(log_msg, Color.WEB_GREEN)
 		rewinding = false
 		$VCR/AnimationPlayer.pause()
 		video_player.stop()
 		tv_off_screen.show()
 		## TODO: Reset tracking button and dial state
-		## TODO: Success label/button to restock completed tape.
-		## Player can now select a new tape from the backlog or leave back to the store front
-		## TODO: make button to go back to store front
+		$BacklogButton.show()
+		$StorefrontButton.show()
+		$VCR/Labels.hide()
 	else:
 		hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
 		current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
@@ -351,9 +360,18 @@ func next_vhs_phase():
 		var tick_speed_tween = create_tween()
 		tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
 		
-		
+
+func _on_website_rewind_movie_selected(movie_id: String) -> void:
+	rewinding_movie_id = movie_id
+	$VCR/Labels/RewindingMovieLabel.text = 'Rewinding ’%s’' % m.inventory[movie_id].title
+	$VCR/Labels.show()
+	$BacklogButton.hide()
+	$StorefrontButton.hide()
+	init_vhs()
+	
+
 func _on_rewind_button_pressed() -> void:
-	if rewinding:
+	if rewinding or not rewinding_movie_id:
 		return 
 		
 	init_vhs()
@@ -417,3 +435,6 @@ func turn_on_live_lights():
 
 func _on_backlog_button_pressed() -> void:
 	$Website.open_by_backroom_computer()
+
+func _on_storefront_button_pressed() -> void:
+	get_tree().change_scene_to_file('res://storefront/storefront.tscn')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=39 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -20,9 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
 [ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
-[ext_resource type="Shader" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
+[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://c033jiekthooi" path="res://backroom/postertest.png" id="21_j8cxi"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://storefront/website/website.tscn" id="23_6dn78"]
+[ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="24_iobut"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
 allow_unpress = true
@@ -239,21 +240,31 @@ position = Vector2(751.2, 564)
 scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
 
-[node name="TrackLabel" type="Label" parent="VCR"]
+[node name="Labels" type="Control" parent="VCR"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TrackLabel" type="Label" parent="VCR/Labels"]
+layout_mode = 0
 offset_left = 524.0
 offset_top = 422.0
 offset_right = 649.0
 offset_bottom = 445.0
 text = "Tracking Setting"
 
-[node name="TrackTutorialLabel" type="Label" parent="VCR"]
+[node name="TrackTutorialLabel" type="Label" parent="VCR/Labels"]
+layout_mode = 0
 offset_left = 496.0
 offset_top = 384.0
-offset_right = 754.0
+offset_right = 813.0
 offset_bottom = 407.0
 text = "Use 1-5 number keys for Tracking Setting"
 
-[node name="DialTutorialLabel2" type="Label" parent="VCR"]
+[node name="DialTutorialLabel2" type="Label" parent="VCR/Labels"]
+layout_mode = 0
 offset_left = 1041.0
 offset_top = 520.0
 offset_right = 1185.0
@@ -261,25 +272,38 @@ offset_bottom = 569.0
 text = "Use <- and -> 
 arrow keys for dial"
 
-[node name="DialTutorialLabel3" type="Label" parent="VCR"]
+[node name="DialTutorialLabel3" type="Label" parent="VCR/Labels"]
+layout_mode = 0
 offset_left = 736.0
 offset_top = 432.0
 offset_right = 994.0
 offset_bottom = 455.0
 text = "Hit Spacebar to get ticker catch"
 
-[node name="TuningLabel" type="Label" parent="VCR"]
+[node name="TuningLabel" type="Label" parent="VCR/Labels"]
+layout_mode = 0
 offset_left = 1041.0
 offset_top = 420.0
 offset_right = 1121.0
 offset_bottom = 443.0
 text = "Tuner Dial"
 
+[node name="RewindingMovieLabel" type="Label" parent="VCR/Labels"]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 626.0
+offset_right = 911.0
+offset_bottom = 649.0
+text = "Rewinding {Movie}"
+horizontal_alignment = 1
+
 [node name="RewindButton" type="Button" parent="VCR"]
+visible = false
 offset_left = 612.0
 offset_top = 593.0
 offset_right = 765.0
 offset_bottom = 624.0
+disabled = true
 text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
@@ -500,6 +524,13 @@ offset_bottom = 247.0
 text = "Choose Tape
 from Backlog"
 
+[node name="StorefrontButton" type="Button" parent="."]
+offset_left = 65.0
+offset_top = 443.0
+offset_right = 253.0
+offset_bottom = 474.0
+text = "<< Return to Storefront"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(50, 50)
 offset_left = 839.0
@@ -536,8 +567,15 @@ offset_top = -1.0
 offset_right = 1282.0
 offset_bottom = 719.0
 
+[node name="LogContainer" parent="." instance=ExtResource("24_iobut")]
+offset_left = 1033.0
+offset_top = 89.0
+offset_right = 1248.0
+offset_bottom = 89.0
+
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
 [connection signal="area_exited" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_exited"]
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
 [connection signal="pressed" from="BacklogButton" to="." method="_on_backlog_button_pressed"]
+[connection signal="pressed" from="StorefrontButton" to="." method="_on_storefront_button_pressed"]

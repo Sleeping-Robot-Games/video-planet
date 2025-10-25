@@ -9,6 +9,8 @@ var listing_scene = preload('res://storefront/website/listing.tscn')
 @onready var status_input: OptionButton = $Container/Header/VBox/Filters/Status/Picker
 @onready var status_clear: Button = $Container/Header/VBox/Filters/Status/Spacer/ClearButton
 
+signal rewind_movie_selected(movie_id: String)
+
 func _ready():
 	# game pauses when website is open, this allows website to remain active during game pause
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -100,8 +102,7 @@ func open_by_backroom_computer() -> void:
 
 func backroom_rewind_selected(movie_id: String) -> void:
 	get_tree().paused = false
-	print('rewinding movie_id: ', movie_id)
-	# TODO emit signal for backroom to rewind specified movie
+	rewind_movie_selected.emit(movie_id)
 	hide()
 
 func _on_clear_genre_pressed() -> void:

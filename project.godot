@@ -35,6 +35,7 @@ folder_colors={
 "res://backroom/": "purple",
 "res://customers/": "yellow",
 "res://movies/": "red",
+"res://shared/": "green",
 "res://storefront/": "blue",
 "res://storefront/dialogue/": "gray",
 "res://storefront/player/": "pink",

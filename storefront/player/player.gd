@@ -7,7 +7,7 @@ extends CharacterBody2D
 var last_direction := Vector2.DOWN
 
 func _physics_process(_delta: float) -> void:
-	if g.is_dialogue_open:
+	if g.is_dialogue_open or g.player_movement_disabled:
 		if not anim_player.current_animation.begins_with('idle_'):
 			play_idle_animation(last_direction)
 		return

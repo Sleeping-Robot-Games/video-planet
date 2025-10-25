@@ -1,5 +1,6 @@
 extends Panel
 
+@onready var storefront: Node2D = $'..'
 @onready var player_msg: Label = $Player/VBoxContainer/Message
 @onready var player_continue: RichTextLabel = $Player/VBoxContainer/Continue
 
@@ -33,3 +34,4 @@ func perform_bounce() -> void:
 func close_dialogue() -> void:
 	hide()
 	g.is_dialogue_open = false
+	storefront.show_todo()

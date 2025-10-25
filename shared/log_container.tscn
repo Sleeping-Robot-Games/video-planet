@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://deyae4itnlg45"]
+
+[ext_resource type="Script" uid="uid://dhyv3y6ybwp5m" path="res://shared/log_container.gd" id="1_q43f5"]
+
+[node name="LogContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(215, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+script = ExtResource("1_q43f5")
