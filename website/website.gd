@@ -2,12 +2,12 @@ extends TextureRect
 
 var listing_scene = preload('res://website/listing.tscn')
 
-@onready var listings_container: VBoxContainer = $Container/Body/MovieList
-@onready var search_input: LineEdit = $Container/Header/VBox/Filters/Search
-@onready var genre_input: OptionButton = $Container/Header/VBox/Filters/Genre/Picker
-@onready var genre_clear: Button = $Container/Header/VBox/Filters/Genre/Spacer/ClearButton
-@onready var status_input: OptionButton = $Container/Header/VBox/Filters/Status/Picker
-@onready var status_clear: Button = $Container/Header/VBox/Filters/Status/Spacer/ClearButton
+@onready var listings_container: VBoxContainer = $Margins/Window/VBox/Body/MovieList
+@onready var search_input: LineEdit = $Margins/Window/VBox/Header/VBox/Filters/Search
+@onready var genre_input: OptionButton = $Margins/Window/VBox/Header/VBox/Filters/Genre/Picker
+@onready var genre_clear: Button = $Margins/Window/VBox/Header/VBox/Filters/Genre/Spacer/ClearButton
+@onready var status_input: OptionButton = $Margins/Window/VBox/Header/VBox/Filters/Status/Picker
+@onready var status_clear: Button = $Margins/Window/VBox/Header/VBox/Filters/Status/Spacer/ClearButton
 
 signal rewind_movie_selected(movie_id: String)
 
