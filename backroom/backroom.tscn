@@ -419,6 +419,37 @@ libraries = {
 &"": SubResource("AnimationLibrary_4h6lf")
 }
 
+[node name="LivesLightContainer" type="VBoxContainer" parent="VCR"]
+offset_left = 1018.0
+offset_top = 462.0
+offset_right = 1027.0
+offset_bottom = 488.0
+
+[node name="LivesLight" type="ColorRect" parent="VCR/LivesLightContainer"]
+custom_minimum_size = Vector2(0, 2.5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LivesLight2" type="ColorRect" parent="VCR/LivesLightContainer"]
+custom_minimum_size = Vector2(0, 2.5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LivesLight3" type="ColorRect" parent="VCR/LivesLightContainer"]
+custom_minimum_size = Vector2(0, 2.5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LivesLight4" type="ColorRect" parent="VCR/LivesLightContainer"]
+custom_minimum_size = Vector2(0, 2.5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LivesLight5" type="ColorRect" parent="VCR/LivesLightContainer"]
+custom_minimum_size = Vector2(0, 2.5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
 [node name="TV" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="TV"]

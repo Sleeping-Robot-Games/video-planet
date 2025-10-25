@@ -17,6 +17,7 @@ extends Node2D
 @onready var rewind_effect: ColorRect = $SubViewportContainer/SubViewport/RewindEffectRect
 @onready var tv_off_screen = $SubViewportContainer/SubViewport/TVOff
 @onready var video_player = $SubViewportContainer/SubViewport/VideoStreamPlayer
+@onready var lives_light_container = $VCR/LivesLightContainer
 
 const DIAL_ROTATE_SPEED = 50.0
 const DIAL_ROTATE_MIN = -100.0
@@ -244,6 +245,8 @@ func on_miss():
 	shake_tween.tween_property(vcr, 'position', vcr.position - Vector2(5, 0), .117)
 	shake_tween.tween_property(vcr, 'position', original_position, .117)
 	
+	turn_off_next_light()
+	
 	if num_of_misses >= VHS_DATA.number_of_failures_before_break:
 		broken_tape.show()
 		fix_tape_button.show()
@@ -300,6 +303,7 @@ func init_vhs():
 	tv_off_screen.hide()
 	video_player.play()
 	set_rewind_noise()
+	turn_on_live_lights()
 	
 	var hitzone_scale_tween = create_tween()
 	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], .328), 1)
@@ -319,9 +323,9 @@ func start_vhs_rewind_after_fix():
 	tv_off_screen.hide()
 	video_player.play()
 	set_rewind_noise()
-	#var tv_state_tween = create_tween()
-	#tv_state_tween.tween_property(tv, 'modulate', track_setting_tv_lookup[current_ideal_track_setting], 1)
-	
+	turn_on_live_lights()
+
+
 func next_vhs_phase():
 	successful_hits = 0
 	vhs_phase += 1
@@ -390,3 +394,18 @@ func set_rewind_noise(value: float = .02) -> void:
 
 	# Apply change
 	noise_tex.noise = noise
+	
+func turn_off_next_light():
+	var lives_lights = lives_light_container.get_children()
+	lives_lights.reverse()
+	for light in lives_lights:
+		if light.color == Color.GREEN:
+			light.color = Color.BLACK
+			break
+
+func turn_on_live_lights():
+	var index = 0
+	for light in lives_light_container.get_children():
+		index += 1
+		if index <= VHS_DATA.number_of_failures_before_break:
+			light.color = Color.GREEN
