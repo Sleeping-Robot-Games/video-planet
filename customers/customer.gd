@@ -70,7 +70,7 @@ func enter_store(dest_array):
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_interacting:
-		get_parent().dialog.open('I want a movie, GIMME!')
+		get_parent().dialog.open('I want a movie, GIMME!', name, ['Open Movie Catalog'])
 
 func _process(_delta: float) -> void:
 	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:

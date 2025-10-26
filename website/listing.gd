@@ -3,6 +3,7 @@ extends HBoxContainer
 var review_scene = preload('res://website/review.tscn')
 
 @onready var rewind_button: Button = $RewindButton
+@onready var rent_button: Button = $Rent
 @onready var movie_poster: TextureRect = $Movie/Poster
 @onready var movie_title: Label = $Movie/Details/Title
 @onready var genre_border: NinePatchRect = $Movie/Details/Genre/Border
@@ -63,3 +64,6 @@ func add_review(user: String, content: String, is_positive: bool, bg_color: Colo
 
 func _on_rewind_button_pressed() -> void:
 	website.backroom_rewind_selected(movie_id)
+
+func _on_rent_pressed() -> void:
+	website.rent_movie_out(movie_id)

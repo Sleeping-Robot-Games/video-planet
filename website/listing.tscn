@@ -22,11 +22,20 @@ alignment = 1
 script = ExtResource("1_n7ked")
 
 [node name="RewindButton" type="Button" parent="." groups=["ui_buttons"]]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "REWIND >>"
+
+[node name="Rent" type="Button" parent="." groups=["ui_buttons"]]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("3_l1u4l")
+text = "Rent to Customer"
 
 [node name="Movie" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(220, 0)
@@ -151,3 +160,4 @@ theme_override_constants/separation = 6
 alignment = 1
 
 [connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]
+[connection signal="pressed" from="Rent" to="." method="_on_rent_pressed"]

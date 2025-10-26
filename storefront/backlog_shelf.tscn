@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8d7iw846ijg7"]
+[gd_scene load_steps=11 format=3 uid="uid://c8d7iw846ijg7"]
 
 [ext_resource type="Texture2D" uid="uid://d1xjivup1rmgr" path="res://storefront/shelflong_empty.png" id="1_yokwj"]
 [ext_resource type="Texture2D" uid="uid://3ccrhnd6pyne" path="res://movies/spines/brown.png" id="2_ojmxd"]
-[ext_resource type="Script" uid="uid://doj8cekliaan4" path="res://storefront/backlog_shelf.gd" id="2_q3u0k"]
+[ext_resource type="Script" path="res://storefront/backlog_shelf.gd" id="2_q3u0k"]
+[ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="3_ikkg3"]
 [ext_resource type="Texture2D" uid="uid://c1eyeh34k67u6" path="res://movies/spines/blue.png" id="3_q3u0k"]
 [ext_resource type="Texture2D" uid="uid://boydxnew6gqbm" path="res://movies/spines/yellow.png" id="4_ikkg3"]
 [ext_resource type="Texture2D" uid="uid://ccskxdv4qxevs" path="res://movies/spines/purple.png" id="5_kjbw0"]
@@ -28,12 +29,13 @@ z_index = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -117.0
-offset_top = -30.5
-offset_right = -77.0
-offset_bottom = -13.5
+offset_left = -121.0
+offset_top = -27.0
+offset_right = -81.0
+offset_bottom = -10.0
 grow_horizontal = 2
 size_flags_vertical = 3
+theme = ExtResource("3_ikkg3")
 theme_override_colors/font_color = Color(0.19936451, 0.6089529, 0.5584882, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
@@ -43,12 +45,12 @@ vertical_alignment = 1
 
 [node name="Count" type="Label" parent="."]
 z_index = 1
-offset_left = 45.0
-offset_top = -27.0
-offset_right = 89.0
-offset_bottom = -14.0
-grow_horizontal = 0
+offset_left = 17.0
+offset_top = -25.0
+offset_right = 52.0
+offset_bottom = -12.0
 size_flags_vertical = 3
+theme = ExtResource("3_ikkg3")
 theme_override_colors/font_color = Color(0.2, 0.60784316, 0.5568628, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 9

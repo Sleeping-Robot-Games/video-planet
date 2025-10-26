@@ -10,10 +10,12 @@ var listing_scene = preload('res://website/listing.tscn')
 @onready var status_clear: Button = $Margins/Window/VBox/Header/VBox/Filters/Status/Spacer/ClearButton
 
 signal rewind_movie_selected(movie_id: String)
+signal rented_movie_selected(movie_id: String)
 
 var total_reviews: int = 0
 var positive_reviews: int = 0
 var next_unlock: int = -1
+var customer_name: String
 
 func _ready():
 	# game pauses when website is open, this allows website to remain active during game pause
@@ -104,6 +106,24 @@ func open_by_storefront_computer() -> void:
 	status_clear.hide()
 	for listing in listings_container.get_children():
 		listing.rewind_button.hide()
+		listing.rent_button.hide()
+	filter_movies()
+	show()
+	get_tree().paused = true
+
+func open_by_dialog(_customer_name):
+	customer_name = _customer_name
+	search_input.text = ''
+	search_input.editable = true
+	genre_input.selected = 0
+	genre_input.disabled = true
+	genre_clear.hide()
+	status_input.selected = 1
+	status_input.disabled = false
+	status_clear.hide()
+	for listing in listings_container.get_children():
+		listing.rewind_button.hide()
+		listing.rent_button.show()
 	filter_movies()
 	show()
 	get_tree().paused = true
@@ -119,9 +139,17 @@ func open_by_backroom_computer() -> void:
 	status_clear.hide()
 	for listing in listings_container.get_children():
 		listing.rewind_button.show()
+		listing.rent_button.hide()
 	filter_movies()
 	show()
 	get_tree().paused = true
+	
+func rent_movie_out(movie_id: String):
+	get_tree().paused = false
+	customer_name
+	rented_movie_selected.emit(movie_id)
+	## TODO: RENT MOVIE OUT TO CUSTOMER!!!!
+	hide()
 
 func backroom_rewind_selected(movie_id: String) -> void:
 	get_tree().paused = false
