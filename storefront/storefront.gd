@@ -19,7 +19,7 @@ func _ready() -> void:
 	init_shelves()
 	
 	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
-	g.player_movement_disabled = true
+	# g.player_movement_disabled = true
 	fade_black.color = Color.BLACK
 	fade_black.show()
 	

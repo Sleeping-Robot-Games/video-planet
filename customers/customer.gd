@@ -1,13 +1,5 @@
 extends CharacterBody2D
 
-### TODO NOTES ###
-# - Have a purpose when they enter, renter or returner
-#	- Returners just go to the counter and then walk back out
-#	- Renters come in to browse the shelves, then if not interrupted go to the counter
-# - Stop walking and face player when player approaches
-# - When player interacts, dialog appears and they say their purpose
-	# - renters will have option to open the website from dialog
-
 @onready var store_front = get_parent()
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -73,7 +65,18 @@ func enter_store(dest_array):
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_interacting:
 		if customer_data.goal == 'rent':
-			store_front.dialog.open('I want a '+ customer_data.wanted_genre +' movie, GIMME!', name, ['Open Movie Catalog'])
+			var genre_texts = {
+				'HORROR': ['scary', 'spooky', 'creepy', 'something that will keep me up tonight', 'a real fright', 'something dark and chilling'],
+				'SCI-FI': ['futuristic', 'about space', 'with robots or aliens', 'high-tech', 'something out of this world', 'a mind-bender'],
+				'ROMANCE': ['romantic', 'about falling in love', 'something heartfelt', 'a good love story', 'sweet and emotional', 'something cozy with a happy ending'],
+				'COMEDY': ['funny', 'lighthearted', 'something to laugh at', 'a good laugh', 'goofy', 'something cheerful']
+			}
+			var wanted_genre_text = genre_texts.get(customer_data.wanted_genre, ['interesting']).pick_random()
+			store_front.dialog.open(
+				"Im looking for a movie that is " + wanted_genre_text + ", can you recommend one?",
+				name,
+				['Open Movie Catalog']
+			)
 		else:
 			store_front.dialog.open('Just returning '+ m.inventory[customer_data.movie_id].title + '\n it was quite the movie...')
 			

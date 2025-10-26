@@ -26,7 +26,12 @@ func _on_choice_pressed(index: int):
 func _on_rented_movie(movie_id: String, customer_name: String):
 	a.play_sfx('rental_logged')
 	if customer_name == current_customer_name:
-		dialog_msg.text = 'Thanks, looking forward to watching \'%s\'' % m.inventory[movie_id].title
+		var customer_data = c.customers[current_customer_name]
+		var movie_data = m.inventory[movie_id]
+		if customer_data.wanted_genre == movie_data.genre:
+			dialog_msg.text = 'Thanks, looking forward to watching \'%s\'' % movie_data.title
+		else:
+			dialog_msg.text = 'Thanks... I guess I could give \'%s\' a try...' % movie_data.title
 		for btn in button_container.get_children():
 			btn.hide()
 
