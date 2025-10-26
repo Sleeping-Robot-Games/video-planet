@@ -51,6 +51,9 @@ var decoration_unlocks: Array = [
 	}
 ]
 
+func _ready() -> void:
+	randomize()
+
 func folders_in_dir(path: String) -> Array:
 	var folders = []
 	var dir = DirAccess.open(path)
