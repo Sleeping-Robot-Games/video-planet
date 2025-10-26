@@ -114,6 +114,7 @@ func _process(delta):
 	if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
 		dial_light.color = Color.GREEN
 		tick_speed = VHS_DATA[vhs_phase].tick_speeds['tight_zone']
+		a.play_sfx('dial_light_green', vcr_sprite)
 	elif dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]:
 		dial_light.color = Color.YELLOW
 		tick_speed = VHS_DATA[vhs_phase].tick_speeds['rough_zone']
@@ -367,6 +368,7 @@ func _on_website_rewind_movie_selected(movie_id: String) -> void:
 	$BacklogButton.hide()
 	$StorefrontButton.hide()
 	$VCR/Tape.play()
+	a.play_sfx('putting_tape_in', vcr_sprite)
 	
 
 func get_best_track_setting_for_phase(phase: int) -> String:
@@ -400,6 +402,7 @@ func _on_fix_tape_button_pressed() -> void:
 	tween.tween_callback(func():
 		$FixBar.hide()
 		$VCR/Tape.play()
+		a.play_sfx('putting_tape_in', vcr_sprite)
 	)
 
 

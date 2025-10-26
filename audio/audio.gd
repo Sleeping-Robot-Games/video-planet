@@ -20,6 +20,7 @@ var sfx_db_override_values = {
 	#'track.wav': 0,
 	'botton_press': 8,
 	'crickets': 0,
+	'dial_light_green': -25,
 	'footstep_carpet': -15,
 	'footstep_tile': -15,
 	'menu_confirm': -20,
@@ -27,7 +28,7 @@ var sfx_db_override_values = {
 	'pc_login': -10,
 	'pc_logoff': -10,
 	'place_item': -10,
-	'putting_tape_in': 0,
+	'putting_tape_in': 15,
 	'rain': 0,
 	'rental_return_bad_review': -6,
 	'rental_return_good_review': -6,
@@ -75,7 +76,6 @@ var sfx_bus_lookup = {
 	'crickets': 'Ambience',
 	'rain': 'Ambience',
 	'static': 'Ambience',
-	'ticker_wall': 'Ambience',
 	'vhs_rewind': 'Ambience'
 }
 
