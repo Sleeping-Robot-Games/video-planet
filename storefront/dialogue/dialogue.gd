@@ -9,7 +9,7 @@ var current_options = []
 var current_customer_name
 
 func _ready() -> void:
-	website.rented_movie_selected.connect(_on_rented_movie)
+	m.rented_movie_selected.connect(_on_rented_movie)
 	var buttons = button_container.get_children()
 	for i in range(buttons.size()):
 		var btn = buttons[i]
@@ -23,10 +23,11 @@ func _on_choice_pressed(index: int):
 		0:
 			website.open_by_dialog(current_customer_name)
 
-func _on_rented_movie(movie_id: String):
-	dialog_msg.text = 'Thanks looking forward to watching ' + m.inventory[movie_id].title
-	for btn in button_container.get_children():
-		btn.hide()
+func _on_rented_movie(movie_id: String, customer_name: String):
+	if customer_name == current_customer_name:
+		dialog_msg.text = 'Thanks, looking forward to watching \'%s\'' % m.inventory[movie_id].title
+		for btn in button_container.get_children():
+			btn.hide()
 
 func open(msg: String, customer_name: String = "", options: Array = []) -> void:
 	current_customer_name = customer_name

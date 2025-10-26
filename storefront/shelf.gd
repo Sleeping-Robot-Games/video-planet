@@ -53,6 +53,19 @@ func _ready() -> void:
 	# init stocked movies
 	for movie_id in m.inventory.keys():
 		attempt_add_movie(movie_id)
+	# connect signal
+	m.rented_movie_selected.connect(_on_rented_movie_selected)
+
+func rebuild_shelf() -> void:
+	stocked_count = 0
+	$Count.text = '0/36'
+	for i: int in spaces.keys():
+		var shelf_space: Dictionary = spaces[i]
+		var shelf_node: TextureRect = get_node(shelf_space.shelf + '/' + shelf_space.space)
+		shelf_node.texture = load('res://movies/covers/000.png')
+		shelf_node.hide()
+	for movie_id in m.inventory.keys():
+		attempt_add_movie(movie_id)
 
 func stock_movie(movie_id: String):
 	attempt_add_movie(movie_id)
@@ -69,3 +82,15 @@ func attempt_add_movie(movie_id: String):
 		var shelf_node: TextureRect = get_node(shelf_space.shelf + '/' + shelf_space.space)
 		shelf_node.texture = load('res://movies/covers/%s.png' % movie_id)
 		shelf_node.show()
+
+func attempt_remove_movie(movie_id: String):
+	var movie = m.inventory[movie_id]
+	print('attempt_remove_movie: ', movie)
+	if movie.status == 'STOCKED' and movie.genre == shelf_genre:
+		stocked_count -= 1
+
+func _on_rented_movie_selected(movie_id: String, customer_name: String):
+	# bc I coded this kinda dumb it's easier to just rebuild the shelf rather than surgically remove this one movie and leave a gap in the middle
+	# WEEEEEEEE (don't u DARE judge me ;)
+	if m.inventory[movie_id].genre == shelf_genre:
+		rebuild_shelf()

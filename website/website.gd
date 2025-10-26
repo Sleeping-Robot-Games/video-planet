@@ -10,7 +10,7 @@ var listing_scene = preload('res://website/listing.tscn')
 @onready var status_clear: Button = $Margins/Window/VBox/Header/VBox/Filters/Status/Spacer/ClearButton
 
 signal rewind_movie_selected(movie_id: String)
-signal rented_movie_selected(movie_id: String)
+
 
 var total_reviews: int = 0
 var positive_reviews: int = 0
@@ -146,10 +146,11 @@ func open_by_backroom_computer() -> void:
 	
 func rent_movie_out(movie_id: String):
 	get_tree().paused = false
-	rented_movie_selected.emit(movie_id)
-	## TODO: UPDATE THE SIGNALTON AND ALL OTHER SIDE EFFECTS
-	customer_name
-	## TODO: RENT MOVIE OUT TO CUSTOMER!!!!
+	m.inventory[movie_id].status = 'CHECKED OUT'
+	m.inventory[movie_id].location = customer_name
+	m.rented_movie_selected.emit(movie_id, customer_name)
+	#var log_msg: String = '%s rented \'%s\'' % [customer_name, m.inventory[movie_id].title]
+	#g.add_log_line.emit(log_msg, 'SUCCESS') nvm lol not actually needed since you have to interact with customer for them to rent something
 	hide()
 
 func backroom_rewind_selected(movie_id: String) -> void:
