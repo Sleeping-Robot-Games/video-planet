@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=61 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://bjs5dlrb37mvs" path="res://storefront/poster6.png" id="27_aahc8"]
 [ext_resource type="Texture2D" uid="uid://d1b2np3wy0tqu" path="res://storefront/poster7.png" id="28_bb0xx"]
 [ext_resource type="Texture2D" uid="uid://ugl2fsorhpi7" path="res://storefront/poster8.png" id="29_vcwno"]
+[ext_resource type="Texture2D" uid="uid://bxa03wyeaq4eq" path="res://storefront/deco/open.png" id="30_aahc8"]
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="33_0atvx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
@@ -306,11 +307,11 @@ position = Vector2(585.5, 47.5)
 texture = ExtResource("13_5pv7o")
 
 [node name="Flowerdecalleft" type="Sprite2D" parent="Deco"]
-position = Vector2(340, 96)
+position = Vector2(344, 96)
 texture = ExtResource("14_0atvx")
 
 [node name="Flowerdecalright" type="Sprite2D" parent="Deco"]
-position = Vector2(548, 96)
+position = Vector2(544, 96)
 texture = ExtResource("15_pl8ui")
 
 [node name="Ghostdecal" type="Sprite2D" parent="Deco"]
@@ -356,6 +357,10 @@ texture = ExtResource("28_bb0xx")
 [node name="Poster8" type="Sprite2D" parent="Deco"]
 position = Vector2(580, 52)
 texture = ExtResource("29_vcwno")
+
+[node name="Open" type="Sprite2D" parent="Deco"]
+position = Vector2(324, 96)
+texture = ExtResource("30_aahc8")
 
 [node name="Furniture" type="Node2D" parent="."]
 y_sort_enabled = true
