@@ -13,7 +13,7 @@ config_version=5
 config/name="Video Planet"
 run/main_scene="uid://cyq0yd2si4cl4"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://nq7mtnwjwn0o"
 
 [autoload]
 
