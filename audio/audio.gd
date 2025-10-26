@@ -78,6 +78,7 @@ var sfx_bus_lookup = {
 	#'track.wav': 'UI'
 	'menu_confirm': 'UI',
 	'menu_select': 'UI',
+	'customer_dialogue_bubble': 'UI',
 	'crickets': 'Ambience',
 	'rain': 'Ambience',
 	'static': 'Ambience',
@@ -86,6 +87,7 @@ var sfx_bus_lookup = {
 
 # Tracks that don't need a position
 var non_positional_tracks = [
+	'customer_dialogue_bubble',
 	'menu_select',
 	'menu_confirm',
 	'pc_login',
