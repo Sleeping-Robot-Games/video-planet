@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=68 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -45,7 +45,6 @@
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="33_0atvx"]
 [ext_resource type="Texture2D" uid="uid://4l643w2ksxpv" path="res://storefront/poster11.png" id="33_iwtvg"]
 [ext_resource type="Texture2D" uid="uid://jxyqc7uo3s8j" path="res://storefront/poster12.png" id="34_b8pys"]
-[ext_resource type="Texture2D" uid="uid://bjrpnuj6rdklj" path="res://storefront/comp.png" id="38_p8k4a"]
 [ext_resource type="Texture2D" uid="uid://bdvut43x3jctg" path="res://storefront/poster13.png" id="47_5f16k"]
 [ext_resource type="Texture2D" uid="uid://dp0ohkub56p6s" path="res://storefront/poster14.png" id="48_crjlp"]
 [ext_resource type="Texture2D" uid="uid://vx82avnimuic" path="res://storefront/poster15.png" id="49_a0mfs"]
@@ -432,8 +431,6 @@ shape = SubResource("RectangleShape2D_5o5x3")
 [node name="Computer" parent="Furniture" instance=ExtResource("14_qepj0")]
 y_sort_enabled = true
 position = Vector2(111, 151)
-scale = Vector2(1, 1)
-texture = ExtResource("38_p8k4a")
 
 [node name="BacklogShelf" parent="Furniture" instance=ExtResource("14_fk8fj")]
 position = Vector2(140, 112)

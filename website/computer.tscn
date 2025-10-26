@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddd34ljonfufo"]
+[gd_scene load_steps=5 format=3 uid="uid://ddd34ljonfufo"]
 
-[ext_resource type="Texture2D" uid="uid://ddvwg2gld8k4s" path="res://website/computer.png" id="1_awbqa"]
+[ext_resource type="Texture2D" uid="uid://bjrpnuj6rdklj" path="res://storefront/comp.png" id="1_oc3k7"]
 [ext_resource type="Script" uid="uid://c6neh1ovf3mjm" path="res://website/computer.gd" id="2_luv6h"]
+[ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="3_gkpew"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awbqa"]
 size = Vector2(72, 104)
 
 [node name="Computer" type="Sprite2D"]
 z_index = 1
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_awbqa")
+texture = ExtResource("1_oc3k7")
 script = ExtResource("2_luv6h")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -20,14 +20,17 @@ shape = SubResource("RectangleShape2D_awbqa")
 
 [node name="PressKey" type="Label" parent="."]
 visible = false
-offset_left = -88.0
-offset_top = -128.0
-offset_right = 115.0
-offset_bottom = -61.0
+offset_left = -35.0
+offset_top = -36.0
+offset_right = 37.0
+offset_bottom = -14.666666
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 12
-theme_override_font_sizes/font_size = 48
-text = "PRESS 'E'"
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_gkpew")
+theme_override_font_sizes/font_size = 10
+text = "PRESS 'E'
+for Computer"
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_computer_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_computer_body_exited"]
