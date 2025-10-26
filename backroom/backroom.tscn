@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=55 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://d4grk73bpb72h" path="res://backroom/offlight.png" id="23_mssko"]
 [ext_resource type="Texture2D" uid="uid://cr5fnrcswcf2g" path="res://backroom/tickerslide.png" id="24_ikkeb"]
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="24_iobut"]
+[ext_resource type="Texture2D" uid="uid://csanlgiqicdm1" path="res://backroom/vhs.png" id="26_ikkeb"]
 [ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="26_j82ud"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
@@ -201,6 +202,49 @@ _data = {
 &"spin_recover": SubResource("Animation_2d3aw")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbjxv"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjsrd"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dfa1"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdlha"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(1920, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg5mw"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(2560, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in46m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbjxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjsrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dfa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdlha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg5mw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j8cxi"]
 seed = 69
 frequency = 0.2
@@ -265,14 +309,12 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
-visible = false
-position = Vector2(652.2, 566)
+position = Vector2(958, 578)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
-visible = false
-position = Vector2(751.2, 564)
+position = Vector2(1024.2, 578)
 scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
 
@@ -293,28 +335,28 @@ text = "Tracking Setting"
 
 [node name="TrackTutorialLabel" type="Label" parent="VCR/Labels"]
 layout_mode = 0
-offset_left = 483.0
-offset_top = 403.0
-offset_right = 800.0
-offset_bottom = 426.0
-text = "Use 1-5 number keys for Tracking Setting"
+offset_left = 482.0
+offset_top = 398.0
+offset_right = 699.0
+offset_bottom = 412.0
+text = "Use 1-5 number keys for Tracking "
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR/Labels"]
 layout_mode = 0
 offset_left = 1030.0
-offset_top = 517.0
+offset_top = 510.0
 offset_right = 1188.0
-offset_bottom = 550.0
-text = "Use <- and -> arrow keys
+offset_bottom = 543.0
+text = "Use <- -> arrow keys
  for tuner dial"
 horizontal_alignment = 1
 
 [node name="DialTutorialLabel3" type="Label" parent="VCR/Labels"]
 layout_mode = 0
-offset_left = 696.0
-offset_top = 421.0
-offset_right = 1027.0
-offset_bottom = 444.0
+offset_left = 695.0
+offset_top = 424.0
+offset_right = 1026.0
+offset_bottom = 438.0
 text = "Hit Spacebar to get ticker catch to progress rewind"
 
 [node name="TuningLabel" type="Label" parent="VCR/Labels"]
@@ -527,6 +569,11 @@ position = Vector2(1173, 432)
 scale = Vector2(2, 2)
 texture = ExtResource("23_mssko")
 
+[node name="Tape" type="AnimatedSprite2D" parent="VCR"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_in46m")
+
 [node name="TV" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
@@ -553,10 +600,10 @@ offset_bottom = 684.0
 text = "Fix Tape (F)"
 
 [node name="BacklogButton" type="Button" parent="." groups=["ui_buttons"]]
-offset_left = 743.0
-offset_top = 347.0
-offset_right = 845.0
-offset_bottom = 396.0
+offset_left = 659.0
+offset_top = 551.0
+offset_right = 761.0
+offset_bottom = 600.0
 theme_override_fonts/font = ExtResource("26_j82ud")
 text = "Choose Tape
 from Backlog"
