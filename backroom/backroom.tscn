@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=69 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dp185dlso3jd6" path="res://backroom/button1.png" id="7_dwywq"]
 [ext_resource type="Texture2D" uid="uid://hxhhckddmmh0" path="res://backroom/button1pressed.png" id="8_j8cxi"]
 [ext_resource type="Texture2D" uid="uid://b8ue8i67ynelm" path="res://backroom/button2.png" id="9_6dn78"]
+[ext_resource type="Texture2D" uid="uid://bjcfleg5jtqav" path="res://backroom/vhsstack.png" id="9_kdlha"]
 [ext_resource type="Texture2D" uid="uid://bhop6mdbhsm6u" path="res://backroom/button2pressed.png" id="10_iobut"]
 [ext_resource type="Texture2D" uid="uid://b1b2121dobcxb" path="res://backroom/button3.png" id="11_otosh"]
 [ext_resource type="Texture2D" uid="uid://c5nfwrl6rimn1" path="res://backroom/button3pressed.png" id="12_osn8m"]
@@ -26,15 +27,23 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
-[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
+[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="Shader" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://broow6cw7rx2l" path="res://backroom/tickersquash.png" id="23_4pwh8"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
 [ext_resource type="Texture2D" uid="uid://d4grk73bpb72h" path="res://backroom/offlight.png" id="23_mssko"]
 [ext_resource type="Texture2D" uid="uid://cr5fnrcswcf2g" path="res://backroom/tickerslide.png" id="24_ikkeb"]
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="24_iobut"]
 [ext_resource type="Texture2D" uid="uid://csanlgiqicdm1" path="res://backroom/vhs.png" id="26_ikkeb"]
-[ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="26_j82ud"]
+[ext_resource type="Texture2D" uid="uid://dgh2hxi4f70m1" path="res://backroom/backlog.png" id="31_svl3i"]
+[ext_resource type="Texture2D" uid="uid://1m84ory0cc6g" path="res://backroom/enter.png" id="32_1hwuc"]
+[ext_resource type="Texture2D" uid="uid://bfu4nd32jj581" path="res://backroom/exit.png" id="32_kg5mw"]
+[ext_resource type="Texture2D" uid="uid://c1on5xhcplgqr" path="res://backroom/enterpressed.png" id="33_3vcel"]
+[ext_resource type="Texture2D" uid="uid://do81o8n3jex5m" path="res://backroom/exitpressed.png" id="33_4nssg"]
+[ext_resource type="Texture2D" uid="uid://ih5ykk3avyxe" path="res://backroom/enterhover.png" id="34_6834y"]
+[ext_resource type="Texture2D" uid="uid://cwypgnjiua10p" path="res://backroom/exithover.png" id="34_q87em"]
+[ext_resource type="Texture2D" uid="uid://c4rhghyoisdo8" path="res://backroom/bglight.png" id="35_sbjxv"]
+[ext_resource type="Texture2D" uid="uid://btiqiyy7r7ckw" path="res://backroom/fairylight.png" id="36_5dfa1"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
 allow_unpress = true
@@ -53,43 +62,50 @@ size = Vector2(22, 24.000004)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
 size = Vector2(4.0000076, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sbjxv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_svl3i"]
 atlas = ExtResource("26_ikkeb")
 region = Rect2(0, 0, 640, 360)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tjsrd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hwuc"]
 atlas = ExtResource("26_ikkeb")
 region = Rect2(640, 0, 640, 360)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5dfa1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vcel"]
 atlas = ExtResource("26_ikkeb")
 region = Rect2(1280, 0, 640, 360)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdlha"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6834y"]
 atlas = ExtResource("26_ikkeb")
 region = Rect2(1920, 0, 640, 360)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kg5mw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvn6b"]
 atlas = ExtResource("26_ikkeb")
 region = Rect2(2560, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yejot"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(0, 360, 640, 360)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_in46m"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sbjxv")
+"texture": SubResource("AtlasTexture_svl3i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tjsrd")
+"texture": SubResource("AtlasTexture_1hwuc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5dfa1")
+"texture": SubResource("AtlasTexture_3vcel")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kdlha")
+"texture": SubResource("AtlasTexture_6834y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kg5mw")
+"texture": SubResource("AtlasTexture_gvn6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yejot")
 }],
 "loop": false,
 "name": &"default",
@@ -431,6 +447,11 @@ position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("6_4syaj")
 
+[node name="Vhsstack" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("9_kdlha")
+
 [node name="VCR" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="VCR"]
@@ -439,11 +460,13 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
+visible = false
 position = Vector2(958, 578)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
+visible = false
 position = Vector2(1024.2, 578)
 scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
@@ -705,7 +728,7 @@ libraries = {
 }
 
 [node name="Plant" type="Sprite2D" parent="."]
-position = Vector2(642, 306)
+position = Vector2(598, 300)
 scale = Vector2(2, 2)
 texture = ExtResource("20_dwywq")
 
@@ -725,26 +748,31 @@ offset_bottom = 678.0
 theme = ExtResource("5_otosh")
 text = "Fix Tape (F)"
 
-[node name="BacklogButton" type="Button" parent="." groups=["ui_buttons"]]
-offset_left = 330.0
-offset_top = 490.0
-offset_right = 450.0
-offset_bottom = 563.0
-theme = ExtResource("5_otosh")
-theme_override_fonts/font = ExtResource("26_j82ud")
-text = "Choose Tape
-from Backlog
+[node name="Backlog" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("31_svl3i")
 
-(Enter)"
-
-[node name="StorefrontButton" type="Button" parent="." groups=["ui_buttons"]]
-offset_left = 39.0
-offset_top = 491.0
-offset_right = 214.0
-offset_bottom = 531.0
+[node name="BacklogButton" type="TextureButton" parent="." groups=["ui_buttons"]]
+offset_left = 376.0
+offset_top = 480.0
+offset_right = 424.0
+offset_bottom = 504.0
 theme = ExtResource("5_otosh")
-theme_override_fonts/font = ExtResource("26_j82ud")
-text = "<< Return to Storefront"
+texture_normal = ExtResource("32_1hwuc")
+texture_pressed = ExtResource("33_3vcel")
+texture_hover = ExtResource("34_6834y")
+stretch_mode = 4
+
+[node name="StorefrontButton" type="TextureButton" parent="." groups=["ui_buttons"]]
+offset_top = 72.0
+offset_right = 128.0
+offset_bottom = 264.0
+theme = ExtResource("5_otosh")
+texture_normal = ExtResource("32_kg5mw")
+texture_pressed = ExtResource("33_4nssg")
+texture_hover = ExtResource("34_q87em")
+stretch_mode = 4
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -807,6 +835,18 @@ step = 1.0
 libraries = {
 &"": SubResource("AnimationLibrary_tjsrd")
 }
+
+[node name="Fairylight" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("36_5dfa1")
+
+[node name="Bglight" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.5254902)
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("35_sbjxv")
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
