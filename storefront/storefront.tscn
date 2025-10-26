@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=60 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -34,6 +34,11 @@
 [ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="20_22fc6"]
 [ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="20_aahc8"]
 [ext_resource type="Texture2D" uid="uid://e8ohdrelx0sy" path="res://storefront/deco/videorental.png" id="21_bb0xx"]
+[ext_resource type="Texture2D" uid="uid://deh7wphgxp6pt" path="res://storefront/poster4.png" id="25_jyqko"]
+[ext_resource type="Texture2D" uid="uid://cskr7dnhfx1xi" path="res://storefront/poster5.png" id="26_kqfll"]
+[ext_resource type="Texture2D" uid="uid://bjs5dlrb37mvs" path="res://storefront/poster6.png" id="27_aahc8"]
+[ext_resource type="Texture2D" uid="uid://d1b2np3wy0tqu" path="res://storefront/poster7.png" id="28_bb0xx"]
+[ext_resource type="Texture2D" uid="uid://ugl2fsorhpi7" path="res://storefront/poster8.png" id="29_vcwno"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
 vertices = PackedVector2Array(606.21875, 285.5078, 607.2578, 329.5078, 31.046875, 330.47656, 296.42188, 293.21094, 606.89844, 206.5, 606.59375, 237.79688, 309.3125, 231.9375, 301.5, 206.5, 605.5781, 122, 605.9219, 166.47656, 301.5, 165.97656, 247.32031, 122, 238.85938, 189.13281, 294.84375, 242.54688, 31.9375, 178.02344, 209.25, 178.49219, 318.22656, 285.96875)
@@ -253,16 +258,16 @@ y_sort_enabled = true
 
 [node name="Poster1" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
-position = Vector2(40, 48)
+position = Vector2(220, 52)
 texture = ExtResource("5_k10vf")
 
 [node name="Poster2" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
-position = Vector2(72, 48)
+position = Vector2(44, 52)
 texture = ExtResource("6_5o5x3")
 
 [node name="Poster3" type="Sprite2D" parent="Deco"]
-position = Vector2(104, 48)
+position = Vector2(100, 52)
 texture = ExtResource("8_06rv6")
 
 [node name="Windowbg" type="Sprite2D" parent="Deco"]
@@ -330,6 +335,26 @@ texture = ExtResource("20_aahc8")
 [node name="Videorental" type="Sprite2D" parent="Deco"]
 position = Vector2(588, 96)
 texture = ExtResource("21_bb0xx")
+
+[node name="Poster4" type="Sprite2D" parent="Deco"]
+position = Vector2(128, 40)
+texture = ExtResource("25_jyqko")
+
+[node name="Poster5" type="Sprite2D" parent="Deco"]
+position = Vector2(72, 44)
+texture = ExtResource("26_kqfll")
+
+[node name="Poster6" type="Sprite2D" parent="Deco"]
+position = Vector2(160, 52)
+texture = ExtResource("27_aahc8")
+
+[node name="Poster7" type="Sprite2D" parent="Deco"]
+position = Vector2(188, 40)
+texture = ExtResource("28_bb0xx")
+
+[node name="Poster8" type="Sprite2D" parent="Deco"]
+position = Vector2(580, 52)
+texture = ExtResource("29_vcwno")
 
 [node name="Furniture" type="Node2D" parent="."]
 y_sort_enabled = true
