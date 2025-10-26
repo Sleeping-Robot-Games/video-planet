@@ -8,7 +8,7 @@ func _input(event):
 
 
 func _on_computer_body_entered(body: Node2D) -> void:
-	if body.name == 'Player':
+	if body.name == 'Player' and not g.no_computer:
 		# TODO joypad support
 		$PressKey.show()
 

@@ -66,6 +66,7 @@ var VHS_DATA = {}
 
 
 func _ready():
+	g.no_computer = false
 	randomize()
 	tree_anim_player.play("trees")
 	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_2', 'backroom_bgm_3', 'backroom_bgm_5_loop']

@@ -24,6 +24,7 @@ func _ready() -> void:
 	fade_black.show()
 	
 	if g.is_new_game:
+		g.no_computer = true
 		var tween = get_tree().create_tween()
 		tween.tween_interval(1.5)
 		tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
