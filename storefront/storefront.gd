@@ -132,29 +132,23 @@ func _on_customer_timer_timeout() -> void:
 
 
 func _on_rug_body_entered(body: Node2D) -> void:
-	#print('[rug_entered] body.name: ', body.name)
 	if body.name == 'Player' or body.has_meta('customer'):
 		print(body.name, ' stepped ON rug')
 		body.on_carpet = true
 		# if stepping off carpet and playing footstep sfx, cutover to tile sfx at same position
 		if body.footsteps_player and body.footsteps_player.playing:
-			#var playback_pos: float = body.footsteps_player.get_playback_position()
 			body.footsteps_player.stop()
 			body.footsteps_player.queue_free()
-			#body.footsteps_player = a.play_random_sfx('footstep_carpet', a, { 'seek_to': playback_pos })
-			body.footsteps_player = a.play_random_sfx('footstep_carpet')
+			body.footsteps_player = a.play_random_sfx('footstep_carpet', body)
 			body.footsteps_player.finished.connect(body._on_footsteps_finished)
 
 func _on_rug_body_exited(body: Node2D) -> void:
-	#print('[rug_exited] body.name: ', body.name)
 	if body.name == 'Player' or body.has_meta('customer'):
 		print(body.name, ' stepped OFF rug')
 		body.on_carpet = false
 		# if stepping off carpet and playing footstep sfx, cutover to tile sfx at same position
 		if body.footsteps_player and body.footsteps_player.playing:
-			#var playback_pos: float = body.footsteps_player.get_playback_position()
 			body.footsteps_player.stop()
 			body.footsteps_player.queue_free()
-			#body.footsteps_player = a.play_random_sfx('footstep_tile', a, { 'seek_to': playback_pos })
-			body.footsteps_player = a.play_random_sfx('footstep_tile')
+			body.footsteps_player = a.play_random_sfx('footstep_tile', body)
 			body.footsteps_player.finished.connect(body._on_footsteps_finished)

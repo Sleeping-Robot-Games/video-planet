@@ -68,7 +68,7 @@ func footsteps() -> void:
 	#var chance: int = randi_range(1, 3)
 	#if chance == 1:
 	var sfx_name = 'footstep_carpet' if on_carpet else 'footstep_tile'
-	footsteps_player = a.play_random_sfx(sfx_name)
+	footsteps_player = a.play_random_sfx(sfx_name, self)
 	footsteps_player.finished.connect(_on_footsteps_finished)
 
 func _on_footsteps_finished() -> void:
