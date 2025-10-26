@@ -18,11 +18,13 @@ offset_left = -187.0
 offset_right = 187.0
 offset_bottom = 64.0
 grow_horizontal = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_l1u4l")
 theme_override_constants/separation = 32
 script = ExtResource("1_n7ked")
 
 [node name="RewindButton" type="Button" parent="." groups=["ui_buttons"]]
+visible = false
 custom_minimum_size = Vector2(125, 40)
 layout_mode = 2
 size_flags_vertical = 4
@@ -47,16 +49,18 @@ layout_mode = 2
 texture = ExtResource("2_n7ked")
 
 [node name="Details" type="VBoxContainer" parent="Movie"]
-custom_minimum_size = Vector2(148, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 alignment = 1
 
 [node name="Title" type="Label" parent="Movie/Details"]
+custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("3_l1u4l")
 theme_override_font_sizes/font_size = 16
 text = "TBD"
+autowrap_mode = 2
 
 [node name="Genre" type="PanelContainer" parent="Movie/Details"]
 layout_mode = 2
