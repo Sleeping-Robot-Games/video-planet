@@ -84,7 +84,8 @@ var non_positional_tracks = [
 	'menu_select',
 	'menu_confirm',
 	'pc_login',
-	'pc_logoff'
+	'pc_logoff',
+	'movietrailer'
 ]
 
 func _ready():

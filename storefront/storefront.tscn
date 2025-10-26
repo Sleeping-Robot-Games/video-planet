@@ -473,7 +473,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="CounterDestination" type="Node2D" parent="."]
-position = Vector2(146, 183)
+position = Vector2(146, 186)
 
 [node name="Door" type="Node2D" parent="."]
 position = Vector2(280, 125)

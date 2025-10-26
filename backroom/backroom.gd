@@ -3,6 +3,7 @@ extends Node2D
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
+@onready var tick = $VCR/Ticker/Path2D/TickPathFollow2D/Tick
 @onready var tick_path_follow = $VCR/Ticker/Path2D/TickPathFollow2D
 @onready var hitzone_path_follow = $VCR/Ticker/Path2D/HitzonePathFollow2D
 @onready var hitzone = $VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone
@@ -63,7 +64,9 @@ var VHS_DATA = {}
 
 
 func _ready():
-	music_player = a.play_music('backroom_bgm_1')
+	randomize()
+	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_2', 'backroom_bgm_3', 'backroom_bgm_4']
+	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
 	for tracking_button in tracking.get_children():
@@ -126,9 +129,11 @@ func _process(delta):
 	if tick_path_follow.progress_ratio >= 1.0:
 		tick_path_follow.progress_ratio = 1.0
 		tick_direction = -1.0
+		a.play_random_sfx('ticker_wall', tick)
 	elif tick_path_follow.progress_ratio <= 0.0:
 		tick_path_follow.progress_ratio = 0.0
 		tick_direction = 1.0
+		a.play_random_sfx('ticker_wall', tick)
 
 func on_success():
 	if not rewinding:
