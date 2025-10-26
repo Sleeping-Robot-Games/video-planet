@@ -407,6 +407,8 @@ func get_best_track_setting_for_phase(phase: int) -> String:
 
 
 func _on_fix_tape_button_pressed() -> void:
+	if tape_fixed:
+		return
 	tape_fixed = true
 	tape_broken = false
 	a.play_sfx("tape_fix", vcr_sprite)
