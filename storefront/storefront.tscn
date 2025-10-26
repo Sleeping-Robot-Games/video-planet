@@ -281,6 +281,8 @@ texture = ExtResource("9_k7jv3")
 self_modulate = Color(1, 1, 0.8, 0.5294118)
 position = Vector2(444, 96)
 sprite_frames = SubResource("SpriteFrames_kqfll")
+autoplay = "default"
+frame_progress = 0.5950254
 speed_scale = 0.2
 
 [node name="Windowtets" type="Sprite2D" parent="Deco"]

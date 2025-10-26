@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://y5v3j40a2kwb" path="res://backroom/dial.png" id="5_cge5e"]
 [ext_resource type="Texture2D" uid="uid://c1evwjix2hl33" path="res://backroom/tree.png" id="5_j82ud"]
 [ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="5_otosh"]
+[ext_resource type="Texture2D" uid="uid://cc8p72omoqio3" path="res://backroom/cloud2.png" id="5_sbjxv"]
 [ext_resource type="Texture2D" uid="uid://5jjh4uyfwvjs" path="res://backroom/windowframe.png" id="6_4syaj"]
 [ext_resource type="Texture2D" uid="uid://b4ek8iw0vhneb" path="res://backroom/bigspool.png" id="6_j4ho4"]
 [ext_resource type="Texture2D" uid="uid://djh7f7bfi6a50" path="res://backroom/tree2.png" id="6_j82ud"]
@@ -25,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
 [ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://broow6cw7rx2l" path="res://backroom/tickersquash.png" id="23_4pwh8"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
@@ -268,59 +269,6 @@ shader_parameter/scanline_thickness = 0.249999994412
 shader_parameter/scanlines_spacing = 1.0
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_j8cxi")
 
-[sub_resource type="Animation" id="Animation_ikkeb"]
-resource_name = "trees"
-length = 10.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Tree:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.93333334, 2, 4, 7.0666666, 10),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(640, 360), Vector2(650, 360), Vector2(640, 360), Vector2(650, 360), Vector2(640, 360)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Tree:skew")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 3.0333333, 5.3333335, 6.633333, 10),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0017453292519942303, 0.0017453292519942303, 0.00049950863, 0.0002958241]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Tree2:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(3.7666667, 7.9666667, 10.033334),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(640, 360), Vector2(630, 360), Vector2(640, 360)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Tree2:skew")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.0333333, 2.3666666),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -0.017453292519943295]
-}
-
 [sub_resource type="Animation" id="Animation_sbjxv"]
 length = 0.001
 tracks/0/type = "value"
@@ -372,6 +320,59 @@ tracks/3/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_ikkeb"]
+resource_name = "trees"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tree:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.93333334, 2, 4, 7.0666666, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 360), Vector2(650, 360), Vector2(640, 360), Vector2(650, 360), Vector2(640, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tree:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.0333333, 5.3333335, 6.633333, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.00174532925199423, 0.00174532925199423, 0.00049950863, 0.0002958241]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Tree2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3.7666667, 7.9666667, 10.033334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 360), Vector2(630, 360), Vector2(640, 360)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Tree2:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 2.3666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.01745329251994329]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tjsrd"]
 _data = {
 &"RESET": SubResource("Animation_sbjxv"),
@@ -391,7 +392,30 @@ position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("3_k50q5")
 
+[node name="Clouds" type="Node2D" parent="."]
+position = Vector2(641, 356)
+
+[node name="ParallaxSlow" type="Parallax2D" parent="Clouds"]
+scale = Vector2(2, 2)
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="BackCloud" type="Sprite2D" parent="Clouds/ParallaxSlow"]
+texture = ExtResource("5_sbjxv")
+
+[node name="ParallaxFast" type="Parallax2D" parent="Clouds"]
+scale = Vector2(2, 2)
+repeat_size = Vector2(640, 0)
+autoscroll = Vector2(5, 0)
+repeat_times = 3
+
+[node name="FrontCloud" type="Sprite2D" parent="Clouds/ParallaxFast"]
+position = Vector2(-320, -178.5)
+texture = ExtResource("4_mssko")
+centered = false
+
 [node name="Cloud" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("4_mssko")
@@ -684,11 +708,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_4h6lf")
 }
 
-[node name="TV" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(2, 2)
-texture = ExtResource("6_ltxvr")
-
 [node name="Plant" type="Sprite2D" parent="."]
 position = Vector2(642, 306)
 scale = Vector2(2, 2)
@@ -761,6 +780,11 @@ offset_top = -4.0
 offset_right = 177.0
 offset_bottom = 160.0
 color = Color(0, 0, 0, 1)
+
+[node name="TV" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("6_ltxvr")
 
 [node name="Website" parent="." instance=ExtResource("23_6dn78")]
 visible = false
