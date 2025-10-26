@@ -19,8 +19,8 @@ var sfx_db_override_values = {
 	#'track.wav': 0,
 	'botton_press': 8,
 	'crickets': 0,
-	'footstep_carpet': -10,
-	'footstep_tile': -10,
+	'footstep_carpet': -15,
+	'footstep_tile': -15,
 	'menu_confirm': -20,
 	'menu_select': -20,
 	'pc_login': -20.,
@@ -37,9 +37,8 @@ var sfx_db_override_values = {
 	'static': static_sfx_levels['loudest'],
 	'storefront_door_entry': -2,
 	'storefront_door_exit': -2,
-	'tape_scratch_bad': -1.8,
-	'tape_scratch_good': -6,
-	'tape_tear': 0,
+	'tape_scratch_bad': 0,
+	'tape_scratch_good': -4,
 	'vhs_rewind': -5,
 	'vhs_startup': 15
 }
