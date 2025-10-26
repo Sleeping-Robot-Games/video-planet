@@ -126,6 +126,10 @@ func _on_arrived():
 		return_basket:
 			destinations.append(exit)
 			_play_idle()
+			if not customer_data.movie_data:
+				print('why was customer_data.movie_data null? ', customer_data)
+				_pick_new_target()
+				return
 			store_front.movie_return_to_backlog.emit(customer_data.movie_id, customer_data.movie_data, customer_data.name)
 			await get_tree().create_timer(randf_range(1.0, 2.0)).timeout
 			var chance: int = randi_range(1, 10)
