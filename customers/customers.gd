@@ -64,19 +64,8 @@ func find_random_customer():
 	if goal == "return":
 		# No movie? Generate movie
 		if not customer_has_movie_already:
-			## TODO: Use generate movie function once it's created
-			
+			var new_movie := m.generate_movie('BACKLOG')
 			var new_movie_id := str(randi() % 300 + 100).pad_zeros(3)
-			var new_genre = genre_pool.pick_random()
-			
-			var new_movie := {
-				"title": "Lost in the Couch",
-				"genre": new_genre,
-				"status": "CHECKED OUT",
-				"location": customer_data.name,
-				"reviews": []
-			}
-			
 			customer_data.movie_id = new_movie_id
 			customer_data.movie_data = new_movie
 			m.inventory[new_movie_id] = new_movie
