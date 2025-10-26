@@ -5,6 +5,8 @@ var music_db_override_values = {
 	'backroom_bgm_1': -10,
 	'backroom_bgm_2': -10,
 	'backroom_bgm_3': -10,
+	'backroom_bgm_5': -10,
+	'backroom_bgm_5_loop': -10,
 	'storefront_bgm_1': -10,
 	'storefront_bgm_2': -10,
 	'titlescreen_bgm_1': -10
@@ -18,6 +20,7 @@ var static_sfx_levels = {
 
 var sfx_db_override_values = {
 	#'track.wav': 0,
+	'backroom_bgm_play': -8,
 	'botton_press': 8,
 	'crickets': 0,
 	'dial_light_green': -25,
