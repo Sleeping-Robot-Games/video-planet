@@ -31,6 +31,7 @@ var sfx_db_override_values = {
 	'place_item': -10,
 	'putting_tape_in': 15,
 	'rain': 0,
+	'rental_logged': -8,
 	'rental_return_bad_review': -6,
 	'rental_return_good_review': -6,
 	'rental_return_no_review': -8,
@@ -56,15 +57,15 @@ var sfx_pitch_override_values = {
 		#'base_pitch': 0
 	#},
 	'footstep_carpet': {
-		'pitch_range': 0.1,
+		'pitch_range': 0.2,
 		'base_pitch': 1
 	},
 	'footstep_tile': {
-		'pitch_range': 0.1,
+		'pitch_range': 0.2,
 		'base_pitch': 1
 	},
 	'ticker_wall': {
-		'pitch_range': 0.02,
+		'pitch_range': 0.05,
 		'base_pitch': 1
 	}
 }
