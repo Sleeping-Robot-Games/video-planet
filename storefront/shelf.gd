@@ -80,10 +80,12 @@ func attempt_add_movie(movie_id: String):
 		var shelf_space: Dictionary = spaces[stocked_count]
 		shelf_space.movie_id = movie_id
 		var shelf_node: TextureRect = get_node(shelf_space.shelf + '/' + shelf_space.space)
-		var covers = g.files_in_dir("res://movies/covers/")
-		var random_cover = covers.pick_random() # ain't color coordinated no mo
-		if ResourceLoader.exists(random_cover):
-			shelf_node.texture = load(random_cover)
+		var cover = movie.cover
+		if ResourceLoader.exists('res://movies/covers/' + movie.cover):
+			shelf_node.texture = load('res://movies/covers/' + movie.cover)
+		else:
+			shelf_node.texture = load('res://movies/covers/000.png')
+		
 		shelf_node.show()
 
 func attempt_remove_movie(movie_id: String):
