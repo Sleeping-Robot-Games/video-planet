@@ -17,7 +17,7 @@ func _ready() -> void:
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	
-	if OS.is_debug_build():
+	if not OS.is_debug_build():
 		$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
 		g.player_movement_disabled = true
 		fade_black.color = Color.BLACK
@@ -28,7 +28,7 @@ func _ready() -> void:
 			tween.tween_interval(1.5)
 			tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
 			tween.tween_property(fade_black, 'modulate:a', 0.5, 2)
-			tween.tween_callback($HUD/Dialogue.open.bind('There’s no movies in stock! \n
+			tween.tween_callback($HUD/Dialogue.open.bind('There are no movies in stock! \n
 			I better get to the backroom and \n 
 			start rewinding to fill this place back up!'))
 			tween.tween_property(fade_black, 'modulate:a', 0.0, 2)

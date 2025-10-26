@@ -382,7 +382,7 @@ func next_vhs_phase():
 
 func _on_website_rewind_movie_selected(movie_id: String) -> void:
 	rewinding_movie_id = movie_id
-	$VCR/Labels/RewindingMovieLabel.text = 'Rewinding ’%s’' % m.inventory[movie_id].title
+	$VCR/Labels/RewindingMovieLabel.text = 'Rewinding %s' % m.inventory[movie_id].title
 	$VCR/Labels.show()
 	$BacklogButton.hide()
 	$StorefrontButton.hide()

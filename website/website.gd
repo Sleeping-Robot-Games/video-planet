@@ -119,7 +119,7 @@ func open_by_dialog(_customer_name):
 	genre_input.disabled = true
 	genre_clear.hide()
 	status_input.selected = 1
-	status_input.disabled = false
+	status_input.disabled = true
 	status_clear.hide()
 	for listing in listings_container.get_children():
 		listing.rewind_button.hide()
@@ -132,7 +132,7 @@ func open_by_backroom_computer() -> void:
 	search_input.text = ''
 	search_input.editable = true
 	genre_input.selected = 0
-	genre_input.disabled = true
+	genre_input.disabled = false
 	genre_clear.hide()
 	status_input.selected = 2
 	status_input.disabled = true
