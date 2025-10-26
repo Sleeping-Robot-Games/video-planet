@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=61 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -34,12 +34,12 @@
 [ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="20_22fc6"]
 [ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="20_aahc8"]
 [ext_resource type="Texture2D" uid="uid://e8ohdrelx0sy" path="res://storefront/deco/videorental.png" id="21_bb0xx"]
-[ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="33_0atvx"]
 [ext_resource type="Texture2D" uid="uid://deh7wphgxp6pt" path="res://storefront/poster4.png" id="25_jyqko"]
 [ext_resource type="Texture2D" uid="uid://cskr7dnhfx1xi" path="res://storefront/poster5.png" id="26_kqfll"]
 [ext_resource type="Texture2D" uid="uid://bjs5dlrb37mvs" path="res://storefront/poster6.png" id="27_aahc8"]
 [ext_resource type="Texture2D" uid="uid://d1b2np3wy0tqu" path="res://storefront/poster7.png" id="28_bb0xx"]
 [ext_resource type="Texture2D" uid="uid://ugl2fsorhpi7" path="res://storefront/poster8.png" id="29_vcwno"]
+[ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="33_0atvx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
 vertices = PackedVector2Array(606.21875, 285.5078, 607.2578, 329.5078, 31.046875, 330.47656, 296.42188, 293.21094, 606.89844, 206.5, 606.59375, 237.79688, 309.3125, 231.9375, 301.5, 206.5, 605.5781, 122, 605.9219, 166.47656, 301.5, 165.97656, 247.32031, 122, 238.85938, 189.13281, 294.84375, 242.54688, 31.9375, 178.02344, 209.25, 178.49219, 318.22656, 285.96875)
@@ -281,7 +281,6 @@ texture = ExtResource("9_k7jv3")
 self_modulate = Color(1, 1, 0.8, 0.5294118)
 position = Vector2(444, 96)
 sprite_frames = SubResource("SpriteFrames_kqfll")
-frame_progress = 0.35390276
 speed_scale = 0.2
 
 [node name="Windowtets" type="Sprite2D" parent="Deco"]
@@ -454,7 +453,6 @@ text = "TO DO:
 
 [node name="LogContainer" parent="HUD" instance=ExtResource("33_0atvx")]
 custom_minimum_size = Vector2(600, 0)
-anchors_preset = 0
 offset_left = 74.0
 offset_top = 633.0
 offset_right = 574.0

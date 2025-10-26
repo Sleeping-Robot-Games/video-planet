@@ -12,8 +12,7 @@ extends Node2D
 @onready var rewind_button = $VCR/RewindButton
 @onready var left_spool = $VCR/SpoolIndicator
 @onready var right_spool = $VCR/SpoolIndicator2
-@onready var anim_player = $VCR/AnimationPlayer 
-@onready var broken_tape = $BrokenTape
+@onready var anim_player = $AnimationPlayer 
 @onready var fix_tape_button = $FixTapeButton
 @onready var rewind_effect: ColorRect = $SubViewportContainer/SubViewport/RewindEffectRect
 @onready var tv_off_screen = $SubViewportContainer/SubViewport/TVOff
@@ -59,6 +58,7 @@ var num_of_misses = 0
 var rewinding = false
 var vhs_phase = 1
 var successful_hits = 0
+var tape_broken = false
 
 var VHS_DATA = {}
 
@@ -75,13 +75,11 @@ func _ready():
 	
 
 func _unhandled_input(event: InputEvent):
-	if event.is_action_pressed('fix'):
-		fix_tape_button.pressed.emit()
-		a.play_sfx('tape_fix', vcr_sprite)
-		
 	if not rewinding:
+		if event.is_action_pressed('fix'):
+			fix_tape_button.pressed.emit()
 		return
-		
+
 	for key in tracking_input_map.keys():
 		if event.is_action_pressed(key):
 			tracking_input_map[key].button_pressed = true
@@ -95,7 +93,6 @@ func _unhandled_input(event: InputEvent):
 			on_success()
 		else:
 			on_miss()
-	
 
 func _process(delta):
 	if not rewinding:
@@ -200,8 +197,8 @@ func on_miss():
 	
 	if num_of_misses >= VHS_DATA.number_of_failures_before_break:
 		a.play_sfx('rewind_break', vcr_sprite)
-		broken_tape.show()
-		fix_tape_button.show()
+		tape_broken = true
+		$VCR/Tape.play_backwards()
 		rewinding = false
 		rewind_audio_player.stop()
 		static_audio_player.stop()
@@ -309,9 +306,7 @@ func get_video_file_by_genre() -> String:
 	
 func start_vhs_rewind_after_fix():
 	num_of_misses = 0
-	broken_tape.hide()
-	broken_tape.rotation_degrees = -180
-	broken_tape.modulate = Color.RED
+	## TODO: Play tape animation
 	fix_tape_button.hide()
 	rewinding = true
 	$VCR/AnimationPlayer.play('spin')
@@ -371,15 +366,8 @@ func _on_website_rewind_movie_selected(movie_id: String) -> void:
 	$VCR/Labels.show()
 	$BacklogButton.hide()
 	$StorefrontButton.hide()
-	init_vhs()
+	$VCR/Tape.play()
 	
-
-func _on_rewind_button_pressed() -> void:
-	if rewinding or not rewinding_movie_id:
-		return 
-		
-	init_vhs()
-	rewind_button.release_focus()
 
 func get_best_track_setting_for_phase(phase: int) -> String:
 	var track_weights = VHS_DATA[phase].track_setting_weights
@@ -394,10 +382,26 @@ func get_best_track_setting_for_phase(phase: int) -> String:
 
 
 func _on_fix_tape_button_pressed() -> void:
-	var tween = create_tween()
-	tween.tween_property(broken_tape, 'rotation', 0, 4)
-	tween.parallel().tween_property(broken_tape, 'modulate', Color.WHITE, 4)
-	tween.tween_callback(Callable(self, "start_vhs_rewind_after_fix"))
+	tape_broken = false
+	a.play_sfx("tape_fix", vcr_sprite)
+	$FixTapeButton.hide()
+	
+	# Reset progress first
+	$FixBar.value = 0
+	$FixBar.show()
+
+	var tween := get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+
+	# Fill progress bar over 4 seconds
+	tween.tween_property($FixBar, "value", 100.0, 4.0)
+
+	# After tween finishes → hide UI & play tape
+	tween.tween_callback(func():
+		$FixBar.hide()
+		$VCR/Tape.play()
+	)
+
 
 func set_rewind_noise(value: float = .02) -> void:
 	# Get the ShaderMaterial on the VCR effect
@@ -522,3 +526,10 @@ func generate_vhs_data() -> Dictionary:
 		}
 
 	return data
+
+
+func _on_tape_animation_finished() -> void:
+	if tape_broken:
+		fix_tape_button.show()
+	else:
+		init_vhs()
