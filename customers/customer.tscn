@@ -33,18 +33,31 @@ position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_rr8d6")
 
 [node name="Name" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -29.0
-offset_right = 20.0
-offset_bottom = -15.0
+offset_left = -10.0
+offset_top = -23.0
+offset_right = 30.0
+offset_bottom = -9.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("4_lx1bh")
 text = "Nerd"
+horizontal_alignment = 1
+
+[node name="Interact" type="Label" parent="."]
+visible = false
+offset_left = -32.0
+offset_top = -31.0
+offset_right = 95.0
+offset_bottom = -17.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("4_lx1bh")
+text = "Press E to Interact"
 horizontal_alignment = 1
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
 
 [node name="PlayerWatch" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerWatch"]
 position = Vector2(0, -9)

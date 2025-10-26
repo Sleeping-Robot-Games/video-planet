@@ -1,10 +1,11 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dqpxdo4whrddq"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dqpxdo4whrddq"]
 
-[ext_resource type="FontFile" uid="uid://blpu00mjggdxg" path="res://resources/home-video-font/HomeVideo-BLG6G.ttf" id="1_2pn01"]
 [ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="1_touxu"]
 
 [resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/constants/outline_size = 2
-Button/fonts/font = ExtResource("1_2pn01")
-Label/constants/outline_size = 2
+Button/fonts/font = ExtResource("1_touxu")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 4
 Label/fonts/font = ExtResource("1_touxu")

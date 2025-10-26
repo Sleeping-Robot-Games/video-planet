@@ -4,6 +4,7 @@ extends Node2D
 @onready var todo_panel: Panel = $HUD/ToDo
 @onready var fade_black: ColorRect = $HUD/FadeBlack
 @onready var shelf_desinations = $ShelfDestinations
+@onready var dialog = $HUD/Dialogue
 
 var music_player: AudioStreamPlayer
 
@@ -30,6 +31,9 @@ func _ready() -> void:
 			tween.tween_property(fade_black, 'modulate:a', 0.0, 2)
 			tween.tween_callback(fade_black.hide)
 			tween.tween_callback(unfreeze_player)
+			
+			show_todo()
+			show_backroom_label()
 			g.is_new_game = false
 		else:
 			var tween = get_tree().create_tween()
@@ -51,6 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		hide_todo()
 		music_player.stop()
 		music_player.queue_free()
+		dialog.close()
 		get_tree().change_scene_to_file("res://backroom/backroom.tscn")
 
 
@@ -82,6 +87,8 @@ func _on_customer_timer_timeout() -> void:
 	else:
 		return 
 		
+	randomize()
+		
 	var new_customer = c.find_random_customer()
 	new_customer.store = self
 	new_customer.counter = $CounterDestination
@@ -95,7 +102,6 @@ func _on_customer_timer_timeout() -> void:
 		# set destinations as counter, then door again
 		destinations.append($ReturnBasketLocation)
 	else: # renting
-		randomize()
 		
 		for _i in randi() % 5: # set customer desintations to random shelves then counter
 			destinations.append(shelf_desinations.get_children().pick_random())
@@ -108,7 +114,6 @@ func _on_customer_timer_timeout() -> void:
 	
 	new_customer.enter_store(destinations)
 	
-	randomize()
 	$CustomerTimer.wait_time = clamp(randi() % 30, 1, 30)
 
 

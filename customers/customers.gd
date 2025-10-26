@@ -90,6 +90,6 @@ func find_random_customer():
 	npc.init(customer_data)
 
 	print("NEW CUSTOMER: ", customer_data.name, 
-		" → ", goal, " fav=", customer_data.fave_genre)
+		" → ", goal, " fav=", customer_data.wanted_genre)
 
 	return npc

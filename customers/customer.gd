@@ -67,6 +67,10 @@ func enter_store(dest_array):
 	destinations = dest_array
 	
 	_pick_new_target()
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact") and player_interacting:
+		get_parent().dialog.open('I want a movie, GIMME!')
 
 func _process(_delta: float) -> void:
 	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:
@@ -170,6 +174,7 @@ func _play_idle():
 
 func _on_player_watch_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
+		$Interact.show()
 		player_ref = body
 		player_interacting = true
 		velocity = Vector2.ZERO
@@ -182,6 +187,9 @@ func _on_player_watch_body_entered(body: Node2D) -> void:
 
 func _on_player_watch_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
+		$Interact.hide()
+		if g.is_dialogue_open:
+			get_parent().dialog.close()
 		player_ref = null
 		player_interacting = false
 		arrived = false  # Allow movement again

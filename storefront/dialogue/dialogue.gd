@@ -1,38 +1,60 @@
 extends Panel
 
 @onready var storefront: Node2D = $"../.."
-@onready var player_msg: Label = $Player/VBoxContainer/Message
-@onready var player_continue: RichTextLabel = $Player/VBoxContainer/Continue
+@onready var dialog_msg: Label = $Margin/VBoxContainer/Message
+@onready var button_container = $Margin/VBoxContainer/ButtonContainer
 
-func _input(event):
-	if event.is_action_pressed('continue') and visible and player_continue.visible:
-		perform_bounce()
+var current_options = []
 
-func set_player_message(msg: String) -> void:
+func _ready() -> void:
+	var buttons = button_container.get_children()
+	for i in range(buttons.size()):
+		var btn = buttons[i]
+
+		btn.pressed.connect(_on_choice_pressed.bind(i))
+
+		btn.hide() # default hidden until options shown
+
+func _on_choice_pressed(index: int):
+	## TODO: do stuff???
+	var selected_option = current_options[index]
+	print(selected_option)
+	close()
+	
+func open(msg: String, options: Array = []) -> void:
+	current_options = options
 	g.is_dialogue_open = true
-	player_msg.text = msg
-	$Player.show()
+	dialog_msg.text = msg
+
+	var buttons = button_container.get_children()
+
+	for i in range(buttons.size()):
+		var btn = buttons[i]
+		if i < options.size():
+			btn.text = str(options[i])
+			btn.show()
+		else:
+			btn.hide()
+
 	show()
 
-func space_down() -> void:
-	player_continue.text = '[center]Press [img=60x30]res://storefront/dialogue/kb_space_down.png[/img] to continue[/center]'
-
-func space_up() -> void:
-	player_continue.text = '[center]Press [img=60x30]res://storefront/dialogue/kb_space_up.png[/img] to continue[/center]'
-
 func perform_bounce() -> void:
-	var original_position = global_position
-	
-	var tween = get_tree().create_tween().set_parallel(true)
-	tween.tween_callback(space_down)
-	tween.tween_property(self, 'global_position', original_position - Vector2(0, 5), 0.1)
-	tween.chain().tween_property(self, 'global_position', original_position, 0.1)
-	tween.chain().tween_callback(space_up)
-	tween.chain().tween_interval(0.1)
-	tween.chain().tween_callback(close_dialogue)
+	var original_position = position 
+	var offset_pos = original_position - Vector2(0, 5)
 
-func close_dialogue() -> void:
+	var tween = get_tree().create_tween()
+
+	tween.tween_property(self, "position", offset_pos, 0.1) \
+		.set_trans(Tween.TRANS_QUAD) \
+		.set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(self, "position", original_position, 0.1) \
+		.set_trans(Tween.TRANS_QUAD) \
+		.set_ease(Tween.EASE_IN) \
+		.set_delay(0.1)
+
+
+func close() -> void:
 	hide()
+	current_options = []
 	g.is_dialogue_open = false
-	storefront.show_todo()
-	storefront.show_backroom_label()
