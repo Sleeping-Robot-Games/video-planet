@@ -50,7 +50,7 @@ var return_basket: Node2D
 	#}
 
 func _ready():
-	website.rented_movie_selected.connect(_on_rented_movie)
+	m.rented_movie_selected.connect(_on_rented_movie)
 	
 	nav_agent.path_desired_distance = 8.0
 	nav_agent.target_desired_distance = 8.0
@@ -73,16 +73,17 @@ func enter_store(dest_array):
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_interacting:
-		if customer_data == 'rent':
-			store_front.dialog.open('I want a'+ customer_data.wanted_genre +'movie, GIMME!', name, ['Open Movie Catalog'])
+		if customer_data.goal == 'rent':
+			store_front.dialog.open('I want a '+ customer_data.wanted_genre +' movie, GIMME!', name, ['Open Movie Catalog'])
 		else:
 			store_front.dialog.open('Just returning '+ m.inventory[customer_data.movie_id].title + '\n it was quite the movie...')
 			
 
-func _on_rented_movie(_move_id):
-	destinations = []
-	destinations.append(exit)
-	_pick_new_target()
+func _on_rented_movie(_movie_id: String, customer_name: String):
+	if customer_name == customer_data.name:
+		destinations = []
+		destinations.append(exit)
+		_pick_new_target()
 
 func _process(_delta: float) -> void:
 	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:

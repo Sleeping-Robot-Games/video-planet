@@ -288,7 +288,6 @@ func _on_movie_return_to_backlog(movie_id: String, movie_data: Dictionary, custo
 	movie_data.location = 'NEEDS REWIND'
 	m.inventory[movie_id] = movie_data
 	attempt_add_movie(movie_id)
-	print('movie returned')
 	var log_msg: String = '%s returned \'%s\' to Backlog' % [customer_name, movie_data.title]
 	g.add_log_line.emit(log_msg, 'SUCCESS')
 	a.play_sfx('rental_return_no_review')

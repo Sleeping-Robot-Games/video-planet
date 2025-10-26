@@ -1,5 +1,7 @@
 extends Node
 
+signal rented_movie_selected(movie_id: String, customer_name: String)
+
 var genre_colors: Dictionary = {
 	'HORROR': Color('#ff0000'),
 	'SCI-FI': Color("1854ffff"),
