@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 
+var on_carpet: bool = true
+var footsteps_player: AudioStreamPlayer2D = null
 var last_direction := Vector2.DOWN
 
 func _physics_process(_delta: float) -> void:
@@ -50,3 +52,22 @@ func play_idle_animation(direction: Vector2) -> void:
 		anim_player.play("idle_front")
 	else:
 		anim_player.play("idle_back")
+
+func footsteps() -> void:
+	# return if we're already playing sfx
+	if footsteps_player and footsteps_player.playing:
+		return
+	elif footsteps_player and not footsteps_player.playing:
+		footsteps_player.queue_free()
+	# otherwise 1 in 3 chance to play sfx
+	#randomize()
+	#var chance: int = randi_range(1, 3)
+	#if chance == 1:
+	var sfx_name = 'footstep_carpet' if on_carpet else 'footstep_tile'
+	footsteps_player = a.play_random_sfx(sfx_name)
+	footsteps_player.finished.connect(_on_footsteps_finished)
+
+func _on_footsteps_finished() -> void:
+	if footsteps_player:
+		footsteps_player.finished.disconnect(_on_footsteps_finished)
+		footsteps_player.queue_free()

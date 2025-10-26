@@ -14,6 +14,9 @@ extends CharacterBody2D
 
 @export var speed: float = 85.0
 
+var on_carpet: bool = true
+var footsteps_player: AudioStreamPlayer2D = null
+
 var destinations = []
 
 var store
@@ -198,3 +201,23 @@ func _face_player() -> void:
 			last_facing = "down"
 		else:
 			last_facing = "up"
+
+
+func footsteps() -> void:
+	# return if we're already playing sfx
+	if footsteps_player and footsteps_player.playing:
+		return
+	elif footsteps_player and not footsteps_player.playing:
+		footsteps_player.queue_free()
+	# otherwise 1 in 3 chance to play sfx
+	#randomize()
+	#var chance: int = randi_range(1, 3)
+	#if chance == 1:
+	var sfx_name = 'footstep_carpet' if on_carpet else 'footstep_tile'
+	footsteps_player = a.play_random_sfx(sfx_name)
+	footsteps_player.finished.connect(_on_footsteps_finished)
+
+func _on_footsteps_finished() -> void:
+	if footsteps_player:
+		footsteps_player.finished.disconnect(_on_footsteps_finished)
+		footsteps_player.queue_free()

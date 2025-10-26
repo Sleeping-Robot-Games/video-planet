@@ -154,8 +154,12 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 	# Position override
 	if overrides.has('position') and overrides.position:
 		sfx_player.position = overrides.position
-		
-	# Volume override	
+	
+	# Seek override
+	if overrides.has('seek_to') and overrides.seek_to:
+		sfx_player.seek(overrides.seek_to)
+	
+	# Volume override
 	if overrides.has('db') and overrides.db: # Override option for some specific event in game that different from the standard
 		sfx_player.volume_db = overrides.db
 	else: # Standard override mix for the track type in the sfx_db_override_values list
@@ -164,7 +168,7 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 		else:
 			push_warning("No standard db override mix for track ", track_name)
 			
-	# Pitch override	
+	# Pitch override
 	if overrides.has('pitch') and overrides.pitch:
 		sfx_player.pitch_scale = overrides.pitch
 	else:
