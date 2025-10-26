@@ -12,7 +12,8 @@ extends Node2D
 @onready var rewind_button = $VCR/RewindButton
 @onready var left_spool = $VCR/SpoolIndicator
 @onready var right_spool = $VCR/SpoolIndicator2
-@onready var anim_player = $AnimationPlayer 
+@onready var vcr_anim_player = $VCR/AnimationPlayer
+@onready var tree_anim_player = $AnimationPlayer
 @onready var fix_tape_button = $FixTapeButton
 @onready var rewind_effect: ColorRect = $SubViewportContainer/SubViewport/RewindEffectRect
 @onready var tv_off_screen = $SubViewportContainer/SubViewport/TVOff
@@ -59,12 +60,14 @@ var rewinding = false
 var vhs_phase = 1
 var successful_hits = 0
 var tape_broken = false
+var tape_fixed = false
 
 var VHS_DATA = {}
 
 
 func _ready():
 	randomize()
+	tree_anim_player.play("trees")
 	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_3', 'backroom_bgm_4']
 	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -78,6 +81,8 @@ func _unhandled_input(event: InputEvent):
 	if not rewinding:
 		if event.is_action_pressed('fix'):
 			fix_tape_button.pressed.emit()
+		if event.is_action_pressed('rewind'):
+			$BacklogButton.pressed.emit()
 		return
 
 	for key in tracking_input_map.keys():
@@ -114,7 +119,7 @@ func _process(delta):
 	if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
 		dial_light.color = Color.GREEN
 		tick_speed = VHS_DATA[vhs_phase].tick_speeds['tight_zone']
-		a.play_sfx('dial_light_green', vcr_sprite)
+		## TODO: a.play_sfx('dial_light_green', vcr_sprite)
 	elif dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]:
 		dial_light.color = Color.YELLOW
 		tick_speed = VHS_DATA[vhs_phase].tick_speeds['rough_zone']
@@ -139,7 +144,7 @@ func on_success():
 
 	a.play_sfx('tape_scratch_good', vcr_sprite)
 		
-	anim_player.pause()
+	vcr_anim_player.pause()
 
 	var left_spool_rot = left_spool.rotation
 	var right_spool_rot = right_spool.rotation
@@ -157,7 +162,7 @@ func on_success():
 	
 	if rewinding:
 		# Step 2: resume main spin animation
-		rotation_tween.tween_callback(Callable(anim_player, "play").bind("spin"))
+		rotation_tween.tween_callback(Callable(vcr_anim_player, "play").bind("spin"))
 
 
 func on_miss():
@@ -168,7 +173,7 @@ func on_miss():
 		
 	num_of_misses += 1
 	
-	anim_player.pause()
+	vcr_anim_player.pause()
 
 	var left_spool_rot = left_spool.rotation
 	var right_spool_rot = right_spool.rotation
@@ -207,7 +212,7 @@ func on_miss():
 		video_player.paused = true
 	else:
 		# Resume the spin loop
-		rotation_tween.tween_callback(Callable(anim_player, "play").bind("spin"))
+		rotation_tween.tween_callback(Callable(vcr_anim_player, "play").bind("spin"))
 
 
 func _on_tracking_button_pressed(track_setting: String):
@@ -263,7 +268,7 @@ func init_vhs():
 	hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
 	current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
 	rewinding = true
-	anim_player.play('spin')
+	vcr_anim_player.play('spin')
 	tv_off_screen.hide()
 	set_rewind_noise()
 	turn_on_live_lights()
@@ -307,7 +312,7 @@ func get_video_file_by_genre() -> String:
 	
 func start_vhs_rewind_after_fix():
 	num_of_misses = 0
-	## TODO: Play tape animation
+	tape_fixed = false
 	fix_tape_button.hide()
 	rewinding = true
 	$VCR/AnimationPlayer.play('spin')
@@ -384,6 +389,7 @@ func get_best_track_setting_for_phase(phase: int) -> String:
 
 
 func _on_fix_tape_button_pressed() -> void:
+	tape_fixed = true
 	tape_broken = false
 	a.play_sfx("tape_fix", vcr_sprite)
 	$FixTapeButton.hide()
@@ -534,5 +540,7 @@ func generate_vhs_data() -> Dictionary:
 func _on_tape_animation_finished() -> void:
 	if tape_broken:
 		fix_tape_button.show()
+	elif tape_fixed:
+		start_vhs_rewind_after_fix()
 	else:
 		init_vhs()

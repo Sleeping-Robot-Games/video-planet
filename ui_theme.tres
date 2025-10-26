@@ -1,11 +1,39 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dqpxdo4whrddq"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dqpxdo4whrddq"]
 
 [ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="1_touxu"]
+[ext_resource type="Texture2D" uid="uid://bikmaew14nqw0" path="res://website/button.png" id="2_2pn01"]
+[ext_resource type="Texture2D" uid="uid://do31otnpuu8ej" path="res://website/buttonhover.png" id="2_mk0s6"]
+[ext_resource type="Texture2D" uid="uid://c88i5d5rm5dxn" path="res://website/buttonpressed.png" id="3_tbeor"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5kxjo"]
+texture = ExtResource("2_mk0s6")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbeor"]
+texture = ExtResource("2_2pn01")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mk0s6"]
+texture = ExtResource("3_tbeor")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
-Button/constants/outline_size = 2
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 4
 Button/fonts/font = ExtResource("1_touxu")
+Button/styles/hover = SubResource("StyleBoxTexture_5kxjo")
+Button/styles/normal = SubResource("StyleBoxTexture_tbeor")
+Button/styles/pressed = SubResource("StyleBoxTexture_mk0s6")
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 4
 Label/fonts/font = ExtResource("1_touxu")

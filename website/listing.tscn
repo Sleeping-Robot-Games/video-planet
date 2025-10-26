@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cuk327yhulrkj"]
+[gd_scene load_steps=9 format=3 uid="uid://cuk327yhulrkj"]
 
+[ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="1_l1u4l"]
 [ext_resource type="Script" uid="uid://cgxefmqvjorq6" path="res://website/listing.gd" id="1_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bcinmtm7p8i6h" path="res://movies/covers/000.png" id="2_n7ked"]
 [ext_resource type="Texture2D" uid="uid://bocxi7u3fryxa" path="res://movies/assets/genre_outline.png" id="2_wn40t"]
@@ -17,22 +18,25 @@ offset_left = -187.0
 offset_right = 187.0
 offset_bottom = 64.0
 grow_horizontal = 2
+theme = ExtResource("1_l1u4l")
 theme_override_constants/separation = 32
 alignment = 1
 script = ExtResource("1_n7ked")
 
 [node name="RewindButton" type="Button" parent="." groups=["ui_buttons"]]
 visible = false
+custom_minimum_size = Vector2(125, 40)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "REWIND >>"
 
 [node name="Rent" type="Button" parent="." groups=["ui_buttons"]]
 visible = false
+custom_minimum_size = Vector2(170, 40)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "Rent to Customer"

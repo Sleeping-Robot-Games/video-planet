@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=58 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -34,6 +34,66 @@
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="24_iobut"]
 [ext_resource type="Texture2D" uid="uid://csanlgiqicdm1" path="res://backroom/vhs.png" id="26_ikkeb"]
 [ext_resource type="FontFile" uid="uid://7l50i1c8koul" path="res://resources/m6x11.ttf" id="26_j82ud"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
+allow_unpress = true
+
+[sub_resource type="Theme" id="Theme_grv5e"]
+
+[sub_resource type="Curve2D" id="Curve2D_grv5e"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 724, 427, 0, 0, 0, 0, 1023, 427.62497)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grv5e"]
+size = Vector2(22, 24.000004)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
+size = Vector2(4.0000076, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbjxv"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjsrd"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dfa1"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdlha"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(1920, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg5mw"]
+atlas = ExtResource("26_ikkeb")
+region = Rect2(2560, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in46m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbjxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjsrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dfa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdlha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg5mw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="Animation" id="Animation_irnpm"]
 length = 0.001
@@ -185,66 +245,6 @@ _data = {
 &"spin_recover": SubResource("Animation_2d3aw")
 }
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_grv5e"]
-allow_unpress = true
-
-[sub_resource type="Theme" id="Theme_grv5e"]
-
-[sub_resource type="Curve2D" id="Curve2D_grv5e"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 724, 427, 0, 0, 0, 0, 1023, 427.62497)
-}
-point_count = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_grv5e"]
-size = Vector2(22, 24.000004)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
-size = Vector2(4.0000076, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sbjxv"]
-atlas = ExtResource("26_ikkeb")
-region = Rect2(0, 0, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tjsrd"]
-atlas = ExtResource("26_ikkeb")
-region = Rect2(640, 0, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5dfa1"]
-atlas = ExtResource("26_ikkeb")
-region = Rect2(1280, 0, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdlha"]
-atlas = ExtResource("26_ikkeb")
-region = Rect2(1920, 0, 640, 360)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kg5mw"]
-atlas = ExtResource("26_ikkeb")
-region = Rect2(2560, 0, 640, 360)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_in46m"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sbjxv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tjsrd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5dfa1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kdlha")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kg5mw")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j8cxi"]
 seed = 69
 frequency = 0.2
@@ -268,14 +268,118 @@ shader_parameter/scanline_thickness = 0.249999994412
 shader_parameter/scanlines_spacing = 1.0
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_j8cxi")
 
+[sub_resource type="Animation" id="Animation_ikkeb"]
+resource_name = "trees"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tree:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.93333334, 2, 4, 7.0666666, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 360), Vector2(650, 360), Vector2(640, 360), Vector2(650, 360), Vector2(640, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tree:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.0333333, 5.3333335, 6.633333, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0017453292519942303, 0.0017453292519942303, 0.00049950863, 0.0002958241]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Tree2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3.7666667, 7.9666667, 10.033334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 360), Vector2(630, 360), Vector2(640, 360)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Tree2:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 2.3666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.017453292519943295]
+}
+
+[sub_resource type="Animation" id="Animation_sbjxv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tree:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tree:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Tree2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 360)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Tree2:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjsrd"]
+_data = {
+&"RESET": SubResource("Animation_sbjxv"),
+&"trees": SubResource("Animation_ikkeb")
+}
+
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../VCR")
-libraries = {
-&"": SubResource("AnimationLibrary_4h6lf")
-}
 
 [node name="Bgtest" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -575,6 +679,11 @@ position = Vector2(640, 360)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_in46m")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VCR"]
+libraries = {
+&"": SubResource("AnimationLibrary_4h6lf")
+}
+
 [node name="TV" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
@@ -598,22 +707,27 @@ offset_left = 654.0
 offset_top = 647.0
 offset_right = 764.0
 offset_bottom = 678.0
+theme = ExtResource("5_otosh")
 text = "Fix Tape (F)"
 
 [node name="BacklogButton" type="Button" parent="." groups=["ui_buttons"]]
-offset_left = 659.0
-offset_top = 551.0
-offset_right = 761.0
-offset_bottom = 600.0
+offset_left = 330.0
+offset_top = 490.0
+offset_right = 450.0
+offset_bottom = 563.0
+theme = ExtResource("5_otosh")
 theme_override_fonts/font = ExtResource("26_j82ud")
 text = "Choose Tape
-from Backlog"
+from Backlog
+
+(Enter)"
 
 [node name="StorefrontButton" type="Button" parent="." groups=["ui_buttons"]]
 offset_left = 39.0
 offset_top = 491.0
 offset_right = 214.0
 offset_bottom = 531.0
+theme = ExtResource("5_otosh")
 theme_override_fonts/font = ExtResource("26_j82ud")
 text = "<< Return to Storefront"
 
@@ -668,6 +782,11 @@ offset_top = 614.0
 offset_right = 812.0
 offset_bottom = 641.0
 step = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tjsrd")
+}
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
