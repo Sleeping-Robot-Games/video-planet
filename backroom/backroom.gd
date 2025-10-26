@@ -74,7 +74,7 @@ func _ready():
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('fix'):
 		fix_tape_button.pressed.emit()
-
+		a.play_sfx('tape_fix', vcr_sprite)
 		
 	if not rewinding:
 		return
@@ -325,7 +325,8 @@ func next_vhs_phase():
 	if not VHS_DATA.has(vhs_phase):
 		## Success!
 		a.play_sfx('rewind_complete', vcr_sprite)
-		a.play_sfx('putting_tape_in', vcr_sprite, {'db': -5})
+		a.play_sfx('putting_tape_in', vcr_sprite, {'db': 15})
+		a.play_sfx('rental_return_no_review')
 		## Player can now select a new tape from the backlog or leave back to the store front
 		rewinding = false
 		rewind_audio_player.stop()
