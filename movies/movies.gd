@@ -1,6 +1,7 @@
 extends Node
 
 signal rented_movie_selected(movie_id: String, customer_name: String)
+signal movie_reviewed(is_positive: bool, movie_id: String, movie_data: Dictionary, customer_name: String)
 
 var genre_colors: Dictionary = {
 	'HORROR': Color('#ff0000'),
@@ -41,12 +42,68 @@ func _ready():
 		inventory[movie_id] = movie
 
 	print("✅ Generated ", inventory.size(), " BACKLOG movies!")
+	
+	# connect signals
+	movie_reviewed.connect(_on_movie_reviewed)
 
 
 #func _ready():
 	#for _i in range(1, 50):
 		#var movie = generate_movie('BACKLOG')
 		#print('[%s] %s' % [movie.genre, movie.title])
+
+func _on_movie_reviewed(is_positive: bool, movie_id: String, movie_data: Dictionary, customer_name: String) -> void:
+	var review = generate_review(movie_data.genre, is_positive)
+	m.inventory[movie_id].reviews.append({
+		'user': customer_name,
+		'content': review,
+		'is_positive': is_positive
+	})
+	var log_msg: String = '%s left a %s review' % [customer_name, 'POSITIVE' if is_positive else 'NEGATIVE']
+	g.add_log_line.emit(log_msg, 'SUCCESS' if is_positive else 'NEGATIVE')
+
+func generate_review(genre: String, is_positive: bool) -> String:
+	# 70% chance to use genre-specific review, 30% chance for generic
+	if randf() < 0.7:
+		match genre:
+			"HORROR":
+				return generate_horror_review(is_positive)
+			"SCI-FI":
+				return generate_scifi_review(is_positive)
+			"ROMANCE":
+				return generate_romance_review(is_positive)
+			"COMEDY":
+				return generate_comedy_review(is_positive)
+	return generate_generic_review(is_positive)
+
+
+
+func generate_generic_review(is_positive: bool) -> String:
+	var positive_reviews = [
+		"Really enjoyed this one!",
+		"Instant classic. Will rent again.",
+		"Better than I expected!",
+		"Worth every penny.",
+		"The whole family loved it.",
+		"Awesome movie night pick!",
+		"Five stars, no question.",
+		"Can't wait to show my friends!",
+		"Watched it twice already!",
+		"Perfect for movie night!"
+	]
+	var negative_reviews = [
+		"Waste of a rental.",
+		"Don't bother with this one.",
+		"Save your money.",
+		"Fell asleep halfway through.",
+		"Who approved this?",
+		"The trailer was better.",
+		"Two hours I'll never get back.",
+		"Had to fast forward a lot.",
+		"Not worth the late fees.",
+		"Video quality was terrible."
+	]
+	return positive_reviews.pick_random() if is_positive else negative_reviews.pick_random()
 
 func generate_movie(status: String, customer: String = '') -> Dictionary:
 	var movie: Dictionary = {
@@ -83,6 +140,124 @@ func generate_movie(status: String, customer: String = '') -> Dictionary:
 			movie.location = customer
 	
 	return movie
+
+
+func generate_horror_review(is_positive: bool) -> String:
+	var positive_reviews = [
+		"Couldn't sleep for days!",
+		"Scared the pants off me!",
+		"Perfect amount of scares.",
+		"The ending gave me chills!",
+		"Had to watch through my fingers.",
+		"Delightfully creepy!",
+		"Best jump scares ever.",
+		"Actually scary for once.",
+		"My kind of nightmare fuel!",
+		"Kept me on the edge of my seat!"
+	]
+	
+	var negative_reviews = [
+		"Not scary at all.",
+		"Could see every scare coming.",
+		"The monster looked fake.",
+		"More funny than scary.",
+		"Way too predictable.",
+		"The effects were terrible.",
+		"Boring until the last 10 minutes.",
+		"My kid wasn't even scared.",
+		"Too dark to see anything.",
+		"They just copied better horror movies."
+	]
+
+	return positive_reviews.pick_random() if is_positive else negative_reviews.pick_random()
+
+func generate_scifi_review(is_positive: bool) -> String:
+	var positive_reviews = [
+		"Mind = blown!",
+		"The special effects were incredible!",
+		"Really made me think.",
+		"Such a cool concept.",
+		"The future looks amazing!",
+		"Finally, good sci-fi!",
+		"The tech looked so real.",
+		"Quantum physics checks out.",
+		"Better than Star Wars!",
+		"The aliens were so creative!"
+	]
+	
+	var negative_reviews = [
+		"The science made no sense.",
+		"CGI looked like a video game.",
+		"Too confusing to follow.",
+		"Plot holes everywhere.",
+		"Needed more lasers.",
+		"The aliens looked fake.",
+		"Time travel paradox overload.",
+		"Just a Star Wars ripoff.",
+		"The future looks dumb.",
+		"My calculator has better graphics."
+	]
+
+	return positive_reviews.pick_random() if is_positive else negative_reviews.pick_random()
+
+func generate_romance_review(is_positive: bool) -> String:
+	var positive_reviews = [
+		"Made me believe in love again!",
+		"Cried happy tears!",
+		"Perfect date night movie.",
+		"So romantic!",
+		"The chemistry was perfect!",
+		"Better than the book!",
+		"Just like my love life!",
+		"The ending was so sweet.",
+		"Pure romance perfection.",
+		"My heart is so full!"
+	]
+
+	var negative_reviews = [
+		"No chemistry at all.",
+		"Too cheesy, even for me.",
+		"Unrealistic relationship goals.",
+		"The ending was predictable.",
+		"Made dating look fake.",
+		"Put my date to sleep.",
+		"Less romance than a tax form.",
+		"They deserved better partners.",
+		"My plants have more chemistry.",
+		"Even my ex was better than this."
+	]
+
+	return positive_reviews.pick_random() if is_positive else negative_reviews.pick_random()
+
+func generate_comedy_review(is_positive: bool) -> String:
+	var positive_reviews = [
+		"Laughed the whole time!",
+		"My cheeks still hurt!",
+		"Funniest movie this year!",
+		"The dog scene killed me.",
+		"Quote this daily now.",
+		"Actually LOL'd!",
+		"Perfect stupid fun.",
+		"Rewound the best parts!",
+		"Everyone was cracking up!",
+		"Better comedy than my life!"
+	]
+	
+	var negative_reviews = [
+		"Not even a chuckle.",
+		"The dog wasn't funny.",
+		"Trying way too hard.",
+		"My dad jokes are better.",
+		"Slapstick isn't comedy.",
+		"The laugh track was fake.",
+		"Only funny part was the credits.",
+		"Comedy is dead.",
+		"More groan than grin.",
+		"Should've rented a drama."
+	]
+
+	return positive_reviews.pick_random() if is_positive else negative_reviews.pick_random()
+
 
 ## HORROR TITLES -----
 

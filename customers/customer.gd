@@ -118,7 +118,6 @@ func _on_velocity_computed(safe_velocity: Vector2):
 	move_and_slide()
 
 
-
 func _on_arrived():
 	var dest = destinations.pop_front()
 	arrived = true
@@ -128,8 +127,16 @@ func _on_arrived():
 			destinations.append(exit)
 			_play_idle()
 			store_front.movie_return_to_backlog.emit(customer_data.movie_id, customer_data.movie_data, customer_data.name)
-			
 			await get_tree().create_timer(randf_range(1.0, 2.0)).timeout
+			var chance: int = randi_range(1, 10)
+			if customer_data.wanted_genre == customer_data.movie_data.genre:
+				# 70% chance to leave a positive review if the customer rented the genre they wanted
+				if chance <= 7:
+					m.movie_reviewed.emit(true, customer_data.movie_id, customer_data.movie_data, customer_data.name)
+			else:
+				# otherwise 70% chance to leave negative review
+				if chance <= 7:
+					m.movie_reviewed.emit(false, customer_data.movie_id, customer_data.movie_data, customer_data.name)
 			_pick_new_target()
 		counter:
 			destinations.append(exit)
