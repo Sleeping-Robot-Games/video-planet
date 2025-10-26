@@ -276,7 +276,7 @@ func attempt_add_movie(movie_id: String):
 	if movie.status == 'BACKLOG':
 		stocked_count += 1
 		$Count.text = str(stocked_count) + '/252' # allow counter to overflow...
-		if stocked_count > 36: # ...but not movies
+		if stocked_count > 252: # ...but not movies
 			return
 		var shelf_space: Dictionary = spaces[stocked_count]
 		#shelf_space.movie_id = movie_id

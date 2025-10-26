@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var backroom_label: Label = $HUD/BackroomLabel
-@onready var todo_panel: Panel = $HUD/ToDo
 @onready var fade_black: ColorRect = $HUD/FadeBlack
 @onready var shelf_desinations = $ShelfDestinations
 @onready var dialog = $HUD/Dialogue
@@ -18,7 +17,7 @@ func _ready() -> void:
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	
-	if not OS.is_debug_build():
+	if OS.is_debug_build():
 		$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
 		g.player_movement_disabled = true
 		fade_black.color = Color.BLACK
@@ -29,17 +28,17 @@ func _ready() -> void:
 			tween.tween_interval(1.5)
 			tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
 			tween.tween_property(fade_black, 'modulate:a', 0.5, 2)
-			tween.tween_callback($HUD/Dialogue.open.bind('There’s no movies here! \n
-			I better start rewinding \n
-			to fill this place back up!'))
+			tween.tween_callback($HUD/Dialogue.open.bind('There’s no movies in stock! \n
+			I better get to the backroom and \n 
+			start rewinding to fill this place back up!'))
 			tween.tween_property(fade_black, 'modulate:a', 0.0, 2)
 			tween.tween_callback(fade_black.hide)
 			tween.tween_callback(unfreeze_player)
 			
-			show_todo()
 			show_backroom_label()
 			g.is_new_game = false
 		else:
+			$CustomerTimer.start()
 			var tween = get_tree().create_tween()
 			tween.tween_interval(.75)
 			tween.tween_property(fade_black, 'modulate:a', 0.5, 1)
@@ -65,7 +64,6 @@ func unfreeze_player() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and backroom_label.visible:
-		hide_todo()
 		music_player.stop()
 		music_player.queue_free()
 		dialog.close()
@@ -81,11 +79,6 @@ func _on_back_room_door_area_2d_body_exited(body: Node2D) -> void:
 	if body.name == 'Player':
 		backroom_label.hide()
 
-func show_todo() -> void:
-	todo_panel.show()
-
-func hide_todo() -> void:
-	todo_panel.hide()
 
 func show_backroom_label() -> void:
 	$HUD/BackroomEntranceLabel.show()

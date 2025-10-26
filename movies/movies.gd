@@ -28,113 +28,20 @@ var inventory: Dictionary = {
 				'is_positive': true
 			}
 		]
-	},
-	'002': {
-		'title': 'TBD',
-		'genre': 'HORROR',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'003': {
-		'title': 'TBD',
-		'genre': 'HORROR',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'004': {
-		'title': 'TBD',
-		'genre': 'HORROR',
-		'status': 'CHECKED OUT',
-		'location': 'ARI W',
-		'reviews': []
-	},
-	'005': {
-		'title': 'TBD',
-		'genre': 'SCI-FI',
-		'status': 'CHECKED OUT',
-		'location': 'JOAN G',
-		'reviews': []
-	},
-	'006': {
-		'title': 'TBD',
-		'genre': 'SCI-FI',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'007': {
-		'title': 'TBD',
-		'genre': 'SCI-FI',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'008': {
-		'title': 'TBD',
-		'genre': 'SCI-FI',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'009': {
-		'title': 'THE BOATNOOK',
-		'genre': 'ROMANCE',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'010': {
-		'title': 'TBD',
-		'genre': 'ROMANCE',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'011': {
-		'title': 'TBD',
-		'genre': 'ROMANCE',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'012': {
-		'title': 'TBD',
-		'genre': 'ROMANCE',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'013': {
-		'title': 'TBD',
-		'genre': 'COMEDY',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'014': {
-		'title': 'TBD',
-		'genre': 'COMEDY',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'015': {
-		'title': 'TBD',
-		'genre': 'COMEDY',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
-	},
-	'016': {
-		'title': 'TBD',
-		'genre': 'COMEDY',
-		'status': 'BACKLOG',
-		'location': 'NEEDS REWIND',
-		'reviews': []
 	}
 }
+
+func _ready():
+	randomize()
+	inventory.clear()
+
+	for i in range(1, 101): # Generate 100 backlog movies
+		var movie_id = str(i).pad_zeros(3)
+		var movie = generate_movie("BACKLOG") # Always backlog
+		inventory[movie_id] = movie
+
+	print("✅ Generated ", inventory.size(), " BACKLOG movies!")
+
 
 #func _ready():
 	#for _i in range(1, 50):

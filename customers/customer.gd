@@ -22,9 +22,7 @@ var destinations = []
 
 var store
 
-
 var last_facing: String = "down" # or "back" depending on how you name directions
-
 
 var current_target: Node2D
 var arrived = false

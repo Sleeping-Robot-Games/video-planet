@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=60 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -185,9 +185,6 @@ size = Vector2(189, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fk8fj"]
 size = Vector2(13.75, 41.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur6w1"]
-bg_color = Color(0, 0, 0, 0.7294118)
 
 [node name="Storefront" type="Node2D"]
 y_sort_enabled = true
@@ -418,41 +415,6 @@ position = Vector2(74, 144)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="ToDo" type="Panel" parent="HUD"]
-visible = false
-offset_left = 678.0
-offset_top = 65.0
-offset_right = 949.0
-offset_bottom = 120.0
-theme = ExtResource("20_22fc6")
-theme_override_styles/panel = SubResource("StyleBoxFlat_ur6w1")
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/ToDo"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 5.0
-offset_right = 23.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/ToDo/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="HUD/ToDo/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/outline_size = 3
-text = "TO DO:
-- Approach backroom door and enter"
-
 [node name="LogContainer" parent="HUD" instance=ExtResource("33_0atvx")]
 custom_minimum_size = Vector2(600, 0)
 offset_left = 74.0
@@ -507,7 +469,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="CustomerTimer" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
 
 [node name="CounterDestination" type="Node2D" parent="."]
 position = Vector2(146, 186.5)
