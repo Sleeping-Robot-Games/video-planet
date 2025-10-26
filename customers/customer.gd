@@ -124,7 +124,8 @@ func _on_arrived():
 		return_basket:
 			destinations.append(exit)
 			_play_idle()
-			## TODO: Return movie they have in customer_data.movie_id
+			store_front.movie_return_to_backlog.emit(customer_data.movie_id, customer_data.movie_data, customer_data.name)
+			
 			await get_tree().create_timer(randf_range(1.0, 2.0)).timeout
 			_pick_new_target()
 		counter:

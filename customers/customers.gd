@@ -50,7 +50,7 @@ func find_random_customer():
 		goal = 'return'
 	elif randf() <= 0.7:
 		goal =  "rent"
-		
+	#goal = 'return' # TEMP DEBUGGING
 	var goal_data = {
 		"goal": goal,
 		"wanted_genre": genre_pool.pick_random(),

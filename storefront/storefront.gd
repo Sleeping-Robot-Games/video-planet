@@ -7,6 +7,8 @@ extends Node2D
 @onready var dialog = $HUD/Dialogue
 @onready var website = $HUD/Website
 
+signal movie_return_to_backlog(movie_id: String, movie_data: Dictionary, customer_name: String)
+
 var music_player: AudioStreamPlayer
 
 var customer_in_store = false

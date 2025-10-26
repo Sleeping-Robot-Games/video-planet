@@ -1,5 +1,7 @@
 extends Sprite2D
 
+@onready var store_front = $'../..'
+
 var spaces: Dictionary = {
 	1: { 'shelf': '01', 'space': 'a' },
 	2: { 'shelf': '01', 'space': 'b' },
@@ -262,6 +264,9 @@ func _ready() -> void:
 	$Count.text = '0/252'
 	for movie_id in m.inventory.keys():
 		attempt_add_movie(movie_id)
+	
+	# connect signals
+	store_front.movie_return_to_backlog.connect(_on_movie_return_to_backlog)
 
 func stock_movie(movie_id: String):
 	attempt_add_movie(movie_id)
@@ -277,3 +282,13 @@ func attempt_add_movie(movie_id: String):
 		#shelf_space.movie_id = movie_id
 		var shelf_node: TextureRect = get_node(shelf_space.shelf + '/' + shelf_space.space)
 		shelf_node.show()
+
+func _on_movie_return_to_backlog(movie_id: String, movie_data: Dictionary, customer_name: String) -> void:
+	movie_data.status = 'BACKLOG'
+	movie_data.location = 'NEEDS REWIND'
+	m.inventory[movie_id] = movie_data
+	attempt_add_movie(movie_id)
+	print('movie returned')
+	var log_msg: String = '%s returned \'%s\' to Backlog' % [customer_name, movie_data.title]
+	g.add_log_line.emit(log_msg, 'SUCCESS')
+	a.play_sfx('rental_return_no_review')

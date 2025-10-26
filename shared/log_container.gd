@@ -13,3 +13,4 @@ func _on_add_log_line(msg: String, type: String) -> void:
 	log_line.set_log_messsage(msg, log_color)
 	add_child(log_line)
 	move_child(log_line, 0)
+	

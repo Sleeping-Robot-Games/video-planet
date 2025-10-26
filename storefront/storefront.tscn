@@ -34,6 +34,7 @@
 [ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="20_22fc6"]
 [ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="20_aahc8"]
 [ext_resource type="Texture2D" uid="uid://e8ohdrelx0sy" path="res://storefront/deco/videorental.png" id="21_bb0xx"]
+[ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="33_0atvx"]
 [ext_resource type="Texture2D" uid="uid://deh7wphgxp6pt" path="res://storefront/poster4.png" id="25_jyqko"]
 [ext_resource type="Texture2D" uid="uid://cskr7dnhfx1xi" path="res://storefront/poster5.png" id="26_kqfll"]
 [ext_resource type="Texture2D" uid="uid://bjs5dlrb37mvs" path="res://storefront/poster6.png" id="27_aahc8"]
@@ -448,6 +449,15 @@ size_flags_vertical = 3
 theme_override_constants/outline_size = 3
 text = "TO DO:
 - Approach backroom door and enter"
+
+[node name="LogContainer" parent="HUD" instance=ExtResource("33_0atvx")]
+custom_minimum_size = Vector2(600, 0)
+anchors_preset = 0
+offset_left = 74.0
+offset_top = 633.0
+offset_right = 574.0
+offset_bottom = 633.0
+grow_vertical = 1
 
 [node name="Website" parent="HUD" instance=ExtResource("17_qepj0")]
 visible = false
