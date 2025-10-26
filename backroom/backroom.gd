@@ -160,6 +160,10 @@ func on_success():
 	var left_spool_rot = left_spool.rotation
 	var right_spool_rot = right_spool.rotation
 
+	var brightness_tween = create_tween()
+	brightness_tween.tween_property(hitzone, "modulate", Color(1.2, 1.2, 1.5), 0.15)
+	brightness_tween.tween_property(hitzone, "modulate", Color(1, 1, 1), 0.15)
+
 	var rotation_tween = create_tween()
 
 	# Both spools spin fast, full rotation in opposite directions
