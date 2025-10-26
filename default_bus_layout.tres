@@ -2,7 +2,7 @@
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
 resource_name = "Compressor"
-threshold = -22.0
+threshold = -20.0
 attack_us = 25.0
 sidechain = &"UI"
 
