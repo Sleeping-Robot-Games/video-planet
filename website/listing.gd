@@ -17,6 +17,13 @@ var review_scene = preload('res://website/review.tscn')
 var website: TextureRect = null
 var movie_id: String = '000'
 
+func _ready():
+	for button in [$Rent, $RewindButton]:
+		button.mouse_entered.connect(func():
+			a.play_sfx("menu_select"))
+		button.pressed.connect(func():
+			a.play_sfx("menu_confirm"))
+
 func init(_website: TextureRect) -> void:
 	website = _website
 
