@@ -52,6 +52,14 @@ var sfx_pitch_override_values = {
 		#'pitch_range': 0,
 		#'base_pitch': 0
 	#},
+	'footstep_carpet': {
+		'pitch_range': 0.1,
+		'base_pitch': 1
+	},
+	'footstep_tile': {
+		'pitch_range': 0.1,
+		'base_pitch': 1
+	}
 }
 
 # SFX Bus declarations not needed, as the default Audio Bus to SFX
