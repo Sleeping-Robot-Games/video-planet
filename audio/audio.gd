@@ -57,11 +57,11 @@ var sfx_pitch_override_values = {
 		#'base_pitch': 0
 	#},
 	'footstep_carpet': {
-		'pitch_range': 0.2,
+		'pitch_range': 0.3,
 		'base_pitch': 1
 	},
 	'footstep_tile': {
-		'pitch_range': 0.2,
+		'pitch_range': 0.3,
 		'base_pitch': 1
 	},
 	'ticker_wall': {
