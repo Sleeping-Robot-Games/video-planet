@@ -110,6 +110,7 @@ func _on_arrived():
 		destinations.append(exit)
 	if dest == exit:
 		store.customer_in_store = false
+		a.play_random_sfx('storefront_door_exit', a, {'position': position})
 		queue_free()
 		
 	_play_idle()

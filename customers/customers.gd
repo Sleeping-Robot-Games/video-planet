@@ -30,43 +30,40 @@ func _ready():
 	for i in range(total_count):
 		customer_pool.append({
 			"name": names[i],
-			"sprite": "res://customers/sprites/" + sprite_files[i]
+			"sprite": "res://customers/sprites/" + sprite_files[i],
+			"friendship_level": 0,
+			"extrovert": randf() > 0.5,
 		})
 
-func generate_customer():
-	var customer_name_and_sprite = customer_pool.pick_random()
-	var goal
-	if randf() <= 0.4:
+func find_random_customer():
+	var customer_data = customer_pool.pick_random().duplicate()
+	
+	var customer_has_movie_already = false
+	
+	for movie_id in m.inventory.keys():
+		var movie = m.inventory[movie_id]
+		if movie.status == "CHECKED OUT" and movie.location == customer_data.name:
+			customer_has_movie_already = true
+			
+	var goal = 'return'
+	if customer_has_movie_already:
 		goal = 'return'
-	else:
+	elif randf() <= 0.7:
 		goal =  "rent"
 		
-
-	var customer_data = {
-		"name": customer_name_and_sprite.name,
-		"sprite": customer_name_and_sprite.sprite,
-		"fave_genre": genre_pool.pick_random(),
-		"friendship_level": 0,
-		"extrovert": randf() > 0.5,
+	var goal_data = {
 		"goal": goal,
+		"wanted_genre": genre_pool.pick_random(),
 		"movie_id": null,
 		"movie_data": null
 	}
+	
+	customer_data.merge(goal_data, true)
 
 	# Returning customers should already have a movie checked out
-	if goal == "return":
-		var found := false
-		
-		for movie_id in m.inventory.keys():
-			var movie = m.inventory[movie_id]
-			if movie.status == "CHECKED OUT" and movie.location == customer_data.name:
-				customer_data.movie_id = movie_id
-				customer_data.movie_data = movie
-				found = true
-				break
-		
-		# No movie found? Generate movie
-		if not found:
+	if goal == "return":		
+		# No movie? Generate movie
+		if not customer_has_movie_already:
 			## TODO: Use generate movie function once it's created
 			
 			var new_movie_id := str(randi() % 300 + 100).pad_zeros(3)
@@ -85,7 +82,7 @@ func generate_customer():
 			m.inventory[new_movie_id] = new_movie
 
 	# Keep track of this customer
-	customers[customer_data.name] = customer_data
+	customers[customer_data.name] = customer_data.duplicate()
 
 	# Create NPC scene
 	var npc = customer_scene.instantiate()

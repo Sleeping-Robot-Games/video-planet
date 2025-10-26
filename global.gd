@@ -5,7 +5,7 @@ signal add_log_line(msg: String, color: Color)
 var is_new_game: bool = true
 var is_clocking_in: bool = true
 var is_dialogue_open: bool = false
-var player_movement_disabled: bool = true
+var player_movement_disabled: bool = false
 var decoration_unlocks: Array = [
 	{
 		'name': 'rug_a',

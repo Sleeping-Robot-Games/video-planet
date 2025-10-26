@@ -211,7 +211,7 @@ y_sort_enabled = true
 position = Vector2(444, 96)
 texture = ExtResource("8_dspst")
 
-[node name="Doortemp" type="Sprite2D" parent="Deco"]
+[node name="DoorSprite" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
 position = Vector2(280, 104)
 texture = ExtResource("9_ur6w1")
