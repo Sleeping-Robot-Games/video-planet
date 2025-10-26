@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=70 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bjcfleg5jtqav" path="res://backroom/vhsstack.png" id="9_kdlha"]
 [ext_resource type="Texture2D" uid="uid://bhop6mdbhsm6u" path="res://backroom/button2pressed.png" id="10_iobut"]
 [ext_resource type="Texture2D" uid="uid://b1b2121dobcxb" path="res://backroom/button3.png" id="11_otosh"]
+[ext_resource type="Texture2D" uid="uid://cjrufplwmxt1u" path="res://backroom/vcrglass.png" id="12_1hwuc"]
 [ext_resource type="Texture2D" uid="uid://c5nfwrl6rimn1" path="res://backroom/button3pressed.png" id="12_osn8m"]
 [ext_resource type="Texture2D" uid="uid://boanabjswjdpg" path="res://backroom/button4.png" id="13_1r01e"]
 [ext_resource type="Texture2D" uid="uid://clhn1l1yqp7i" path="res://backroom/button4pressed.png" id="14_k50q5"]
@@ -460,16 +461,24 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
-visible = false
-position = Vector2(958, 578)
+position = Vector2(1021.00006, 563.00006)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_j4ho4")
+
+[node name="SpoolIndicator3" type="Sprite2D" parent="VCR"]
+position = Vector2(1021.00006, 563.00006)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
-visible = false
-position = Vector2(1024.2, 578)
+position = Vector2(1107, 563)
 scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
+
+[node name="Vcrglass" type="Sprite2D" parent="VCR"]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("12_1hwuc")
 
 [node name="Labels" type="Control" parent="VCR"]
 visible = false
@@ -843,7 +852,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("36_5dfa1")
 
 [node name="Bglight" type="Sprite2D" parent="."]
-visible = false
 self_modulate = Color(1, 1, 1, 0.5254902)
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
