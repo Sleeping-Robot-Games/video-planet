@@ -95,6 +95,15 @@ func _on_status_item_selected(index: int) -> void:
 	filter_movies()
 	status_clear.visible = bool(index)
 
+func refresh_movies():
+	for listing in listings_container.get_children():
+		listing.queue_free()
+	for movie_id in m.inventory.keys():
+		var listing = listing_scene.instantiate()
+		listings_container.add_child(listing)
+		listing.init(self)
+		listing.set_movie(movie_id)
+
 func open_by_storefront_computer() -> void:
 	search_input.text = ''
 	search_input.editable = true
@@ -104,6 +113,7 @@ func open_by_storefront_computer() -> void:
 	status_input.selected = 0
 	status_input.disabled = false
 	status_clear.hide()
+	refresh_movies()
 	for listing in listings_container.get_children():
 		listing.rewind_button.hide()
 		listing.rent_button.hide()
@@ -121,6 +131,7 @@ func open_by_dialog(_customer_name):
 	status_input.selected = 1
 	status_input.disabled = true
 	status_clear.hide()
+	refresh_movies()
 	for listing in listings_container.get_children():
 		listing.rewind_button.hide()
 		listing.rent_button.show()
@@ -137,6 +148,7 @@ func open_by_backroom_computer() -> void:
 	status_input.selected = 2
 	status_input.disabled = true
 	status_clear.hide()
+	refresh_movies()
 	for listing in listings_container.get_children():
 		listing.rewind_button.show()
 		listing.rent_button.hide()
