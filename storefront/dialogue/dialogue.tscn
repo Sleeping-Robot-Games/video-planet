@@ -57,6 +57,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Choice1" type="Button" parent="Margin/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Movie Title"
 alignment = 0
