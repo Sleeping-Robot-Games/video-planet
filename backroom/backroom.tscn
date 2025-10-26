@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=59 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -394,20 +394,16 @@ texture = ExtResource("3_k50q5")
 
 [node name="Clouds" type="Node2D" parent="."]
 position = Vector2(641, 356)
+scale = Vector2(2, 2)
 
 [node name="ParallaxSlow" type="Parallax2D" parent="Clouds"]
-scale = Vector2(2, 2)
 repeat_size = Vector2(640, 0)
-repeat_times = 3
 
 [node name="BackCloud" type="Sprite2D" parent="Clouds/ParallaxSlow"]
 texture = ExtResource("5_sbjxv")
 
 [node name="ParallaxFast" type="Parallax2D" parent="Clouds"]
-scale = Vector2(2, 2)
 repeat_size = Vector2(640, 0)
-autoscroll = Vector2(5, 0)
-repeat_times = 3
 
 [node name="FrontCloud" type="Sprite2D" parent="Clouds/ParallaxFast"]
 position = Vector2(-320, -178.5)
