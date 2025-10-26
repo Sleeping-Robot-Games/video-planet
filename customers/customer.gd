@@ -14,7 +14,7 @@ extends CharacterBody2D
 
 @export var speed: float = 85.0
 
-var on_carpet: bool = true
+var on_carpet: bool = false
 var footsteps_player: AudioStreamPlayer2D = null
 var website
 
