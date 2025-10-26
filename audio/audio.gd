@@ -24,6 +24,7 @@ var sfx_db_override_values = {
 	'footstep_tile': -15,
 	'menu_confirm': -20,
 	'menu_select': -20,
+	'movietrailer': -100,
 	'pc_login': -20.,
 	'pc_logoff': -20,
 	'place_item': -5,
