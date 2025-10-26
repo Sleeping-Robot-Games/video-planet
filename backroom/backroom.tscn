@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
 [ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://broow6cw7rx2l" path="res://backroom/tickersquash.png" id="23_4pwh8"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
@@ -820,13 +820,6 @@ position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("6_ltxvr")
 
-[node name="Website" parent="." instance=ExtResource("23_6dn78")]
-visible = false
-offset_left = 0.0
-offset_top = -1.0
-offset_right = 1280.0
-offset_bottom = 719.0
-
 [node name="LogContainer" parent="." instance=ExtResource("24_iobut")]
 offset_left = 33.0
 offset_top = 683.0
@@ -846,16 +839,23 @@ libraries = {
 &"": SubResource("AnimationLibrary_tjsrd")
 }
 
-[node name="Fairylight" type="Sprite2D" parent="."]
-position = Vector2(640, 360)
-scale = Vector2(2, 2)
-texture = ExtResource("36_5dfa1")
-
 [node name="Bglight" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.5254902)
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("35_sbjxv")
+
+[node name="Website" parent="." instance=ExtResource("23_6dn78")]
+visible = false
+offset_left = 0.0
+offset_top = -1.0
+offset_right = 1280.0
+offset_bottom = 719.0
+
+[node name="Fairylight" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("36_5dfa1")
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
