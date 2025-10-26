@@ -13,7 +13,8 @@ var music_player: AudioStreamPlayer
 var customer_in_store = false
 
 func _ready() -> void:
-	music_player = a.play_music('storefront_bgm_1')
+	var bgm_pool = ['storefront_bgm_1', 'storefront_bgm_2']
+	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	
