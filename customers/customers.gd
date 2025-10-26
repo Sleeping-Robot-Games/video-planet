@@ -61,7 +61,7 @@ func find_random_customer():
 	customer_data.merge(goal_data, true)
 
 	# Returning customers should already have a movie checked out
-	if goal == "return":		
+	if goal == "return":
 		# No movie? Generate movie
 		if not customer_has_movie_already:
 			## TODO: Use generate movie function once it's created

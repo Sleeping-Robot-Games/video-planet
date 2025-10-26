@@ -73,7 +73,11 @@ func enter_store(dest_array):
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_interacting:
-		store_front.dialog.open('I want a movie, GIMME!', name, ['Open Movie Catalog'])
+		if customer_data == 'rent':
+			store_front.dialog.open('I want a'+ customer_data.wanted_genre +'movie, GIMME!', name, ['Open Movie Catalog'])
+		else:
+			store_front.dialog.open('Just returning '+ m.inventory[customer_data.movie_id].title + '\n it was quite the movie...')
+			
 
 func _on_rented_movie(_move_id):
 	destinations = []
@@ -116,18 +120,25 @@ func _on_arrived():
 	var dest = destinations.pop_front()
 	arrived = true
 	velocity = Vector2.ZERO
-	if dest == return_basket:
-		destinations.append(exit)
-	if dest == counter:
-		destinations.append(exit)
-	if dest == exit:
-		store.customer_in_store = false
-		a.play_random_sfx('storefront_door_exit', a, {'position': position})
-		queue_free()
-		
-	_play_idle()
-	await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
-	_pick_new_target()
+	match dest:
+		return_basket:
+			destinations.append(exit)
+			_play_idle()
+			## TODO: Return movie they have in customer_data.movie_id
+			await get_tree().create_timer(randf_range(1.0, 2.0)).timeout
+			_pick_new_target()
+		counter:
+			destinations.append(exit)
+			await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
+			_play_idle()
+		exit:
+			store.customer_in_store = false
+			a.play_random_sfx('storefront_door_exit', a, {'position': position})
+			queue_free()
+		_:
+			_play_idle()
+			await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
+			_pick_new_target()
 
 
 func _pick_new_target():
