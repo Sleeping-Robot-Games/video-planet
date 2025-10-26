@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bahogvabt6amf"]
+[gd_scene load_steps=8 format=3 uid="uid://bahogvabt6amf"]
 
 [ext_resource type="Script" uid="uid://dvoa2bgniijt7" path="res://website/website.gd" id="1_6c0tl"]
 [ext_resource type="Texture2D" uid="uid://i6a1xwtvrwtw" path="res://website/bg_002.png" id="1_sq2lu"]
 [ext_resource type="Texture2D" uid="uid://bo3occen3lknt" path="res://website/clear_icon.svg" id="2_6c0tl"]
 [ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="2_fayii"]
+[ext_resource type="Texture2D" uid="uid://xab0b7tglnfh" path="res://storefront/deco/videoplanet.png" id="5_8sskb"]
 [ext_resource type="FontFile" uid="uid://blpu00mjggdxg" path="res://resources/home-video-font/HomeVideo-BLG6G.ttf" id="5_kegp1"]
 [ext_resource type="PackedScene" uid="uid://wjyhqjq4u2lh" path="res://resources/window.tscn" id="6_xjgjl"]
 
@@ -61,7 +62,15 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 16
 
+[node name="TextureRect" type="TextureRect" parent="Margins/Window/PageMargins/VBox/Header/VBox"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+texture = ExtResource("5_8sskb")
+expand_mode = 1
+stretch_mode = 3
+
 [node name="Title" type="Label" parent="Margins/Window/PageMargins/VBox/Header/VBox"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_fayii")
 theme_override_colors/font_color = Color(0.34901962, 0.8392157, 0.92941177, 1)
