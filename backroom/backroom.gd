@@ -3,6 +3,7 @@ extends Node2D
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
+@onready var tick = $VCR/Ticker/Path2D/TickPathFollow2D/Tick
 @onready var tick_path_follow = $VCR/Ticker/Path2D/TickPathFollow2D
 @onready var hitzone_path_follow = $VCR/Ticker/Path2D/HitzonePathFollow2D
 @onready var hitzone = $VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone
@@ -63,7 +64,9 @@ var VHS_DATA = {}
 
 
 func _ready():
-	music_player = a.play_music('backroom_bgm_1')
+	randomize()
+	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_2', 'backroom_bgm_3', 'backroom_bgm_4']
+	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
 	for tracking_button in tracking.get_children():
@@ -74,7 +77,7 @@ func _ready():
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('fix'):
 		fix_tape_button.pressed.emit()
-
+		a.play_sfx('tape_fix', vcr_sprite)
 		
 	if not rewinding:
 		return
@@ -126,9 +129,11 @@ func _process(delta):
 	if tick_path_follow.progress_ratio >= 1.0:
 		tick_path_follow.progress_ratio = 1.0
 		tick_direction = -1.0
+		a.play_random_sfx('ticker_wall', tick)
 	elif tick_path_follow.progress_ratio <= 0.0:
 		tick_path_follow.progress_ratio = 0.0
 		tick_direction = 1.0
+		a.play_random_sfx('ticker_wall', tick)
 
 func on_success():
 	if not rewinding:
@@ -325,7 +330,8 @@ func next_vhs_phase():
 	if not VHS_DATA.has(vhs_phase):
 		## Success!
 		a.play_sfx('rewind_complete', vcr_sprite)
-		a.play_sfx('putting_tape_in', vcr_sprite, {'db': -5})
+		a.play_sfx('putting_tape_in', vcr_sprite, {'db': 15})
+		a.play_sfx('rental_return_no_review')
 		## Player can now select a new tape from the backlog or leave back to the store front
 		rewinding = false
 		rewind_audio_player.stop()

@@ -13,6 +13,7 @@ attack_us = 25.0
 sidechain = &"SFX"
 
 [resource]
+bus/0/volume_db = -2.5124817
 bus/1/name = &"BGM"
 bus/1/solo = false
 bus/1/mute = false

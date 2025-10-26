@@ -24,26 +24,25 @@ var sfx_db_override_values = {
 	'footstep_tile': -15,
 	'menu_confirm': -20,
 	'menu_select': -20,
-	'movietrailer': -100,
-	'pc_login': -20.,
-	'pc_logoff': -20,
-	'place_item': -5,
+	'pc_login': -10,
+	'pc_logoff': -10,
+	'place_item': -10,
 	'putting_tape_in': 0,
 	'rain': 0,
-	'rental_return_bad_review': 0,
-	'rental_return_good_review': 0,
-	'rental_return_no_review': 0,
+	'rental_return_bad_review': -6,
+	'rental_return_good_review': -6,
+	'rental_return_no_review': -8,
 	'rewind_complete': 13,
 	'rewind_break': -10,
-	'service_bell': 0,
+	'service_bell': -8,
 	'static': static_sfx_levels['loudest'],
-	'storefront_door_entry': -2,
-	'storefront_door_exit': -2,
-	'tape_fix': 0,
+	'storefront_door_entry': -9,
+	'storefront_door_exit': -11,
+	'tape_fix': -1.8,
 	'tape_scratch_bad': 0,
 	'tape_scratch_good': -4,
 	'tape_tear': 0,
-	'ticker_wall': -10,
+	'ticker_wall': -23,
 	'vhs_rewind': -5,
 	'vhs_startup': 15
 }
@@ -76,6 +75,7 @@ var sfx_bus_lookup = {
 	'crickets': 'Ambience',
 	'rain': 'Ambience',
 	'static': 'Ambience',
+	'ticker_wall': 'Ambience',
 	'vhs_rewind': 'Ambience'
 	
 }
@@ -85,7 +85,8 @@ var non_positional_tracks = [
 	'menu_select',
 	'menu_confirm',
 	'pc_login',
-	'pc_logoff'
+	'pc_logoff',
+	'movietrailer'
 ]
 
 func _ready():
