@@ -23,6 +23,7 @@ var sfx_db_override_values = {
 	'backroom_bgm_play': -8,
 	'botton_press': 8,
 	'crickets': 0,
+	'customer_dialogue_bubble': -10,
 	'dial_light_green': -25,
 	'footstep_carpet': -15,
 	'footstep_tile': -15,

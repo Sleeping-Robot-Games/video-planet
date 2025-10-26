@@ -36,6 +36,7 @@ func _on_rented_movie(movie_id: String, customer_name: String):
 			btn.hide()
 
 func open(msg: String, customer_name: String = "", options: Array = []) -> void:
+	a.play_sfx('customer_dialogue_bubble')
 	current_customer_name = customer_name
 	current_options = options
 	g.is_dialogue_open = true
