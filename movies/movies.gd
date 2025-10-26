@@ -15,7 +15,7 @@ var status_colors: Dictionary = {
 
 var inventory: Dictionary = {
 	'001': {
-		'title': 'FISH LIPS',
+		'title': 'FISH LIPS', 
 		'genre': 'HORROR',
 		'status': 'STOCKED',
 		'location': 'ON SHELF',

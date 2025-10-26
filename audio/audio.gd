@@ -5,6 +5,7 @@ var music_db_override_values = {
 	'backroom_bgm_1': -10,
 	'backroom_bgm_2': -10,
 	'backroom_bgm_3': -10,
+	'backroom_bgm_4': -10,
 	'storefront_bgm_1': -10,
 	'titlescreen_bgm_1': -10
 }
@@ -17,33 +18,32 @@ var static_sfx_levels = {
 
 var sfx_db_override_values = {
 	#'track.wav': 0,
-	'botton_press_1': 8,
-	'botton_press_2': 8,
+	'botton_press': 8,
 	'crickets': 0,
-	'footstep_carpet_1': 0,
-	'footstep_carpet_2': 0,
-	'footstep_tile_1': 0,
-	'footstep_tile_2': 0,
+	'footstep_carpet': -15,
+	'footstep_tile': -15,
 	'menu_confirm': -20,
 	'menu_select': -20,
+	'pc_login': -20.,
+	'pc_logoff': -20,
 	'place_item': -5,
 	'putting_tape_in': 0,
 	'rain': 0,
-	'rental_re turn_bad_review': 0,
+	'rental_return_bad_review': 0,
 	'rental_return_good_review': 0,
 	'rental_return_no_review': 0,
-	'rewind_complete': 0,
-	'rewind_break': -15,
+	'rewind_complete': 13,
+	'rewind_break': -10,
 	'service_bell': 0,
 	'static': static_sfx_levels['loudest'],
-	'storefront_door_entry_1': 0,
-	'storefront_door_entry_2': 0,
-	'storefront_door_exit_1': 0,
-	'storefront_door_exit_2': 0,
-	'tape_scratch_bad': -8,
-	'tape_scratch_good': -8,
+	'storefront_door_entry': -2,
+	'storefront_door_exit': -2,
+	'tape_fix': 0,
+	'tape_scratch_bad': 0,
+	'tape_scratch_good': -4,
+	'tape_tear': 0,
 	'vhs_rewind': -5,
-	'vhs_startup': 20
+	'vhs_startup': 15
 }
 
 
@@ -52,17 +52,34 @@ var sfx_pitch_override_values = {
 		#'pitch_range': 0,
 		#'base_pitch': 0
 	#},
+	'footstep_carpet': {
+		'pitch_range': 0.1,
+		'base_pitch': 1
+	},
+	'footstep_tile': {
+		'pitch_range': 0.1,
+		'base_pitch': 1
+	}
 }
 
+# SFX Bus declarations not needed, as the default Audio Bus to SFX
 var sfx_bus_lookup = {
-	#'track.ogg': 'BGM',
-	#'track'.wav': 'UI'
+	#'track.wav': 'UI'
+	'menu_confirm': 'UI',
+	'menu_select': 'UI',
+	'crickets': 'Ambience',
+	'rain': 'Ambience',
+	'static': 'Ambience',
+	'vhs_rewind': 'Ambience'
+	
 }
 
 # Tracks that don't need a position
 var non_positional_tracks = [
 	'menu_select',
-	'menu_confirm'
+	'menu_confirm',
+	'pc_login',
+	'pc_logoff'
 ]
 
 func _ready():
@@ -87,7 +104,7 @@ func get_pitch(pitch_range, base_pitch):
 
 func play_music(track_name, overrides = {}):
 	var music_player = AudioStreamPlayer.new()
-	music_player.bus = "Music"
+	music_player.bus = "BGM"
 	music_player.name = track_name
 		
 	# Volume override
@@ -128,7 +145,7 @@ func create_sfx_player(track_name):
 	if sfx_bus_lookup.has(track_name):
 		sfx_player.bus = sfx_bus_lookup[track_name]
 	else:
-		sfx_player.bus = 'Master'
+		sfx_player.bus = 'SFX'
 	return sfx_player
 
 func play_random_sfx(track_name, parent = self, overrides = {}):
@@ -147,26 +164,30 @@ func play_random_sfx(track_name, parent = self, overrides = {}):
 	# Position override
 	if overrides.has('position') and overrides.position:
 		sfx_player.position = overrides.position
-		
-	# Volume override	
+	
+	# Seek override
+	if overrides.has('seek_to') and overrides.seek_to:
+		sfx_player.seek(overrides.seek_to)
+	
+	# Volume override
 	if overrides.has('db') and overrides.db: # Override option for some specific event in game that different from the standard
 		sfx_player.volume_db = overrides.db
 	else: # Standard override mix for the track type in the sfx_db_override_values list
-		if random_track in sfx_db_override_values:
-			sfx_player.volume_db = sfx_db_override_values[random_track]
+		if track_name in sfx_db_override_values:
+			sfx_player.volume_db = sfx_db_override_values[track_name]
 		else:
-			push_warning("No standard db override mix for track ", random_track)
+			push_warning("No standard db override mix for track ", track_name)
 			
-	# Pitch override	
+	# Pitch override
 	if overrides.has('pitch') and overrides.pitch:
 		sfx_player.pitch_scale = overrides.pitch
 	else:
-		if random_track in sfx_pitch_override_values:
-			var pitch_range = sfx_pitch_override_values[random_track]['pitch_range']
-			var base_pitch = sfx_pitch_override_values[random_track]['base_pitch']
+		if track_name in sfx_pitch_override_values:
+			var pitch_range = sfx_pitch_override_values[track_name]['pitch_range']
+			var base_pitch = sfx_pitch_override_values[track_name]['base_pitch']
 			sfx_player.pitch_scale = get_pitch(pitch_range, base_pitch)
 		else:
-			push_warning("No standard pitch override mix for track ", random_track)
+			push_warning("No standard pitch override mix for track ", track_name)
 	
 	# Play random track
 	sfx_player.stream = load('res://audio/sfx/' + random_track)

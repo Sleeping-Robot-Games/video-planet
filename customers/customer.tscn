@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0cekvv2cl3k2"]
+[gd_scene load_steps=7 format=3 uid="uid://d0cekvv2cl3k2"]
 
 [ext_resource type="Script" uid="uid://dmfhgqwqy8275" path="res://customers/customer.gd" id="1_dkhry"]
 [ext_resource type="Texture2D" uid="uid://b38omi1xt8t7s" path="res://customers/sprites/npc_002.png" id="1_qkhl4"]
 [ext_resource type="AnimationLibrary" uid="uid://cdrdbpl7yej2v" path="res://resources/sprite_animations.res" id="2_rr8d6"]
-[ext_resource type="Theme" uid="uid://2fy1wkk1roaj" path="res://ui_theme.tres" id="4_lx1bh"]
+[ext_resource type="Theme" uid="uid://dqpxdo4whrddq" path="res://ui_theme.tres" id="4_lx1bh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rr8d6"]
 radius = 5.0
 height = 20.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lx1bh"]
+radius = 17.0
+height = 74.0
+
 [node name="Customer" type="CharacterBody2D"]
 script = ExtResource("1_dkhry")
+speed = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_qkhl4")
@@ -23,6 +28,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_rr8d6")
 
@@ -37,3 +43,12 @@ horizontal_alignment = 1
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
+
+[node name="PlayerWatch" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerWatch"]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_lx1bh")
+
+[connection signal="body_entered" from="PlayerWatch" to="." method="_on_player_watch_body_entered"]
+[connection signal="body_exited" from="PlayerWatch" to="." method="_on_player_watch_body_exited"]

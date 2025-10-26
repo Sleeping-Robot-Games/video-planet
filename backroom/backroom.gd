@@ -324,6 +324,8 @@ func next_vhs_phase():
 	vhs_phase += 1
 	if not VHS_DATA.has(vhs_phase):
 		## Success!
+		a.play_sfx('rewind_complete', vcr_sprite)
+		a.play_sfx('putting_tape_in', vcr_sprite, {'db': -5})
 		## Player can now select a new tape from the backlog or leave back to the store front
 		rewinding = false
 		rewind_audio_player.stop()

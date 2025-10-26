@@ -1,18 +1,21 @@
 extends CharacterBody2D
 
 ### TODO NOTES ###
-# - Stop walking and face player when player approaches
 # - Have a purpose when they enter, renter or returner
 #	- Returners just go to the counter and then walk back out
 #	- Renters come in to browse the shelves, then if not interrupted go to the counter
+# - Stop walking and face player when player approaches
 # - When player interacts, dialog appears and they say their purpose
 	# - renters will have option to open the website from dialog
 
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed: float = 85.0
+
+var on_carpet: bool = true
+var footsteps_player: AudioStreamPlayer2D = null
 
 var destinations = []
 
@@ -23,7 +26,10 @@ var last_facing: String = "down" # or "back" depending on how you name direction
 
 
 var current_target: Node2D
-var arrived := false
+var arrived = false
+
+var player_interacting = false
+var player_ref
 
 var customer_data = {}
 
@@ -50,17 +56,24 @@ func _ready():
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.navigation_finished.connect(_on_arrived)
 
-
+	_play_idle()
+	
 func init(data):
 	customer_data = data
+	$Sprite2D.texture = load(data.sprite)
+	$Name.text = name
 	
 func enter_store(dest_array):
 	destinations = dest_array
 	
 	_pick_new_target()
 
+func _process(_delta: float) -> void:
+	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:
+		footsteps()
+
 func _physics_process(_delta):
-	if arrived or not current_target:
+	if arrived or not current_target or player_interacting:
 		return
 
 	# Just set the target — do NOT manually steer
@@ -77,8 +90,14 @@ func _physics_process(_delta):
 
 
 func _on_velocity_computed(safe_velocity: Vector2):
+	if player_interacting:
+		velocity = Vector2.ZERO
+		_play_idle()
+		return
+
 	velocity = safe_velocity
 	move_and_slide()
+
 
 
 func _on_arrived():
@@ -91,6 +110,7 @@ func _on_arrived():
 		destinations.append(exit)
 	if dest == exit:
 		store.customer_in_store = false
+		a.play_random_sfx('storefront_door_exit', a, {'position': position})
 		queue_free()
 		
 	_play_idle()
@@ -118,24 +138,91 @@ func _play_animation(vel: Vector2):
 	if abs(vel.x) > abs(vel.y):
 		if vel.x > 0:
 			last_facing = "right"
-			anim.play("sprite_animations/walk_right")
+			anim_player.play("sprite_animations/walk_right")
 		else:
 			last_facing = "left"
-			anim.play("sprite_animations/walk_left")
+			anim_player.play("sprite_animations/walk_left")
 	else:
 		if vel.y > 0:
 			last_facing = "down"
-			anim.play("sprite_animations/walk_down")
+			anim_player.play("sprite_animations/walk_down")
 		else:
 			last_facing = "up"
-			anim.play("sprite_animations/walk_up")
+			anim_player.play("sprite_animations/walk_up")
 
 
 func _play_idle():
-	anim.play("sprite_animations/idle_back")
+	if destinations.is_empty():
+		
+		anim_player.play("sprite_animations/idle_front")
+		return
+		
+	if player_interacting:
+		match last_facing:
+			"right": anim_player.play("sprite_animations/idle_right")
+			"left": anim_player.play("sprite_animations/idle_left")
+			"down": anim_player.play("sprite_animations/idle_front")
+			"up": anim_player.play("sprite_animations/idle_back")
+	else:
+		anim_player.play("sprite_animations/idle_back")
+
+
+
+func _on_player_watch_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		player_ref = body
+		player_interacting = true
+		velocity = Vector2.ZERO
+		nav_agent.set_velocity(Vector2.ZERO)
+
+		_face_player()
+		_play_idle()
+
+
+
+func _on_player_watch_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		player_ref = null
+		player_interacting = false
+		arrived = false  # Allow movement again
+		_pick_new_target()
+
+
+func _face_player() -> void:
+	if not player_ref:
+		return
 	
-	#match last_facing:
-		#"right": anim.play("sprite_animations/idle_right")
-		#"left": anim.play("sprite_animations/idle_left")
-		#"down": anim.play("sprite_animations/idle_back")
-		#"up": anim.play("sprite_animations/idle_front")
+	var dir = player_ref.global_position - global_position
+	
+	if abs(dir.x) > abs(dir.y):
+		# Horizontal bias
+		if dir.x > 0:
+			last_facing = "right"
+		else:
+			last_facing = "left"
+	else:
+		# Vertical bias
+		if dir.y > 0:
+			last_facing = "down"
+		else:
+			last_facing = "up"
+
+
+func footsteps() -> void:
+	# return if we're already playing sfx
+	if footsteps_player and footsteps_player.playing:
+		return
+	elif footsteps_player and not footsteps_player.playing:
+		footsteps_player.queue_free()
+	# otherwise 1 in 3 chance to play sfx
+	#randomize()
+	#var chance: int = randi_range(1, 3)
+	#if chance == 1:
+	var sfx_name = 'footstep_carpet' if on_carpet else 'footstep_tile'
+	footsteps_player = a.play_random_sfx(sfx_name)
+	footsteps_player.finished.connect(_on_footsteps_finished)
+
+func _on_footsteps_finished() -> void:
+	if footsteps_player:
+		footsteps_player.finished.disconnect(_on_footsteps_finished)
+		footsteps_player.queue_free()

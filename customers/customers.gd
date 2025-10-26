@@ -2,49 +2,68 @@ extends Node
 
 var customer_scene: PackedScene = preload("res://customers/customer.tscn")
 
-var customer_name_pool = [
-	"Ari W", "Ben T", "Carla V", "Dana M",
-	"Eric Z", "Faye L", "Gio H", "Holly C"
-]
+var customer_pool: Array = []
 
 var genre_pool = ["HORROR", "SCI-FI", "ROMANCE", "COMEDY"]
 
 var customers: Dictionary = {} # key = name, value = data dict
 
+func _ready():
+	var sprite_files = g.files_in_dir("res://customers/sprites/")
+	sprite_files.shuffle() # Randomize order so pairing is random
 
-func generate_customer():
-	var customer_name = customer_name_pool.pick_random()
-	var goal
-	if randf() <= 0.4:
+	var names = [
+		"Ari W",
+		"Avery M",
+		"Charlie B",
+		"Finley P",
+		"Gray J",
+		"Hayden G",
+		"Kai Z",
+		"Quinn R",
+		"Rowan G",
+		"Skyler X"
+	]
+
+	var total_count = min(names.size(), sprite_files.size())
+
+	for i in range(total_count):
+		customer_pool.append({
+			"name": names[i],
+			"sprite": "res://customers/sprites/" + sprite_files[i],
+			"friendship_level": 0,
+			"extrovert": randf() > 0.5,
+		})
+
+func find_random_customer():
+	var customer_data = customer_pool.pick_random().duplicate()
+	
+	var customer_has_movie_already = false
+	
+	for movie_id in m.inventory.keys():
+		var movie = m.inventory[movie_id]
+		if movie.status == "CHECKED OUT" and movie.location == customer_data.name:
+			customer_has_movie_already = true
+			
+	var goal = 'return'
+	if customer_has_movie_already:
 		goal = 'return'
-	else:
+	elif randf() <= 0.7:
 		goal =  "rent"
 		
-
-	var customer_data = {
-		"name": customer_name,
-		"fave_genre": genre_pool.pick_random(),
-		"friendship_level": 0,
-		"extrovert": randf() > 0.5,
+	var goal_data = {
 		"goal": goal,
+		"wanted_genre": genre_pool.pick_random(),
 		"movie_id": null,
 		"movie_data": null
 	}
+	
+	customer_data.merge(goal_data, true)
 
 	# Returning customers should already have a movie checked out
-	if goal == "return":
-		var found := false
-		
-		for movie_id in m.inventory.keys():
-			var movie = m.inventory[movie_id]
-			if movie.status == "CHECKED OUT" and movie.location == customer_name:
-				customer_data.movie_id = movie_id
-				customer_data.movie_data = movie
-				found = true
-				break
-		
-		# No movie found? Generate movie
-		if not found:
+	if goal == "return":		
+		# No movie? Generate movie
+		if not customer_has_movie_already:
 			## TODO: Use generate movie function once it's created
 			
 			var new_movie_id := str(randi() % 300 + 100).pad_zeros(3)
@@ -54,7 +73,7 @@ func generate_customer():
 				"title": "Lost in the Couch",
 				"genre": new_genre,
 				"status": "CHECKED OUT",
-				"location": customer_name,
+				"location": customer_data.name,
 				"reviews": []
 			}
 			
@@ -63,14 +82,14 @@ func generate_customer():
 			m.inventory[new_movie_id] = new_movie
 
 	# Keep track of this customer
-	customers[customer_name] = customer_data
+	customers[customer_data.name] = customer_data.duplicate()
 
 	# Create NPC scene
 	var npc = customer_scene.instantiate()
-	npc.name = customer_name
+	npc.name = customer_data.name
 	npc.init(customer_data)
 
-	print("NEW CUSTOMER: ", customer_name, 
+	print("NEW CUSTOMER: ", customer_data.name, 
 		" → ", goal, " fav=", customer_data.fave_genre)
 
 	return npc
