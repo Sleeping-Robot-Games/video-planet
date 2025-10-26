@@ -27,25 +27,25 @@ func _ready():
 		listings_container.add_child(listing)
 		listing.init(self)
 		listing.set_movie(movie_id)
-		# tally reviews
-		for review in m.inventory[movie_id].reviews:
-			total_reviews += 1
-			if review.is_positive:
-				positive_reviews += 1
-		# calc next unlock
-		for decoration in g.decoration_unlocks:
-			if positive_reviews >= decoration.unlocks_at:
-				decoration.is_unlocked = true
-			else:
-				next_unlock = decoration.unlocks_at - positive_reviews
-				break
-		# set next unlock text
-		if next_unlock == -1:
-			$ReviewRewards/NextUnlock.text = 'All Decorations Unlocked!'
-		else:
-			$ReviewRewards/NextUnlock.text = '[img=16x16]res://movies/assets/thumbs_up_small.png[/img] Til Next Decoration Unlock: %d' % next_unlock
-		# set total reviews text
-		$ReviewRewards/TotalReviews.text = 'Total Reviews: %d' % total_reviews
+		## tally reviews
+		#for review in m.inventory[movie_id].reviews:
+			#total_reviews += 1
+			#if review.is_positive:
+				#positive_reviews += 1
+		## calc next unlock
+		#for decoration in g.decoration_unlocks:
+			#if positive_reviews >= decoration.unlocks_at:
+				#decoration.is_unlocked = true
+			#else:
+				#next_unlock = decoration.unlocks_at - positive_reviews
+				#break
+		## set next unlock text
+		#if next_unlock == -1:
+			#$ReviewRewards/NextUnlock.text = 'All Decorations Unlocked!'
+		#else:
+			#$ReviewRewards/NextUnlock.text = '[img=16x16]res://movies/assets/thumbs_up_small.png[/img] Til Next Decoration Unlock: %d' % next_unlock
+		## set total reviews text
+		#$ReviewRewards/TotalReviews.text = 'Total Reviews: %d' % total_reviews
 
 func _on_exit_button_pressed() -> void:
 	get_tree().paused = false
