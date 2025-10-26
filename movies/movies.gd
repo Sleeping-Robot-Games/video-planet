@@ -62,6 +62,10 @@ func _on_movie_reviewed(is_positive: bool, movie_id: String, movie_data: Diction
 	})
 	var log_msg: String = '%s left a %s review' % [customer_name, 'POSITIVE' if is_positive else 'NEGATIVE']
 	g.add_log_line.emit(log_msg, 'SUCCESS' if is_positive else 'NEGATIVE')
+	if is_positive:
+		a.play_sfx('rental_return_good_review')
+	else:
+		a.play_sfx('rental_return_bad_review')
 
 func generate_review(genre: String, is_positive: bool) -> String:
 	# 70% chance to use genre-specific review, 30% chance for generic
