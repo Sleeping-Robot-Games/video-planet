@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://h1a2eeia7kun"
+uid="uid://c8mocjg8hl13i"
 path="res://.godot/imported/backroom_bgm_5.ogg-309fd1bd7ea5d87700c404c4b3161ba5.oggvorbisstr"
 
 [deps]
@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/backroom_bgm_5.ogg-309fd1bd7ea5d87700c404c4b3
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
 bpm=0
 beat_count=0

@@ -68,7 +68,7 @@ var VHS_DATA = {}
 func _ready():
 	randomize()
 	tree_anim_player.play("trees")
-	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_3', 'backroom_bgm_4', 'backroom_bgm_5']
+	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_3', 'backroom_bgm_4', 'backroom_bgm_5_loop']
 	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
