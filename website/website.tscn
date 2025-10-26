@@ -64,9 +64,11 @@ theme_override_constants/separation = 16
 [node name="Title" type="Label" parent="Margins/Window/PageMargins/VBox/Header/VBox"]
 layout_mode = 2
 theme = ExtResource("2_fayii")
+theme_override_colors/font_color = Color(0.34901962, 0.8392157, 0.92941177, 1)
+theme_override_colors/font_outline_color = Color(0.9145954, 0.0012263715, 0.9857915, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 24
-text = "✴️🛸 VIDEO PLANET 🪐🛰️"
+text = "👽🛸 VIDEO PLANET 🪐🛰️"
 horizontal_alignment = 1
 
 [node name="Filters" type="HBoxContainer" parent="Margins/Window/PageMargins/VBox/Header/VBox"]
