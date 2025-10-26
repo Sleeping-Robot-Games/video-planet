@@ -482,6 +482,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("12_1hwuc")
 
 [node name="Labels" type="Control" parent="VCR"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
