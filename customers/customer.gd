@@ -50,6 +50,7 @@ var return_basket: Node2D
 	#}
 
 func _ready():
+	set_meta('customer', true)
 	m.rented_movie_selected.connect(_on_rented_movie)
 	
 	nav_agent.path_desired_distance = 8.0
