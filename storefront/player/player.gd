@@ -8,6 +8,10 @@ var on_carpet: bool = true
 var footsteps_player: AudioStreamPlayer2D = null
 var last_direction := Vector2.DOWN
 
+func _process(_delta: float) -> void:
+	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:
+		footsteps()
+
 func _physics_process(_delta: float) -> void:
 	if g.is_dialogue_open or g.player_movement_disabled:
 		if not anim_player.current_animation.begins_with('idle_'):

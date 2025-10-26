@@ -10,7 +10,7 @@ extends CharacterBody2D
 
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed: float = 85.0
 
@@ -67,6 +67,10 @@ func enter_store(dest_array):
 	destinations = dest_array
 	
 	_pick_new_target()
+
+func _process(_delta: float) -> void:
+	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:
+		footsteps()
 
 func _physics_process(_delta):
 	if arrived or not current_target or player_interacting:
@@ -133,33 +137,33 @@ func _play_animation(vel: Vector2):
 	if abs(vel.x) > abs(vel.y):
 		if vel.x > 0:
 			last_facing = "right"
-			anim.play("sprite_animations/walk_right")
+			anim_player.play("sprite_animations/walk_right")
 		else:
 			last_facing = "left"
-			anim.play("sprite_animations/walk_left")
+			anim_player.play("sprite_animations/walk_left")
 	else:
 		if vel.y > 0:
 			last_facing = "down"
-			anim.play("sprite_animations/walk_down")
+			anim_player.play("sprite_animations/walk_down")
 		else:
 			last_facing = "up"
-			anim.play("sprite_animations/walk_up")
+			anim_player.play("sprite_animations/walk_up")
 
 
 func _play_idle():
 	if destinations.is_empty():
 		
-		anim.play("sprite_animations/idle_front")
+		anim_player.play("sprite_animations/idle_front")
 		return
 		
 	if player_interacting:
 		match last_facing:
-			"right": anim.play("sprite_animations/idle_right")
-			"left": anim.play("sprite_animations/idle_left")
-			"down": anim.play("sprite_animations/idle_front")
-			"up": anim.play("sprite_animations/idle_back")
+			"right": anim_player.play("sprite_animations/idle_right")
+			"left": anim_player.play("sprite_animations/idle_left")
+			"down": anim_player.play("sprite_animations/idle_front")
+			"up": anim_player.play("sprite_animations/idle_back")
 	else:
-		anim.play("sprite_animations/idle_back")
+		anim_player.play("sprite_animations/idle_back")
 
 
 
