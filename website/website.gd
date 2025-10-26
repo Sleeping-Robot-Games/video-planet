@@ -146,8 +146,9 @@ func open_by_backroom_computer() -> void:
 	
 func rent_movie_out(movie_id: String):
 	get_tree().paused = false
-	customer_name
 	rented_movie_selected.emit(movie_id)
+	## TODO: UPDATE THE SIGNALTON AND ALL OTHER SIDE EFFECTS
+	customer_name
 	## TODO: RENT MOVIE OUT TO CUSTOMER!!!!
 	hide()
 
