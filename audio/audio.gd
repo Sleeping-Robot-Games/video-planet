@@ -42,7 +42,7 @@ var sfx_db_override_values = {
 	'tape_scratch_bad': 0,
 	'tape_scratch_good': -4,
 	'tape_tear': 0,
-	'ticker_wall': -10,
+	'ticker_wall': -23,
 	'vhs_rewind': -5,
 	'vhs_startup': 15
 }
@@ -75,6 +75,7 @@ var sfx_bus_lookup = {
 	'crickets': 'Ambience',
 	'rain': 'Ambience',
 	'static': 'Ambience',
+	'ticker_wall': 'Ambience',
 	'vhs_rewind': 'Ambience'
 	
 }
