@@ -8,7 +8,7 @@ extends CharacterBody2D
 # - When player interacts, dialog appears and they say their purpose
 	# - renters will have option to open the website from dialog
 
-
+@onready var store_front = get_parent()
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
@@ -16,6 +16,7 @@ extends CharacterBody2D
 
 var on_carpet: bool = true
 var footsteps_player: AudioStreamPlayer2D = null
+var website
 
 var destinations = []
 
@@ -49,6 +50,8 @@ var return_basket: Node2D
 	#}
 
 func _ready():
+	website.rented_movie_selected.connect(_on_rented_movie)
+	
 	nav_agent.path_desired_distance = 8.0
 	nav_agent.target_desired_distance = 8.0
 	nav_agent.avoidance_enabled = true
@@ -70,7 +73,12 @@ func enter_store(dest_array):
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_interacting:
-		get_parent().dialog.open('I want a movie, GIMME!', name, ['Open Movie Catalog'])
+		store_front.dialog.open('I want a movie, GIMME!', name, ['Open Movie Catalog'])
+
+func _on_rented_movie(_move_id):
+	destinations = []
+	destinations.append(exit)
+	_pick_new_target()
 
 func _process(_delta: float) -> void:
 	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:

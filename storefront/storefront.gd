@@ -16,7 +16,7 @@ func _ready() -> void:
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	
-	if OS.is_debug_build():
+	if not OS.is_debug_build():
 		$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
 		g.player_movement_disabled = true
 		fade_black.color = Color.BLACK
@@ -97,6 +97,7 @@ func _on_customer_timer_timeout() -> void:
 	new_customer.return_basket = $ReturnBasketLocation
 	new_customer.exit = $Door
 	new_customer.position = $Door.position
+	new_customer.website = website
 	
 	var destinations = []
 	
