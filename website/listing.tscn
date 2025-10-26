@@ -56,7 +56,7 @@ alignment = 1
 [node name="Title" type="Label" parent="Movie/Details"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
-theme_override_constants/outline_size = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_l1u4l")
 theme_override_font_sizes/font_size = 16
 text = "TBD"
@@ -108,7 +108,7 @@ vertical_alignment = 1
 
 [node name="Location" type="Label" parent="Status"]
 layout_mode = 2
-theme_override_constants/outline_size = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_l1u4l")
 theme_override_font_sizes/font_size = 16
 text = "REWIND-DESK"
@@ -120,7 +120,7 @@ alignment = 1
 
 [node name="Reviews" type="Label" parent="ReviewCounts"]
 layout_mode = 2
-theme_override_constants/outline_size = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_l1u4l")
 theme_override_font_sizes/font_size = 16
 text = "REVIEWS"
