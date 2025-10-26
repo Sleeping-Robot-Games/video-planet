@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=55 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -505,9 +505,10 @@ position = Vector2(502, 291)
 position = Vector2(569.5, 290)
 
 [node name="ReturnBasketLocation" type="Node2D" parent="."]
-position = Vector2(205, 181.5)
+position = Vector2(213, 182.5)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 z_index = 2
 offset_left = 195.0
 offset_top = 147.5
@@ -517,12 +518,6 @@ theme = ExtResource("20_22fc6")
 theme_override_font_sizes/font_size = 7
 text = "Return
 Basket"
-
-[node name="ReturnBasket" type="Sprite2D" parent="."]
-z_index = 1
-position = Vector2(205, 156.875)
-scale = Vector2(0.1953126, 0.10351563)
-texture = ExtResource("32_06rv6")
 
 [connection signal="body_entered" from="Floor/Rug/Area2D" to="." method="_on_rug_body_entered"]
 [connection signal="body_exited" from="Floor/Rug/Area2D" to="." method="_on_rug_body_exited"]
