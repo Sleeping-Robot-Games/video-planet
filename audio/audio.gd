@@ -5,7 +5,6 @@ var music_db_override_values = {
 	'backroom_bgm_1': -10,
 	'backroom_bgm_2': -10,
 	'backroom_bgm_3': -10,
-	'backroom_bgm_4': -10,
 	'storefront_bgm_1': -10,
 	'storefront_bgm_2': -10,
 	'titlescreen_bgm_1': -10
