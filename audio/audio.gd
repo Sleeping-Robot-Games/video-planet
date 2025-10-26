@@ -42,6 +42,7 @@ var sfx_db_override_values = {
 	'tape_scratch_bad': 0,
 	'tape_scratch_good': -4,
 	'tape_tear': 0,
+	'ticker_wall': -10,
 	'vhs_rewind': -5,
 	'vhs_startup': 15
 }
@@ -58,6 +59,10 @@ var sfx_pitch_override_values = {
 	},
 	'footstep_tile': {
 		'pitch_range': 0.1,
+		'base_pitch': 1
+	},
+	'ticker_wall': {
+		'pitch_range': 0.02,
 		'base_pitch': 1
 	}
 }
