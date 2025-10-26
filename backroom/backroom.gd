@@ -100,6 +100,9 @@ func _unhandled_input(event: InputEvent):
 			on_miss()
 
 func _process(delta):
+	$Clouds/ParallaxFast.scroll_offset.x += 6 * delta
+	$Clouds/ParallaxSlow.scroll_offset.x += 1.5 * delta
+	
 	if not rewinding:
 		return
 		
