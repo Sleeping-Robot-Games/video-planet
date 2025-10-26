@@ -213,6 +213,7 @@ texture = ExtResource("2_d824b")
 [node name="Area2D" type="Area2D" parent="Floor/Rug"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Rug/Area2D"]
+visible = false
 position = Vector2(-2, -11)
 shape = SubResource("RectangleShape2D_06rv6")
 
@@ -223,6 +224,7 @@ texture = ExtResource("3_s766h")
 [node name="Area2D" type="Area2D" parent="Floor/Rug2"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/Rug2/Area2D"]
+visible = false
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_k7jv3")
 
@@ -279,8 +281,8 @@ texture = ExtResource("9_k7jv3")
 self_modulate = Color(1, 1, 0.8, 0.5294118)
 position = Vector2(444, 96)
 sprite_frames = SubResource("SpriteFrames_kqfll")
-frame_progress = 0.23377162
-speed_scale = 0.5
+frame_progress = 0.35390276
+speed_scale = 0.2
 
 [node name="Windowtets" type="Sprite2D" parent="Deco"]
 y_sort_enabled = true
@@ -508,7 +510,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="CounterDestination" type="Node2D" parent="."]
-position = Vector2(146, 186)
+position = Vector2(146, 186.5)
 
 [node name="Door" type="Node2D" parent="."]
 position = Vector2(280, 125)
@@ -540,7 +542,7 @@ position = Vector2(502, 291)
 position = Vector2(569.5, 290)
 
 [node name="ReturnBasketLocation" type="Node2D" parent="."]
-position = Vector2(213, 182.5)
+position = Vector2(213, 186)
 
 [node name="Label" type="Label" parent="."]
 visible = false

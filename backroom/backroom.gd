@@ -46,9 +46,9 @@ var tick_direction := 1.0 # 1 = forward, -1 = backward
 var tick_in_hitzone = false
 # how wide the hitzone is based on the track setting weight
 var hitzone_scale_lookup = {
-	2: .05,
-	1: .1,
-	0: .25,
+	2: .35,
+	1: .9,
+	0: 1.5,
 }
 
 var current_ideal_track_setting
@@ -65,7 +65,7 @@ var VHS_DATA = {}
 
 func _ready():
 	randomize()
-	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_2', 'backroom_bgm_3', 'backroom_bgm_4']
+	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_3', 'backroom_bgm_4']
 	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
@@ -220,7 +220,7 @@ func _on_tracking_button_pressed(track_setting: String):
 		
 	current_toggled_track_setting = track_setting
 	var current_tracking_setting_weight = VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]
-	var new_scale = Vector2(hitzone_scale_lookup[current_tracking_setting_weight], .328)
+	var new_scale = Vector2(hitzone_scale_lookup[current_tracking_setting_weight], 2)
 	var hitzone_tween = create_tween()
 	hitzone_tween.tween_property(hitzone, 'scale', new_scale, .5)
 	
@@ -275,7 +275,7 @@ func init_vhs():
 	video_player.play()
 	
 	var hitzone_scale_tween = create_tween()
-	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], .328), 1)
+	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], 2), 1)
 	
 	var tick_speed_tween = create_tween()
 	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
@@ -359,7 +359,7 @@ func next_vhs_phase():
 		update_rewind_noise_by_tracking_setting()
 		
 		var hitzone_scale_tween = create_tween()
-		hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]], .328), 1)
+		hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]], 2), 1)
 		
 		var tick_speed_tween = create_tween()
 		tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)

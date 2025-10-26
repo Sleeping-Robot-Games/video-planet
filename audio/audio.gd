@@ -77,7 +77,6 @@ var sfx_bus_lookup = {
 	'static': 'Ambience',
 	'ticker_wall': 'Ambience',
 	'vhs_rewind': 'Ambience'
-	
 }
 
 # Tracks that don't need a position

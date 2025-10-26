@@ -25,8 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
-[ext_resource type="Shader" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
+[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://broow6cw7rx2l" path="res://backroom/tickersquash.png" id="23_4pwh8"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
 [ext_resource type="Texture2D" uid="uid://d4grk73bpb72h" path="res://backroom/offlight.png" id="23_mssko"]
@@ -41,7 +41,7 @@ allow_unpress = true
 
 [sub_resource type="Curve2D" id="Curve2D_grv5e"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 724, 427, 0, 0, 0, 0, 997, 427)
+"points": PackedVector2Array(0, 0, 0, 0, 724, 427, 0, 0, 0, 0, 1023, 427.62497)
 }
 point_count = 2
 
@@ -456,39 +456,27 @@ position = Vector2(-22, 12.3750305)
 curve = SubResource("Curve2D_grv5e")
 
 [node name="HitzonePathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
-position = Vector2(833.19836, 427)
-progress = 109.200005
+position = Vector2(838.6661, 427.23965)
+rotation = 0.002090196
+progress = 114.66664
 
 [node name="HitZone" type="Sprite2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D"]
 modulate = Color(0.78419125, 0.9587417, 0.23863629, 1)
-scale = Vector2(0.05, 0.328)
-texture = ExtResource("1_g6svw")
+scale = Vector2(0.9, 2)
+texture = ExtResource("23_4pwh8")
 
 [node name="Area2D" type="Area2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D"]
-position = Vector2(0.33764648, 0.666626)
-scale = Vector2(1, 0.99999994)
-shape = SubResource("RectangleShape2D_grv5e")
-
-[node name="HitZone2" type="Sprite2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D"]
-modulate = Color(0.78419125, 0.9587417, 0.23863629, 1)
-scale = Vector2(2, 2)
-texture = ExtResource("23_4pwh8")
-
-[node name="Area2D" type="Area2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone2/Area2D"]
-position = Vector2(-0.09918213, 0.31248474)
-scale = Vector2(1, 0.99999994)
 shape = SubResource("RectangleShape2D_grv5e")
 
 [node name="TickPathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
-position = Vector2(724, 427)
+position = Vector2(744.01855, 427.0418)
+rotation = 0.002090196
+progress = 20.033026
 loop = false
 
 [node name="Tick" type="Sprite2D" parent="VCR/Ticker/Path2D/TickPathFollow2D"]
-position = Vector2(-4, 0.6249695)
 scale = Vector2(2, 2)
 texture = ExtResource("24_ikkeb")
 
@@ -628,8 +616,6 @@ offset_bottom = 683.0
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
 [connection signal="area_exited" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_exited"]
-[connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone2/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
-[connection signal="area_exited" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone2/Area2D" to="." method="_on_hitzone_area_2d_area_exited"]
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
 [connection signal="pressed" from="BacklogButton" to="." method="_on_backlog_button_pressed"]
 [connection signal="pressed" from="StorefrontButton" to="." method="_on_storefront_button_pressed"]
