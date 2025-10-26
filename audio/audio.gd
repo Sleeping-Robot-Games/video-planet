@@ -5,6 +5,7 @@ var music_db_override_values = {
 	'backroom_bgm_1': -10,
 	'backroom_bgm_2': -10,
 	'backroom_bgm_3': -10,
+	'backroom_bgm_4': -10,
 	'storefront_bgm_1': -10,
 	'titlescreen_bgm_1': -10
 }
@@ -37,8 +38,10 @@ var sfx_db_override_values = {
 	'static': static_sfx_levels['loudest'],
 	'storefront_door_entry': -2,
 	'storefront_door_exit': -2,
+	'tape_fix': 0,
 	'tape_scratch_bad': 0,
 	'tape_scratch_good': -4,
+	'tape_tear': 0,
 	'vhs_rewind': -5,
 	'vhs_startup': 15
 }
