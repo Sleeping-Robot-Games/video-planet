@@ -128,7 +128,7 @@ var horror_nouns: Array = [
 	"Flesh", "Crypt", "Tomb", "Grave", "Corpse", "Bone", "Soul", "Spirit",
 	"Parasite", "Infection", "Curse", "Doll", "Clown", "Spider", "Raven",
 	"Stump", "Bounce House", "Pizza", "Lich", "Hatchling", "Spikes", "Chumba",
-	"Snicker", "Snack", "Slasher"
+	"Snicker", "Snack", "Slasher", "Bronsky", "Memao", "SleepingRobot", "JBOD", "esphron"
 ]
 
 var horror_locations: Array = [
@@ -185,7 +185,8 @@ var scifi_nouns: Array = [
 	"Android", "Robot", "AI", "Matrix", "Cyborg", "Clone", "Hologram",
 	"Algorithm", "Mainframe", "Singularity", "Protocol", "Interface",
 	"Consciousness", "Network", "Virus", "Signal", "Upload", "Download",
-	"Simulation", "Database", "Firewall", "Code", "Neuron", "Beep Boop"
+	"Simulation", "Database", "Firewall", "Code", "Neuron", "Beep Boop",
+	"Bronsky", "Memao", "SleepingRobot", "JBOD", "esphron"
 ]
 
 var scifi_planets: Array = [
@@ -268,7 +269,8 @@ var romance_nouns: Array = [
 	"Love", "Heart", "Kiss", "Promise", "Destiny", "Romance",
 	"Affair", "Embrace", "Secret", "Passion", "Dream", "Dance",
 	"Wedding", "Marriage", "Date", "Proposal", "Letter", "Vacation",
-	"Moment", "Sunset", "Sunrise", "Moon", "Star", "Rose", "Garden"
+	"Moment", "Sunset", "Sunrise", "Moon", "Star", "Rose", "Garden",
+	"Bronsky", "Memao", "SleepingRobot", "JBOD", "esphron"
 ]
 
 var romance_verbs: Array = [
@@ -348,7 +350,7 @@ var comedy_nouns: Array = [
 	"House", "Car", "School", "College", "Reunion", "Birthday",
 	"Dentist", "Doctor", "Gym", "Restaurant", "Hotel", "Cruise",
 	"Clown", "Cop", "Spy", "Ninja", "Robot", "Alien", "President",
-	"Monkey"
+	"Monkey", "Bronsky", "Memao", "SleepingRobot", "JBOD", "esphron"
 ]
 
 var comedy_verbs: Array = [

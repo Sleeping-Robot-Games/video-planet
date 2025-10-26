@@ -144,6 +144,7 @@ theme_override_icons/icon = ExtResource("2_6c0tl")
 custom_minimum_size = Vector2(1216, 523)
 layout_mode = 2
 size_flags_horizontal = 0
+horizontal_scroll_mode = 0
 
 [node name="MovieList" type="VBoxContainer" parent="Margins/Window/VBox/Body"]
 layout_mode = 2

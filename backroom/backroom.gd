@@ -217,7 +217,8 @@ func on_miss():
 		tape_broken = true
 		$VCR/Tape.play_backwards()
 		rewinding = false
-		rewind_audio_player.stop()
+		if rewind_audio_player:
+			rewind_audio_player.stop()
 		static_audio_player.stop()
 		tv_off_screen.show()
 		video_player.paused = true
@@ -274,6 +275,7 @@ func _on_hitzone_area_2d_area_exited(area: Area2D) -> void:
 		tick_in_hitzone = false
 
 func init_vhs():
+	$VCR/Labels.show()
 	VHS_DATA = generate_vhs_data()
 	vhs_phase = 1
 	hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
@@ -353,6 +355,7 @@ func next_vhs_phase():
 		var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
 		g.add_log_line.emit(log_msg, 'SUCCESS')
 		$VCR/AnimationPlayer.pause()
+		$VCR/Labels.hide()
 		video_player.stop()
 		tv_off_screen.show()
 		for tracking_btn in tracking.get_children():

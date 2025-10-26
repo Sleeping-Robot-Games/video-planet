@@ -458,18 +458,18 @@ theme = ExtResource("5_otosh")
 [node name="TrackLabel" type="Label" parent="VCR/Labels"]
 layout_mode = 0
 offset_left = 524.0
-offset_top = 431.0
+offset_top = 430.0
 offset_right = 649.0
-offset_bottom = 454.0
+offset_bottom = 453.0
 text = "Tracking Setting"
 
 [node name="TrackTutorialLabel" type="Label" parent="VCR/Labels"]
 layout_mode = 0
-offset_left = 482.0
-offset_top = 398.0
-offset_right = 699.0
-offset_bottom = 412.0
-text = "Use 1-5 number keys for Tracking "
+offset_left = 516.0
+offset_top = 499.0
+offset_right = 645.0
+offset_bottom = 513.0
+text = "Use 1-5 number keys"
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR/Labels"]
 layout_mode = 0

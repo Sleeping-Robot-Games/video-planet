@@ -20,20 +20,16 @@ offset_bottom = 64.0
 grow_horizontal = 2
 theme = ExtResource("1_l1u4l")
 theme_override_constants/separation = 32
-alignment = 1
 script = ExtResource("1_n7ked")
 
 [node name="RewindButton" type="Button" parent="." groups=["ui_buttons"]]
-visible = false
 custom_minimum_size = Vector2(125, 40)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("3_l1u4l")
 text = "REWIND >>"
 
 [node name="Rent" type="Button" parent="." groups=["ui_buttons"]]
-visible = false
 custom_minimum_size = Vector2(170, 40)
 layout_mode = 2
 size_flags_horizontal = 3

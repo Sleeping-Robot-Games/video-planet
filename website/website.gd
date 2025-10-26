@@ -130,7 +130,7 @@ func open_by_dialog(_customer_name):
 
 func open_by_backroom_computer() -> void:
 	search_input.text = ''
-	search_input.editable = false
+	search_input.editable = true
 	genre_input.selected = 0
 	genre_input.disabled = true
 	genre_clear.hide()
