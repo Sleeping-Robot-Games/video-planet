@@ -12,7 +12,7 @@ offset_right = 1288.0
 offset_bottom = 728.0
 color = Color(0.04755766, 0.047557645, 0.047557645, 1)
 
-[node name="Start" type="Button" parent="."]
+[node name="Start" type="Button" parent="." groups=["ui_buttons"]]
 offset_left = 138.0
 offset_top = 119.0
 offset_right = 375.0

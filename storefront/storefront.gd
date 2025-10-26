@@ -47,6 +47,15 @@ func _ready() -> void:
 			tween.tween_callback(unfreeze_player)
 	
 	g.is_clocking_in = false
+	_connect_ui_buttons()
+	
+func _connect_ui_buttons():
+	for button in get_tree().get_nodes_in_group("ui_buttons"):
+		if button is Button:
+			button.mouse_entered.connect(func():
+				a.play_sfx("menu_select"))
+			button.pressed.connect(func():
+				a.play_sfx("menu_confirm"))
 
 func init_shelves() -> void:
 	pass

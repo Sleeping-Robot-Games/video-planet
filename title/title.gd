@@ -14,6 +14,15 @@ func _ready():
 	ui_bus_idx = AudioServer.get_bus_index("UI")
 	ambience_bus_idx = AudioServer.get_bus_index("Ambience")
 	music_player = a.play_music('titlescreen_bgm_1')
+	_connect_ui_buttons()
+	
+func _connect_ui_buttons():
+	for button in get_tree().get_nodes_in_group("ui_buttons"):
+		if button is Button:
+			button.mouse_entered.connect(func():
+				a.play_sfx("menu_select"))
+			button.pressed.connect(func():
+				a.play_sfx("menu_confirm"))
 
 func _on_button_pressed() -> void:
 	music_player.stop()

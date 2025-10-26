@@ -90,18 +90,6 @@ var non_positional_tracks = [
 	'movietrailer'
 ]
 
-func _ready():
-	call_deferred('_connect_ui_buttons')
-
-## Remember this for future projects, this is dope
-func _connect_ui_buttons():
-	for button in get_tree().get_nodes_in_group("ui_buttons"):
-		if button is Button:
-			button.mouse_entered.connect(func():
-				a.play_sfx("menu_select"))
-			button.pressed.connect(func():
-				a.play_sfx("menu_confirm"))
-
 func is_track_non_positional(track_name):
 	return track_name in non_positional_tracks
 

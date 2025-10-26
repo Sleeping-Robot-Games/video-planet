@@ -75,7 +75,15 @@ func _ready():
 	for tracking_button in tracking.get_children():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
 		tracking_input_map[tracking_button.name] = tracking_button
+	_connect_ui_buttons()
 	
+func _connect_ui_buttons():
+	for button in get_tree().get_nodes_in_group("ui_buttons"):
+		if button is Button:
+			button.mouse_entered.connect(func():
+				a.play_sfx("menu_select"))
+			button.pressed.connect(func():
+				a.play_sfx("menu_confirm"))
 
 func _unhandled_input(event: InputEvent):
 	if not rewinding:
