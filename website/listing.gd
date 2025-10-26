@@ -24,11 +24,12 @@ func set_movie(_movie_id: String):
 	# id
 	movie_id = _movie_id
 	# poster
-	var covers = g.files_in_dir("res://movies/covers/")
-	var random_cover = covers.pick_random() # ain't color coordinated no mo
-	if ResourceLoader.exists(random_cover):
-		movie_poster.texture = load(random_cover)
-		
+	var cover = m.inventory[movie_id].cover
+	if ResourceLoader.exists('res://movies/covers/' + cover):
+		movie_poster.texture = load('res://movies/covers/' + cover)
+	else:
+		movie_poster.texture = load('res://movies/covers/000.png')
+	
 	# title
 	movie_title.text = m.inventory[movie_id].title
 	# genre

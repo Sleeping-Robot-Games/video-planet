@@ -20,14 +20,15 @@ var inventory: Dictionary = {
 	'001': {
 		'title': 'FISH LIPS', 
 		'genre': 'HORROR',
+		'cover': '001.png',
 		'status': 'STOCKED',
 		'location': 'ON SHELF',
 		'reviews': [
-			{
-				'user': '@JDAWG79',
-				'content': 'JERK SHERKS YO!! LIT',
-				'is_positive': true
-			}
+			#{
+				#'user': '@JDAWG79',
+				#'content': 'JERK SHERKS YO!! LIT',
+				#'is_positive': true
+			#}
 		]
 	}
 }
@@ -109,6 +110,7 @@ func generate_movie(status: String, customer: String = '') -> Dictionary:
 	var movie: Dictionary = {
 		'title': 'TBD',
 		'genre': 'TBD',
+		'cover': '001.png',
 		'status': 'BACKLOG',
 		'location': 'NEEDS REWIND',
 		'reviews': [],
@@ -128,6 +130,10 @@ func generate_movie(status: String, customer: String = '') -> Dictionary:
 		'COMEDY':
 			movie.title = generate_comedy_title()
 	
+	# cover
+	var covers = g.files_in_dir('res://movies/covers/')
+	covers.erase('000.png')
+	movie.cover = covers.pick_random()
 	
 	# status
 	movie.status = status
