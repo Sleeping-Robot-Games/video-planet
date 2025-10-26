@@ -265,11 +265,13 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_2d3aw")
 
 [node name="SpoolIndicator" type="Sprite2D" parent="VCR"]
+visible = false
 position = Vector2(652.2, 566)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator2" type="Sprite2D" parent="VCR"]
+visible = false
 position = Vector2(751.2, 564)
 scale = Vector2(2, 2)
 texture = ExtResource("6_j4ho4")
@@ -343,10 +345,10 @@ text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
 offset_left = 488.0
-offset_top = 448.0
+offset_top = 456.0
 offset_right = 679.0
-offset_bottom = 499.62497
-pivot_offset = Vector2(-15, 3.6249695)
+offset_bottom = 507.62497
+pivot_offset = Vector2(-32, -8)
 
 [node name="1" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
@@ -357,7 +359,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 texture_normal = ExtResource("7_dwywq")
 texture_pressed = ExtResource("8_j8cxi")
-stretch_mode = 0
+stretch_mode = 4
 
 [node name="2" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
@@ -368,7 +370,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 texture_normal = ExtResource("9_6dn78")
 texture_pressed = ExtResource("10_iobut")
-stretch_mode = 0
+stretch_mode = 4
 
 [node name="3" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
@@ -379,7 +381,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 texture_normal = ExtResource("11_otosh")
 texture_pressed = ExtResource("12_osn8m")
-stretch_mode = 0
+stretch_mode = 4
 
 [node name="4" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
@@ -390,7 +392,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 texture_normal = ExtResource("13_1r01e")
 texture_pressed = ExtResource("14_k50q5")
-stretch_mode = 0
+stretch_mode = 4
 
 [node name="5" type="TextureButton" parent="VCR/Tracking"]
 custom_minimum_size = Vector2(35, 10)
@@ -401,7 +403,7 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_grv5e")
 texture_normal = ExtResource("15_mssko")
 texture_pressed = ExtResource("16_j82ud")
-stretch_mode = 0
+stretch_mode = 4
 
 [node name="DialLight" type="ColorRect" parent="VCR"]
 offset_left = 1168.0
@@ -418,8 +420,8 @@ texture = ExtResource("5_cge5e")
 [node name="ColorRect" type="ColorRect" parent="VCR/Dial"]
 offset_left = 2.1457672e-05
 offset_top = -11.999996
-offset_right = 2.9092011
-offset_bottom = 9.142872
+offset_right = 0.50002146
+offset_bottom = 4.000004
 color = Color(1, 0.06666667, 0.023529412, 1)
 
 [node name="Ticker" type="Node2D" parent="VCR"]
@@ -618,7 +620,6 @@ offset_right = 1280.0
 offset_bottom = 719.0
 
 [node name="LogContainer" parent="." instance=ExtResource("24_iobut")]
-anchors_preset = 0
 offset_left = 33.0
 offset_top = 683.0
 offset_right = 533.0
