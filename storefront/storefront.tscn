@@ -417,11 +417,10 @@ position = Vector2(74, 144)
 
 [node name="LogContainer" parent="HUD" instance=ExtResource("33_0atvx")]
 custom_minimum_size = Vector2(600, 0)
-offset_left = 74.0
-offset_top = 633.0
-offset_right = 574.0
-offset_bottom = 633.0
-grow_vertical = 1
+offset_left = 62.0
+offset_top = -47.0
+offset_right = 662.0
+offset_bottom = -47.0
 
 [node name="Website" parent="HUD" instance=ExtResource("17_qepj0")]
 visible = false

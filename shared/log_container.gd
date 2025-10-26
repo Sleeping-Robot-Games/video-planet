@@ -3,6 +3,9 @@ extends VBoxContainer
 var log_line_scene = preload('res://shared/log_line.tscn')
 
 func _ready() -> void:
+	# game pauses when website is open, this allows logs to still fade
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	g.add_log_line.connect(_on_add_log_line)
 
 func _on_add_log_line(msg: String, type: String) -> void:
