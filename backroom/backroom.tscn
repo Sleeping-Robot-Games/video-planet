@@ -466,6 +466,7 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
 
 [node name="SpoolIndicator3" type="Sprite2D" parent="VCR"]
+visible = false
 position = Vector2(1021.00006, 563.00006)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_j4ho4")
@@ -481,7 +482,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("12_1hwuc")
 
 [node name="Labels" type="Control" parent="VCR"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -498,21 +498,20 @@ text = "Tracking Setting"
 
 [node name="TrackTutorialLabel" type="Label" parent="VCR/Labels"]
 layout_mode = 0
-offset_left = 516.0
-offset_top = 499.0
-offset_right = 645.0
-offset_bottom = 513.0
+offset_left = 518.0
+offset_top = 498.0
+offset_right = 730.0
+offset_bottom = 512.0
 text = "Use 1-5 number keys"
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR/Labels"]
 layout_mode = 0
-offset_left = 1030.0
-offset_top = 510.0
-offset_right = 1188.0
-offset_bottom = 543.0
-text = "Use <- -> arrow keys
- for tuner dial"
-horizontal_alignment = 1
+offset_left = 1115.0
+offset_top = 456.0
+offset_right = 1273.0
+offset_bottom = 489.0
+text = "Use <- -> arrow
+keys for tuner "
 
 [node name="DialTutorialLabel3" type="Label" parent="VCR/Labels"]
 layout_mode = 0
