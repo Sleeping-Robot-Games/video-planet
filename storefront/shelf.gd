@@ -46,7 +46,6 @@ var stocked_count: int = 0
 func _ready() -> void:
 	# init shelf label
 	$Genre.text = shelf_genre
-	$Genre.modulate = m.genre_colors[shelf_genre]
 	$Genre.add_theme_color_override('font_color', m.genre_colors[shelf_genre])
 	$Count.text = '0/36'
 	$Count.add_theme_color_override('font_color', m.genre_colors[shelf_genre])
