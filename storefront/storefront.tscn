@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=65 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -40,7 +40,11 @@
 [ext_resource type="Texture2D" uid="uid://d1b2np3wy0tqu" path="res://storefront/poster7.png" id="28_bb0xx"]
 [ext_resource type="Texture2D" uid="uid://ugl2fsorhpi7" path="res://storefront/poster8.png" id="29_vcwno"]
 [ext_resource type="Texture2D" uid="uid://bxa03wyeaq4eq" path="res://storefront/deco/open.png" id="30_aahc8"]
+[ext_resource type="Texture2D" uid="uid://cawvh8lcu3pwc" path="res://storefront/poster9.png" id="31_i47ej"]
+[ext_resource type="Texture2D" uid="uid://2vvmvlorygau" path="res://storefront/poster10.png" id="32_sri60"]
 [ext_resource type="PackedScene" uid="uid://deyae4itnlg45" path="res://shared/log_container.tscn" id="33_0atvx"]
+[ext_resource type="Texture2D" uid="uid://4l643w2ksxpv" path="res://storefront/poster11.png" id="33_iwtvg"]
+[ext_resource type="Texture2D" uid="uid://jxyqc7uo3s8j" path="res://storefront/poster12.png" id="34_b8pys"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_22fc6"]
 vertices = PackedVector2Array(606.21875, 285.5078, 607.2578, 329.5078, 31.046875, 330.47656, 296.42188, 293.21094, 606.89844, 206.5, 606.59375, 237.79688, 309.3125, 231.9375, 301.5, 206.5, 605.5781, 122, 605.9219, 166.47656, 301.5, 165.97656, 247.32031, 122, 238.85938, 189.13281, 294.84375, 242.54688, 31.9375, 178.02344, 209.25, 178.49219, 318.22656, 285.96875)
@@ -355,12 +359,28 @@ position = Vector2(188, 40)
 texture = ExtResource("28_bb0xx")
 
 [node name="Poster8" type="Sprite2D" parent="Deco"]
-position = Vector2(580, 52)
+position = Vector2(584, 52)
 texture = ExtResource("29_vcwno")
 
 [node name="Open" type="Sprite2D" parent="Deco"]
 position = Vector2(324, 96)
 texture = ExtResource("30_aahc8")
+
+[node name="Poster9" type="Sprite2D" parent="Deco"]
+position = Vector2(340, 52)
+texture = ExtResource("31_i47ej")
+
+[node name="Poster10" type="Sprite2D" parent="Deco"]
+position = Vector2(372, 40)
+texture = ExtResource("32_sri60")
+
+[node name="Poster11" type="Sprite2D" parent="Deco"]
+position = Vector2(404, 48)
+texture = ExtResource("33_iwtvg")
+
+[node name="Poster12" type="Sprite2D" parent="Deco"]
+position = Vector2(436, 40)
+texture = ExtResource("34_b8pys")
 
 [node name="Furniture" type="Node2D" parent="."]
 y_sort_enabled = true
