@@ -196,7 +196,6 @@ size = Vector2(13.75, 41.5)
 
 [node name="Storefront" type="Node2D"]
 y_sort_enabled = true
-scale = Vector2(2, 2)
 script = ExtResource("1_dspst")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
