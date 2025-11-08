@@ -1,5 +1,35 @@
 extends Node2D
 
+## Minigame Balance Variables - Tweak these to adjust difficulty!
+@export_group("Success Requirements")
+@export var min_successes_required := 2
+@export var max_successes_required := 4
+
+@export_group("Failure Settings")
+@export var min_failures_before_break := 2
+@export var max_failures_before_break := 5
+@export var failure_weight_options: Array[int] = [3, 4, 5, 5, 4, 3, 2, 1]  # Weighted pool
+
+@export_group("Hitzone Settings")
+@export var hitzone_position_min := 0.2
+@export var hitzone_position_max := 0.6
+
+@export_group("Dial Zone Settings")
+@export var dial_tight_center_min := -80.0
+@export var dial_tight_center_max := 80.0
+@export var dial_tight_half_min := 5.0
+@export var dial_tight_half_max := 12.0
+@export var dial_rough_additional_min := 15.0
+@export var dial_rough_additional_max := 25.0
+
+@export_group("Tick Speed Settings")
+@export var tick_speed_no_zone_min := 1.4
+@export var tick_speed_no_zone_max := 1.9
+@export var tick_speed_rough_zone_min := 1.1
+@export var tick_speed_rough_zone_max := 1.4
+@export var tick_speed_tight_zone_min := 0.7
+@export var tick_speed_tight_zone_max := 1.0
+
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
@@ -57,7 +87,6 @@ var current_toggled_track_setting
 var num_of_misses = 0
 
 var rewinding = false
-var vhs_phase = 1
 var successful_hits = 0
 var tape_broken = false
 var tape_fixed = false
@@ -101,8 +130,8 @@ func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('hit'):
 		if tick_in_hitzone:
 			successful_hits += 1
-			if successful_hits >= VHS_DATA[vhs_phase].success_count_to_continue:
-				next_vhs_phase()
+			if successful_hits >= VHS_DATA[1].success_count_to_continue:
+				complete_tape_rewind()
 			on_success()
 		else:
 			on_miss()
@@ -113,30 +142,30 @@ func _process(delta):
 	
 	if not rewinding:
 		return
-		
+
 	if Input.is_action_pressed('dial_right'):
 		dial_angle += DIAL_ROTATE_SPEED * delta
 	elif Input.is_action_pressed('dial_left'):
 		dial_angle -= DIAL_ROTATE_SPEED * delta
-	
+
 	dial_angle = clamp(dial_angle, DIAL_ROTATE_MIN, DIAL_ROTATE_MAX)
 	dial.rotation_degrees = dial_angle
-	
-	if not VHS_DATA.has(vhs_phase):
+
+	if not VHS_DATA.has(1):
 		return
-	
-	var dial_zone = VHS_DATA[vhs_phase].dial_zone
-	
+
+	var dial_zone = VHS_DATA[1].dial_zone
+
 	if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
 		dial_light.color = Color.GREEN
-		tick_speed = VHS_DATA[vhs_phase].tick_speeds['tight_zone']
+		tick_speed = VHS_DATA[1].tick_speeds['tight_zone']
 		## TODO: a.play_sfx('dial_light_green', vcr_sprite)
 	elif dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]:
 		dial_light.color = Color.YELLOW
-		tick_speed = VHS_DATA[vhs_phase].tick_speeds['rough_zone']
+		tick_speed = VHS_DATA[1].tick_speeds['rough_zone']
 	else:
 		dial_light.color = Color.BLACK
-		tick_speed = VHS_DATA[vhs_phase].tick_speeds['no_zone']
+		tick_speed = VHS_DATA[1].tick_speeds['no_zone']
 	
 	tick_path_follow.progress_ratio += tick_speed * delta * tick_direction
 
@@ -234,20 +263,20 @@ func on_miss():
 func _on_tracking_button_pressed(track_setting: String):
 	if not rewinding:
 		return
-		
+
 	a.play_random_sfx('botton_press', tracking)
-		
+
 	current_toggled_track_setting = track_setting
-	var current_tracking_setting_weight = VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]
+	var current_tracking_setting_weight = VHS_DATA[1].track_setting_weights[current_toggled_track_setting]
 	var new_scale = Vector2(hitzone_scale_lookup[current_tracking_setting_weight], 2)
 	var hitzone_tween = create_tween()
 	hitzone_tween.tween_property(hitzone, 'scale', new_scale, .5)
-	
+
 	update_rewind_noise_by_tracking_setting()
-	
-	
+
+
 func update_rewind_noise_by_tracking_setting():
-	var current_tracking_setting_weight = VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]
+	var current_tracking_setting_weight = VHS_DATA[1].track_setting_weights[current_toggled_track_setting]
 
 	var chosen = int(current_tracking_setting_weight)
 
@@ -281,25 +310,24 @@ func _on_hitzone_area_2d_area_exited(area: Area2D) -> void:
 func init_vhs():
 	$VCR/Labels.show()
 	VHS_DATA = generate_vhs_data()
-	vhs_phase = 1
-	hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
-	current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
+	hitzone_path_follow.progress_ratio = VHS_DATA[1].hitzone_position
+	current_ideal_track_setting = get_best_track_setting()
 	rewinding = true
 	vcr_anim_player.play('spin')
 	tv_off_screen.hide()
 	set_rewind_noise()
 	turn_on_live_lights()
-	
+
 	## play video based on genre
 	video_player.stream = load(get_video_file_by_genre())
 	video_player.play()
-	
+
 	var hitzone_scale_tween = create_tween()
 	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], 2), 1)
-	
+
 	var tick_speed_tween = create_tween()
-	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
-	
+	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[1].tick_speeds['no_zone'], 1)
+
 	play_vhs_audio()
 
 func play_vhs_audio():
@@ -342,46 +370,33 @@ func start_vhs_rewind_after_fix():
 	static_audio_player.play()
 
 
-func next_vhs_phase():
+func complete_tape_rewind():
+	## Success! Tape rewind complete
 	successful_hits = 0
-	vhs_phase += 1
-	if not VHS_DATA.has(vhs_phase):
-		## Success!
-		a.play_sfx('rewind_complete', vcr_sprite)
-		a.play_sfx('putting_tape_in', vcr_sprite, {'db': 15})
-		a.play_sfx('rental_return_no_review')
-		## Player can now select a new tape from the backlog or leave back to the store front
-		rewinding = false
-		rewind_audio_player.stop()
-		static_audio_player.stop()
-		m.inventory[rewinding_movie_id].status = 'STOCKED'
-		m.inventory[rewinding_movie_id].location = 'ON SHELF'
-		var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
-		g.add_log_line.emit(log_msg, 'SUCCESS')
-		$VCR/AnimationPlayer.pause()
-		$VCR/Labels.hide()
-		video_player.stop()
-		tv_off_screen.show()
-		for tracking_btn in tracking.get_children():
-			tracking_btn.button_pressed = false
-			
-		left_spool.scale = Vector2(.4, .4)
-		right_spool.scale = Vector2(2, 2)
-		
-		$BacklogButton.show()
-		$StorefrontButton.show()
-		$VCR/Labels.hide()
-	else:
-		hitzone_path_follow.progress_ratio = VHS_DATA[vhs_phase].hitzone_position
-		current_ideal_track_setting = get_best_track_setting_for_phase(vhs_phase)
-		
-		update_rewind_noise_by_tracking_setting()
-		
-		var hitzone_scale_tween = create_tween()
-		hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[VHS_DATA[vhs_phase].track_setting_weights[current_toggled_track_setting]], 2), 1)
-		
-		var tick_speed_tween = create_tween()
-		tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[vhs_phase].tick_speeds['no_zone'], 1)
+	a.play_sfx('rewind_complete', vcr_sprite)
+	a.play_sfx('putting_tape_in', vcr_sprite, {'db': 15})
+	a.play_sfx('rental_return_no_review')
+	## Player can now select a new tape from the backlog or leave back to the store front
+	rewinding = false
+	rewind_audio_player.stop()
+	static_audio_player.stop()
+	m.inventory[rewinding_movie_id].status = 'STOCKED'
+	m.inventory[rewinding_movie_id].location = 'ON SHELF'
+	var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
+	g.add_log_line.emit(log_msg, 'SUCCESS')
+	$VCR/AnimationPlayer.pause()
+	$VCR/Labels.hide()
+	video_player.stop()
+	tv_off_screen.show()
+	for tracking_btn in tracking.get_children():
+		tracking_btn.button_pressed = false
+
+	left_spool.scale = Vector2(.4, .4)
+	right_spool.scale = Vector2(2, 2)
+
+	$BacklogButton.show()
+	$StorefrontButton.show()
+	$VCR/Labels.hide()
 		
 
 func _on_website_rewind_movie_selected(movie_id: String) -> void:
@@ -394,15 +409,15 @@ func _on_website_rewind_movie_selected(movie_id: String) -> void:
 	a.play_sfx('putting_tape_in', vcr_sprite)
 	
 
-func get_best_track_setting_for_phase(phase: int) -> String:
-	var track_weights = VHS_DATA[phase].track_setting_weights
+func get_best_track_setting() -> String:
+	var track_weights = VHS_DATA[1].track_setting_weights
 
 	for track_number in track_weights.keys():
 		if track_weights[track_number] == 0:
 			return track_number
 
 	# fallback if no weight 0 found
-	push_error("No weight 0 found for phase %s" % str(phase))
+	push_error("No weight 0 found in track settings")
 	return ""
 
 
@@ -487,72 +502,57 @@ func _on_storefront_button_pressed() -> void:
 
 func generate_vhs_data() -> Dictionary:
 	var data := {}
-	
-	# 1) Number of failures before break (weighted toward 3-5)
-	var failure_options = [3,4,5,5,4,3,2,1] # Weighted list
-	data["number_of_failures_before_break"] = failure_options[randi() % failure_options.size()]
-	
-	# 2) Generate 3 VHS Rewind Phases
-	var total_success_required := 8
-	var remaining := total_success_required
-	var num_phases := 3
-	
-	var used_zero_index := randi() % 5  # Random index 0-4 for best track each phase
-	var hitzone_positions = [.2, .4, .6] # Shuffle for variety
-	hitzone_positions.shuffle()
 
-	for phase in range(1, num_phases + 1):
-		var is_last_phase = (phase == num_phases)
+	# 1) Number of failures before break (uses export variables)
+	if failure_weight_options.size() > 0:
+		data["number_of_failures_before_break"] = failure_weight_options[randi() % failure_weight_options.size()]
+	else:
+		# Fallback if array is empty
+		data["number_of_failures_before_break"] = randi_range(min_failures_before_break, max_failures_before_break)
 
-		# --- Success Count Distribution ---
-		var phase_success = 0
-		if is_last_phase:
-			phase_success = remaining
-		else:
-			# Give between 2-4 successes early, but leave enough for end
-			phase_success = clamp(randi() % 3 + 2, 1, remaining - (num_phases - phase))
-		remaining -= phase_success
+	# 2) Generate VHS rewind difficulty with configurable successes required
+	var success_required := randi_range(min_successes_required, max_successes_required)
 
-		# --- Track Setting Weights ---
-		var track_weights := {}
-		for i in range(5):
-			var weight_index := (i - used_zero_index) % 5
-			var weight := 2  # default worst
-			if abs(weight_index) <= 1:
-				weight = 1 # middle quality
-			if weight_index == 0:
-				weight = 0 # BEST setting
-			
-			track_weights[str(i + 1)] = weight
+	var used_zero_index := randi() % 5  # Random index 0-4 for best track
+	var hitzone_position = randf_range(hitzone_position_min, hitzone_position_max)
 
-		# Advance pattern shift next phase
-		used_zero_index = (used_zero_index + 1) % 5
+	# --- Track Setting Weights ---
+	var track_weights := {}
+	for i in range(5):
+		var weight_index := (i - used_zero_index) % 5
+		var weight := 2  # default worst
+		if abs(weight_index) <= 1:
+			weight = 1 # middle quality
+		if weight_index == 0:
+			weight = 0 # BEST setting
 
-		# --- Dial Zones ---
-		var tight_center = randf_range(-80, 80)
-		var tight_half = randf_range(5, 12)
-		var rough_half = tight_half + randf_range(15, 25)
+		track_weights[str(i + 1)] = weight
 
-		var dial_zone := {
-			"tight_zone": [tight_center - tight_half, tight_center + tight_half],
-			"rough_zone": [tight_center - rough_half, tight_center + rough_half],
-		}
+	# --- Dial Zones (uses export variables) ---
+	var tight_center = randf_range(dial_tight_center_min, dial_tight_center_max)
+	var tight_half = randf_range(dial_tight_half_min, dial_tight_half_max)
+	var rough_half = tight_half + randf_range(dial_rough_additional_min, dial_rough_additional_max)
 
-		# --- Tick Speeds ---
-		var tick_speeds := {
-			"no_zone": randf_range(1.4, 1.9),
-			"rough_zone": randf_range(1.1, 1.4),
-			"tight_zone": randf_range(0.7, 1.0),
-		}
+	var dial_zone := {
+		"tight_zone": [tight_center - tight_half, tight_center + tight_half],
+		"rough_zone": [tight_center - rough_half, tight_center + rough_half],
+	}
 
-		# Assign phase data
-		data[phase] = {
-			"track_setting_weights": track_weights,
-			"dial_zone": dial_zone,
-			"tick_speeds": tick_speeds,
-			"hitzone_position": hitzone_positions.pop_front(),
-			"success_count_to_continue": phase_success,
-		}
+	# --- Tick Speeds (uses export variables) ---
+	var tick_speeds := {
+		"no_zone": randf_range(tick_speed_no_zone_min, tick_speed_no_zone_max),
+		"rough_zone": randf_range(tick_speed_rough_zone_min, tick_speed_rough_zone_max),
+		"tight_zone": randf_range(tick_speed_tight_zone_min, tick_speed_tight_zone_max),
+	}
+
+	# Assign tape difficulty data
+	data[1] = {
+		"track_setting_weights": track_weights,
+		"dial_zone": dial_zone,
+		"tick_speeds": tick_speeds,
+		"hitzone_position": hitzone_position,
+		"success_count_to_continue": success_required,
+	}
 
 	return data
 
