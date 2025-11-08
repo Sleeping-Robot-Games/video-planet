@@ -37,13 +37,28 @@ func _ready():
 	randomize()
 	inventory.clear()
 
-	for i in range(1, 101): # Generate 100 backlog movies
+	var genres = ['HORROR', 'SCI-FI', 'ROMANCE', 'COMEDY']
+	var movie_counter = 1
+
+	# Generate 5 movies per genre on shelves (20 total stocked movies)
+	for genre in genres:
+		for i in range(5):
+			var movie_id = str(movie_counter).pad_zeros(3)
+			var movie = generate_movie_with_genre("STOCKED", genre)
+			inventory[movie_id] = movie
+			movie_counter += 1
+
+	print("✅ Generated 20 STOCKED movies (5 per genre)!")
+
+	# Generate remaining 80 backlog movies
+	for i in range(movie_counter, 101):
 		var movie_id = str(i).pad_zeros(3)
-		var movie = generate_movie("BACKLOG") # Always backlog
+		var movie = generate_movie("BACKLOG")
 		inventory[movie_id] = movie
 
 	print("✅ Generated ", inventory.size(), " BACKLOG movies!")
-	
+	print("📊 Total inventory: ", inventory.size(), " movies")
+
 	# connect signals
 	movie_reviewed.connect(_on_movie_reviewed)
 
@@ -111,19 +126,20 @@ func generate_generic_review(is_positive: bool) -> String:
 	return positive_reviews.pick_random() if is_positive else negative_reviews.pick_random()
 
 func generate_movie(status: String, customer: String = '') -> Dictionary:
+	var random_genre = ['HORROR', 'SCI-FI', 'ROMANCE', 'COMEDY'].pick_random()
+	return generate_movie_with_genre(status, random_genre, customer)
+
+func generate_movie_with_genre(status: String, genre: String, customer: String = '') -> Dictionary:
 	var movie: Dictionary = {
 		'title': 'TBD',
-		'genre': 'TBD',
+		'genre': genre,
 		'cover': '001.png',
 		'status': 'BACKLOG',
 		'location': 'NEEDS REWIND',
 		'reviews': [],
 	}
-	
-	# genre
-	movie.genre = ['HORROR', 'SCI-FI', 'ROMANCE', 'COMEDY'].pick_random()
-	
-	# title
+
+	# title based on genre
 	match movie.genre:
 		'HORROR':
 			movie.title = generate_horror_title()
@@ -133,12 +149,12 @@ func generate_movie(status: String, customer: String = '') -> Dictionary:
 			movie.title = generate_romance_title()
 		'COMEDY':
 			movie.title = generate_comedy_title()
-	
+
 	# cover
 	var covers = g.files_in_dir('res://movies/covers/')
 	covers.erase('000.png')
 	movie.cover = covers.pick_random()
-	
+
 	# status
 	movie.status = status
 	match status:
@@ -148,7 +164,7 @@ func generate_movie(status: String, customer: String = '') -> Dictionary:
 			movie.location = 'NEEDS REWIND'
 		'CHECKED OUT':
 			movie.location = customer
-	
+
 	return movie
 
 

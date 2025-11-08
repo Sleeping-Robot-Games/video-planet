@@ -6,6 +6,7 @@ extends Node2D
 @onready var dialog = $HUD/Dialogue
 @onready var website = $HUD/Website
 
+@warning_ignore("unused_signal")
 signal movie_return_to_backlog(movie_id: String, movie_data: Dictionary, customer_name: String)
 
 var music_player: AudioStreamPlayer
@@ -29,7 +30,7 @@ func _ready() -> void:
 		tween.tween_interval(1.5)
 		tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
 		tween.tween_property(fade_black, 'modulate:a', 0.5, 2)
-		tween.tween_callback($HUD/Dialogue.open.bind('There are no movies in stock! \n
+		tween.tween_callback($HUD/Dialogue.open.bind('There are barely any movies in stock! \n
 		I better get to the backroom and \n 
 		start rewinding to fill this place back up!'))
 		tween.tween_property(fade_black, 'modulate:a', 0.0, 2)

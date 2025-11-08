@@ -30,6 +30,11 @@ extends Node2D
 @export var tick_speed_tight_zone_min := 0.7
 @export var tick_speed_tight_zone_max := 1.0
 
+@export_group("Hit Quality Thresholds")
+@export_range(0.0, 1.0) var perfect_hit_threshold := 0.2  ## % of hitzone width for PERFECT
+@export_range(0.0, 1.0) var good_hit_threshold := 0.5     ## % of hitzone width for GOOD
+@export_range(0.0, 1.0) var ok_hit_threshold := 1.0       ## % of hitzone width for OK
+
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
@@ -73,7 +78,6 @@ var tracking_input_map = {
 var tick_speed = 0
 var tick_direction := 1.0 # 1 = forward, -1 = backward
 
-var tick_in_hitzone = false
 # how wide the hitzone is based on the track setting weight
 var hitzone_scale_lookup = {
 	2: .35,
@@ -128,7 +132,18 @@ func _unhandled_input(event: InputEvent):
 			tracking_input_map[key].pressed.emit()
 			
 	if event.is_action_pressed('hit'):
-		if tick_in_hitzone:
+		var hit_quality = check_hit_accuracy()
+
+		# Debug: Print hit quality and distance
+		var tick_pos = tick_path_follow.progress_ratio
+		var hitzone_pos = hitzone_path_follow.progress_ratio
+		var distance = abs(tick_pos - hitzone_pos)
+		print("Hit attempt: Quality=%s | Distance=%.4f | Tick=%.4f | Hitzone=%.4f" % [hit_quality, distance, tick_pos, hitzone_pos])
+
+		if hit_quality != "MISS":
+			# Successful hit - stop ticker movement for visual precision
+			tick_speed = 0
+
 			successful_hits += 1
 			if successful_hits >= VHS_DATA[1].success_count_to_continue:
 				complete_tape_rewind()
@@ -183,7 +198,7 @@ func on_success():
 		return
 
 	a.play_sfx('tape_scratch_good', vcr_sprite)
-		
+
 	vcr_anim_player.pause()
 
 	var left_spool_rot = left_spool.rotation
@@ -199,14 +214,26 @@ func on_success():
 	var full_rot := deg_to_rad(360)
 	rotation_tween.tween_property(left_spool, "rotation", left_spool_rot - full_rot, 0.35)
 	rotation_tween.parallel().tween_property(right_spool, "rotation", right_spool_rot - full_rot, 0.35)
-	
+
 	var scale_tween = create_tween()
 	scale_tween.tween_property(left_spool, "scale", left_spool.scale + Vector2(.2, .2), .35)
 	scale_tween.parallel().tween_property(right_spool, "scale", right_spool.scale - Vector2(.2, .2), .35)
-	
+
 	if rewinding:
-		# Step 2: resume main spin animation
-		rotation_tween.tween_callback(Callable(vcr_anim_player, "play").bind("spin"))
+		# Resume ticker speed and main spin animation
+		rotation_tween.tween_callback(func():
+			# Restore ticker speed from dial zone
+			if not VHS_DATA.has(1):
+				return
+			var dial_zone = VHS_DATA[1].dial_zone
+			if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
+				tick_speed = VHS_DATA[1].tick_speeds['tight_zone']
+			elif dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]:
+				tick_speed = VHS_DATA[1].tick_speeds['rough_zone']
+			else:
+				tick_speed = VHS_DATA[1].tick_speeds['no_zone']
+			vcr_anim_player.play("spin")
+		)
 
 
 func on_miss():
@@ -298,14 +325,31 @@ func update_rewind_noise_by_tracking_setting():
 	set_rewind_noise(noise_value)
 
 	
-func _on_hitzone_area_2d_area_entered(area: Area2D) -> void:
-	if area.get_parent().name == 'Tick':
-		tick_in_hitzone = true
+## Position-based hit detection - returns hit quality or MISS
+func check_hit_accuracy() -> String:
+	var tick_pos = tick_path_follow.progress_ratio
+	var hitzone_pos = hitzone_path_follow.progress_ratio
+	var distance = abs(tick_pos - hitzone_pos)
 
+	# Get current hitzone scale based on tracking setting (default to worst if none selected)
+	var tracking_setting = current_toggled_track_setting if current_toggled_track_setting else "1"
+	var current_tracking_weight = VHS_DATA[1].track_setting_weights.get(tracking_setting, 2)
+	var hitzone_visual_scale = hitzone_scale_lookup[current_tracking_weight]
 
-func _on_hitzone_area_2d_area_exited(area: Area2D) -> void:
-	if area.get_parent().name == 'Tick':
-		tick_in_hitzone = false
+	# Base hitzone width in progress_ratio units (empirically determined)
+	# The hitzone sprite is ~22px, and the path is ~640px, so base width ≈ 0.034
+	var base_hitzone_width = 0.034
+	var actual_hitzone_width = base_hitzone_width * hitzone_visual_scale
+
+	# Check against absolute distance thresholds
+	if distance < actual_hitzone_width * perfect_hit_threshold:
+		return "PERFECT"
+	elif distance < actual_hitzone_width * good_hit_threshold:
+		return "GOOD"
+	elif distance < actual_hitzone_width * ok_hit_threshold:
+		return "OK"
+	else:
+		return "MISS"
 
 func init_vhs():
 	$VCR/Labels.show()

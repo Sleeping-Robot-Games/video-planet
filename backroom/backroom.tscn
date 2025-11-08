@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=68 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
-[ext_resource type="VideoStream" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
+[ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
 [ext_resource type="Shader" uid="uid://cjbba3sqy1pbt" path="res://backroom/vcr_rewind.gdshader" id="21_dwywq"]
 [ext_resource type="Texture2D" uid="uid://broow6cw7rx2l" path="res://backroom/tickersquash.png" id="23_4pwh8"]
 [ext_resource type="PackedScene" uid="uid://bahogvabt6amf" path="res://website/website.tscn" id="23_6dn78"]
@@ -56,12 +56,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 724, 427, 0, 0, 0, 0, 1023, 427.62497)
 }
 point_count = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_grv5e"]
-size = Vector2(22, 24.000004)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_irnpm"]
-size = Vector2(4.0000076, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_svl3i"]
 atlas = ExtResource("26_ikkeb")
@@ -669,12 +663,6 @@ progress = 114.66664
 scale = Vector2(0.9, 2)
 texture = ExtResource("23_4pwh8")
 
-[node name="Area2D" type="Area2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D"]
-shape = SubResource("RectangleShape2D_grv5e")
-
 [node name="TickPathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
 position = Vector2(744.01855, 427.0418)
 rotation = 0.002090196
@@ -684,12 +672,6 @@ loop = false
 [node name="Tick" type="Sprite2D" parent="VCR/Ticker/Path2D/TickPathFollow2D"]
 scale = Vector2(2, 2)
 texture = ExtResource("24_ikkeb")
-
-[node name="Area2D" type="Area2D" parent="VCR/Ticker/Path2D/TickPathFollow2D/Tick"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VCR/Ticker/Path2D/TickPathFollow2D/Tick/Area2D"]
-scale = Vector2(1.0000004, 1)
-shape = SubResource("RectangleShape2D_irnpm")
 
 [node name="LivesLightContainer" type="VBoxContainer" parent="VCR"]
 offset_left = 1018.0
@@ -858,8 +840,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("36_5dfa1")
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
-[connection signal="area_entered" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_entered"]
-[connection signal="area_exited" from="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/Area2D" to="." method="_on_hitzone_area_2d_area_exited"]
 [connection signal="animation_finished" from="VCR/Tape" to="." method="_on_tape_animation_finished"]
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
 [connection signal="pressed" from="BacklogButton" to="." method="_on_backlog_button_pressed"]
