@@ -200,6 +200,7 @@ scale = Vector2(2, 2)
 script = ExtResource("1_dspst")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_22fc6")
 
 [node name="Floor" type="TileMapLayer" parent="."]
@@ -244,6 +245,7 @@ tile_set = SubResource("TileSet_56nh0")
 metadata/_edit_lock_ = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
 position = Vector2(318.875, 94.25)

@@ -32,7 +32,7 @@ func _ready() -> void:
 		tween.tween_property(fade_black, 'modulate:a', 0.5, 2)
 		tween.tween_callback($HUD/Dialogue.open.bind('There are barely any movies in stock! \n
 		I better get to the backroom and \n 
-		start rewinding to fill this place back up!'))
+		start rewinding to fill this place back up before we open!'))
 		tween.tween_property(fade_black, 'modulate:a', 0.0, 2)
 		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)

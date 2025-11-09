@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://thwpr8h4nhin"]
+[gd_scene load_steps=66 format=3 uid="uid://thwpr8h4nhin"]
 
 [ext_resource type="Texture2D" uid="uid://sdqwgj8p7n4g" path="res://icon.svg" id="1_g6svw"]
 [ext_resource type="Script" uid="uid://dc86irbvkwbxc" path="res://backroom/backroom.gd" id="1_grv5e"]
@@ -24,8 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://c5nfwrl6rimn1" path="res://backroom/button3pressed.png" id="12_osn8m"]
 [ext_resource type="Texture2D" uid="uid://boanabjswjdpg" path="res://backroom/button4.png" id="13_1r01e"]
 [ext_resource type="Texture2D" uid="uid://clhn1l1yqp7i" path="res://backroom/button4pressed.png" id="14_k50q5"]
-[ext_resource type="Texture2D" uid="uid://d4hs0qibgsni7" path="res://backroom/button5.png" id="15_mssko"]
-[ext_resource type="Texture2D" uid="uid://dtknq7kvkh3j1" path="res://backroom/button5pressed.png" id="16_j82ud"]
 [ext_resource type="Texture2D" uid="uid://cu882a2nu1tau" path="res://backroom/ticker.png" id="18_8mcd7"]
 [ext_resource type="Texture2D" uid="uid://brox6iu8bf465" path="res://backroom/plant.png" id="20_dwywq"]
 [ext_resource type="VideoStream" uid="uid://7rn1mj6fhea3" path="res://backroom/snapback_rewind.ogv" id="21_6dn78"]
@@ -392,6 +390,7 @@ _data = {
 
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
+tracking_button_cooldown_time = 2.0
 
 [node name="Bgtest" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -497,7 +496,7 @@ offset_left = 518.0
 offset_top = 498.0
 offset_right = 730.0
 offset_bottom = 512.0
-text = "Use 1-5 number keys"
+text = "Use 1-4 number keys"
 
 [node name="DialTutorialLabel2" type="Label" parent="VCR/Labels"]
 layout_mode = 0
@@ -543,10 +542,10 @@ disabled = true
 text = "Rewind (Enter)"
 
 [node name="Tracking" type="HBoxContainer" parent="VCR"]
-offset_left = 488.0
-offset_top = 456.0
-offset_right = 679.0
-offset_bottom = 507.62497
+offset_left = 513.0
+offset_top = 454.0
+offset_right = 665.0
+offset_bottom = 505.62497
 pivot_offset = Vector2(-32, -8)
 
 [node name="1" type="TextureButton" parent="VCR/Tracking"]
@@ -593,17 +592,6 @@ texture_normal = ExtResource("13_1r01e")
 texture_pressed = ExtResource("14_k50q5")
 stretch_mode = 4
 
-[node name="5" type="TextureButton" parent="VCR/Tracking"]
-custom_minimum_size = Vector2(35, 10)
-layout_mode = 2
-focus_mode = 0
-mouse_filter = 2
-toggle_mode = true
-button_group = SubResource("ButtonGroup_grv5e")
-texture_normal = ExtResource("15_mssko")
-texture_pressed = ExtResource("16_j82ud")
-stretch_mode = 4
-
 [node name="DialLight" type="ColorRect" parent="VCR"]
 offset_left = 1168.0
 offset_top = 424.0
@@ -612,7 +600,7 @@ offset_bottom = 444.0
 color = Color(0, 0, 0, 1)
 
 [node name="Dial" type="Sprite2D" parent="VCR"]
-position = Vector2(1079, 472)
+position = Vector2(1083, 471)
 scale = Vector2(2, 2)
 texture = ExtResource("5_cge5e")
 
@@ -704,6 +692,32 @@ custom_minimum_size = Vector2(0, 2.5)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
+[node name="TrackingCooldownLights" type="VBoxContainer" parent="VCR"]
+offset_left = 495.0
+offset_top = 454.0
+offset_right = 507.0
+offset_bottom = 486.0
+
+[node name="Light" type="ColorRect" parent="VCR/TrackingCooldownLights"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Light2" type="ColorRect" parent="VCR/TrackingCooldownLights"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Light3" type="ColorRect" parent="VCR/TrackingCooldownLights"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Light4" type="ColorRect" parent="VCR/TrackingCooldownLights"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Offlight" type="Sprite2D" parent="VCR"]
 position = Vector2(1173, 432)
 scale = Vector2(2, 2)
@@ -713,6 +727,7 @@ texture = ExtResource("23_mssko")
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_in46m")
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="VCR"]
 libraries = {
@@ -826,6 +841,7 @@ self_modulate = Color(1, 1, 1, 0.5254902)
 position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("35_sbjxv")
+metadata/_edit_lock_ = true
 
 [node name="Website" parent="." instance=ExtResource("23_6dn78")]
 visible = false
@@ -839,8 +855,12 @@ position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("36_5dfa1")
 
+[node name="TrackButtonCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="animation_finished" from="VCR/Tape" to="." method="_on_tape_animation_finished"]
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]
 [connection signal="pressed" from="BacklogButton" to="." method="_on_backlog_button_pressed"]
 [connection signal="pressed" from="StorefrontButton" to="." method="_on_storefront_button_pressed"]
+[connection signal="timeout" from="TrackButtonCooldownTimer" to="." method="_on_track_button_cooldown_timer_timeout"]

@@ -35,6 +35,9 @@ extends Node2D
 @export_range(0.0, 1.0) var good_hit_threshold := 0.5     ## % of hitzone width for GOOD
 @export_range(0.0, 1.0) var ok_hit_threshold := 1.0       ## % of hitzone width for OK
 
+@export_group("Tracking Button Cooldown")
+@export var tracking_button_cooldown_time := 1.0  ## Time in seconds before tracking buttons can be pressed again
+
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
@@ -54,6 +57,8 @@ extends Node2D
 @onready var tv_off_screen = $SubViewportContainer/SubViewport/TVOff
 @onready var video_player = $SubViewportContainer/SubViewport/VideoStreamPlayer
 @onready var lives_light_container = $VCR/LivesLightContainer
+@onready var track_button_cooldown_timer = $TrackButtonCooldownTimer
+@onready var tracking_cooldown_lights = $VCR/TrackingCooldownLights
 
 const DIAL_ROTATE_SPEED = 50.0
 const DIAL_ROTATE_MIN = -100.0
@@ -72,7 +77,6 @@ var tracking_input_map = {
 	"2": null,
 	"3": null,
 	"4": null,
-	"5": null,
 }
 
 var tick_speed = 0
@@ -94,6 +98,7 @@ var rewinding = false
 var successful_hits = 0
 var tape_broken = false
 var tape_fixed = false
+var tracking_buttons_on_cooldown = false
 
 var VHS_DATA = {}
 
@@ -128,8 +133,9 @@ func _unhandled_input(event: InputEvent):
 
 	for key in tracking_input_map.keys():
 		if event.is_action_pressed(key):
-			tracking_input_map[key].button_pressed = true
-			tracking_input_map[key].pressed.emit()
+			if not tracking_buttons_on_cooldown:
+				tracking_input_map[key].button_pressed = true
+				tracking_input_map[key].pressed.emit()
 			
 	if event.is_action_pressed('hit'):
 		var hit_quality = check_hit_accuracy()
@@ -291,7 +297,26 @@ func _on_tracking_button_pressed(track_setting: String):
 	if not rewinding:
 		return
 
+	# Check if this button is already toggled - keep it pressed, don't allow deselection
+	if current_toggled_track_setting == track_setting:
+		var button = tracking_input_map[track_setting]
+		if button:
+			button.button_pressed = true  # Keep it pressed
+		return
+
+	if tracking_buttons_on_cooldown:
+		# Unpress the button since we're on cooldown
+		var button = tracking_input_map[track_setting]
+		if button:
+			button.button_pressed = false
+		return
+
 	a.play_random_sfx('botton_press', tracking)
+
+	# Start cooldown
+	tracking_buttons_on_cooldown = true
+	track_button_cooldown_timer.start(tracking_button_cooldown_time)
+	animate_cooldown_lights()
 
 	current_toggled_track_setting = track_setting
 	var current_tracking_setting_weight = VHS_DATA[1].track_setting_weights[current_toggled_track_setting]
@@ -362,6 +387,11 @@ func init_vhs():
 	set_rewind_noise()
 	turn_on_live_lights()
 
+	# Start the tracking button cooldown
+	tracking_buttons_on_cooldown = true
+	track_button_cooldown_timer.start(tracking_button_cooldown_time)
+	animate_cooldown_lights()
+
 	## play video based on genre
 	video_player.stream = load(get_video_file_by_genre())
 	video_player.play()
@@ -413,6 +443,11 @@ func start_vhs_rewind_after_fix():
 	rewind_audio_player.play()
 	static_audio_player.play()
 
+	# Start the tracking button cooldown
+	tracking_buttons_on_cooldown = true
+	track_button_cooldown_timer.start(tracking_button_cooldown_time)
+	animate_cooldown_lights()
+
 
 func complete_tape_rewind():
 	## Success! Tape rewind complete
@@ -441,6 +476,7 @@ func complete_tape_rewind():
 	$BacklogButton.show()
 	$StorefrontButton.show()
 	$VCR/Labels.hide()
+	reset_cooldown_lights()
 		
 
 func _on_website_rewind_movie_selected(movie_id: String) -> void:
@@ -557,13 +593,13 @@ func generate_vhs_data() -> Dictionary:
 	# 2) Generate VHS rewind difficulty with configurable successes required
 	var success_required := randi_range(min_successes_required, max_successes_required)
 
-	var used_zero_index := randi() % 5  # Random index 0-4 for best track
+	var used_zero_index := randi() % 4  # Random index 0-3 for best track
 	var hitzone_position = randf_range(hitzone_position_min, hitzone_position_max)
 
 	# --- Track Setting Weights ---
 	var track_weights := {}
-	for i in range(5):
-		var weight_index := (i - used_zero_index) % 5
+	for i in range(4):
+		var weight_index := (i - used_zero_index) % 4
 		var weight := 2  # default worst
 		if abs(weight_index) <= 1:
 			weight = 1 # middle quality
@@ -608,3 +644,38 @@ func _on_tape_animation_finished() -> void:
 		start_vhs_rewind_after_fix()
 	else:
 		init_vhs()
+
+
+func _on_track_button_cooldown_timer_timeout() -> void:
+	tracking_buttons_on_cooldown = false
+
+
+func animate_cooldown_lights():
+	# Get all light children - they're in VBoxContainer so index 0 is top, last is bottom
+	var lights = tracking_cooldown_lights.get_children()
+
+	# Turn all lights black first
+	for light in lights:
+		light.color = Color.BLACK
+
+	# Calculate delay between each light based on cooldown time
+	var delay_per_light = tracking_button_cooldown_time / lights.size()
+
+	# Create tween to light up each LED from bottom to top
+	# We need to start from the last index (bottom) and go to 0 (top)
+	for i in range(lights.size()):
+		var light_index = lights.size() - 1 - i  # Reverse the index to go bottom to top
+		var light = lights[light_index]
+
+		# Schedule this light to turn on at the appropriate time
+		get_tree().create_timer(delay_per_light * i).timeout.connect(func():
+			if light:  # Check if light still exists
+				var tween = create_tween()
+				tween.tween_property(light, "color", Color.GREEN, 0.05)
+		)
+
+
+func reset_cooldown_lights():
+	# Turn all lights black
+	for light in tracking_cooldown_lights.get_children():
+		light.color = Color.BLACK
