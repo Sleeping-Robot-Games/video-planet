@@ -390,6 +390,8 @@ _data = {
 
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
+min_successes_required = 4
+max_successes_required = 6
 
 [node name="Bgtest" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -649,6 +651,18 @@ progress = 114.66664
 [node name="HitZone" type="Sprite2D" parent="VCR/Ticker/Path2D/HitzonePathFollow2D"]
 scale = Vector2(0.9, 2)
 texture = ExtResource("23_4pwh8")
+
+[node name="HitQualityLabel" type="Label" parent="VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone"]
+visible = false
+z_index = 100
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -10.0
+theme_override_font_sizes/font_size = 20
+text = "PERFECT"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TickPathFollow2D" type="PathFollow2D" parent="VCR/Ticker/Path2D"]
 position = Vector2(744.01855, 427.0418)

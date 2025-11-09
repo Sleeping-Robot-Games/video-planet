@@ -41,6 +41,11 @@ extends Node2D
 @export var dial_speed_max := 200.0         ## Maximum rotation speed in degrees/second
 @export var dial_acceleration_time := 0.67  ## Time in seconds to reach max speed
 
+@export_group("Hit Quality Floating Text")
+@export var hit_text_float_distance := 40.0  ## How far the text floats upward
+@export var hit_text_duration := 1.0  ## Duration of the floating animation
+@export var hit_text_scale_mult := 1.2  ## Scale multiplier for text emphasis
+
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
@@ -48,6 +53,7 @@ extends Node2D
 @onready var tick_path_follow = $VCR/Ticker/Path2D/TickPathFollow2D
 @onready var hitzone_path_follow = $VCR/Ticker/Path2D/HitzonePathFollow2D
 @onready var hitzone = $VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone
+@onready var hit_quality_label = $VCR/Ticker/Path2D/HitzonePathFollow2D/HitZone/HitQualityLabel
 @onready var dial = $VCR/Dial
 @onready var dial_light = $VCR/DialLight
 @onready var rewind_button = $VCR/RewindButton
@@ -152,6 +158,9 @@ func _unhandled_input(event: InputEvent):
 
 		var hit_quality = check_hit_accuracy()
 
+		# Show floating text with hit quality
+		show_hit_quality_text(hit_quality)
+
 		# Debug: Print hit quality and distance
 		var tick_pos = tick_path_follow.progress_ratio
 		var hitzone_pos = hitzone_path_follow.progress_ratio
@@ -188,6 +197,56 @@ func increase_tick_speed() -> void:
 func reset_tick_speed() -> void:
 	"""Resets tick speed to the base value"""
 	tick_speed = base_tick_speed
+
+func show_hit_quality_text(quality: String) -> void:
+	"""Displays floating text showing hit quality with color-coded feedback"""
+	# Create a new label instance for this hit so multiple can exist simultaneously
+	var new_label = Label.new()
+	new_label.text = quality
+	new_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	new_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	new_label.z_index = 100
+
+	# Copy font size from the template label
+	new_label.add_theme_font_size_override("font_size", 20)
+
+	# Set color based on quality
+	match quality:
+		"PERFECT":
+			new_label.modulate = Color(1.0, 0.84, 0.0)  # Gold
+		"GOOD":
+			new_label.modulate = Color(0.0, 1.0, 0.5)  # Light Green
+		"OK":
+			new_label.modulate = Color(1.0, 0.65, 0.0)  # Orange
+		"MISS":
+			new_label.modulate = Color(1.0, 0.2, 0.2)  # Red
+
+	# Position above hitzone
+	var start_pos = Vector2(0, -25)
+	new_label.position = start_pos
+	new_label.scale = Vector2(1.0, 1.0)
+
+	# Add to hitzone so it moves with it
+	hitzone.add_child(new_label)
+
+	# Create independent tween that won't be affected by scene tree pause
+	var tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)  # Continue even when scene pauses
+	tween.set_parallel(true)
+
+	# Float upward (using export variable)
+	tween.tween_property(new_label, "position", start_pos + Vector2(0, -hit_text_float_distance), hit_text_duration)
+
+	# Scale up slightly (using export variable)
+	tween.tween_property(new_label, "scale", Vector2(hit_text_scale_mult, hit_text_scale_mult), 0.3)
+
+	# Fade out (using export variable for duration)
+	tween.tween_property(new_label, "modulate:a", 0.0, hit_text_duration)
+
+	# Remove label when animation completes
+	tween.chain().tween_callback(func():
+		new_label.queue_free()
+	)
 
 func _process(delta):
 	$Clouds/ParallaxFast.scroll_offset.x += 6 * delta
