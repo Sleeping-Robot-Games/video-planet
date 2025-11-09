@@ -38,6 +38,11 @@ extends Node2D
 @export_group("Tracking Button Cooldown")
 @export var tracking_button_cooldown_time := 1.0  ## Time in seconds before tracking buttons can be pressed again
 
+@export_group("Dial Speed Settings")
+@export var dial_speed_initial := 80.0      ## Starting rotation speed in degrees/second
+@export var dial_speed_max := 200.0         ## Maximum rotation speed in degrees/second
+@export var dial_acceleration_time := 0.67  ## Time in seconds to reach max speed
+
 @onready var vcr = $VCR
 @onready var vcr_sprite = $VCR/Sprite2D
 @onready var tracking = $VCR/Tracking
@@ -60,7 +65,6 @@ extends Node2D
 @onready var track_button_cooldown_timer = $TrackButtonCooldownTimer
 @onready var tracking_cooldown_lights = $VCR/TrackingCooldownLights
 
-const DIAL_ROTATE_SPEED = 50.0
 const DIAL_ROTATE_MIN = -100.0
 const DIAL_ROTATE_MAX = 100.0
 
@@ -71,6 +75,7 @@ var rewind_audio_player: AudioStreamPlayer2D
 var static_audio_player: AudioStreamPlayer2D
 
 var dial_angle = 0.0
+var dial_current_speed = 0.0  # Current rotation speed with acceleration
 
 var tracking_input_map = {
 	"1": null,
@@ -165,9 +170,18 @@ func _process(delta):
 		return
 
 	if Input.is_action_pressed('dial_right'):
-		dial_angle += DIAL_ROTATE_SPEED * delta
+		# Calculate acceleration rate based on time to reach max speed
+		var acceleration = (dial_speed_max - dial_speed_initial) / dial_acceleration_time
+		dial_current_speed = min(dial_current_speed + acceleration * delta, dial_speed_max)
+		dial_angle += dial_current_speed * delta
 	elif Input.is_action_pressed('dial_left'):
-		dial_angle -= DIAL_ROTATE_SPEED * delta
+		# Calculate acceleration rate based on time to reach max speed
+		var acceleration = (dial_speed_max - dial_speed_initial) / dial_acceleration_time
+		dial_current_speed = min(dial_current_speed + acceleration * delta, dial_speed_max)
+		dial_angle -= dial_current_speed * delta
+	else:
+		# Reset speed when released
+		dial_current_speed = dial_speed_initial
 
 	dial_angle = clamp(dial_angle, DIAL_ROTATE_MIN, DIAL_ROTATE_MAX)
 	dial.rotation_degrees = dial_angle
