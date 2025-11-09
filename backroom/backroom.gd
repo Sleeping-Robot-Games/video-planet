@@ -37,6 +37,7 @@ extends Node2D
 
 @export_group("Tracking Button Cooldown")
 @export var tracking_button_cooldown_time := 1.0  ## Time in seconds before tracking buttons can be pressed again
+@export var initial_tracking_cooldown := true      ## If true, buttons start on cooldown; if false, first press has no cooldown
 
 @export_group("Dial Speed Settings")
 @export var dial_speed_initial := 80.0      ## Starting rotation speed in degrees/second
@@ -104,6 +105,7 @@ var successful_hits = 0
 var tape_broken = false
 var tape_fixed = false
 var tracking_buttons_on_cooldown = false
+var first_tracking_press = true  # Track if this is the first button press
 
 var VHS_DATA = {}
 
@@ -327,10 +329,13 @@ func _on_tracking_button_pressed(track_setting: String):
 
 	a.play_random_sfx('botton_press', tracking)
 
-	# Start cooldown
-	tracking_buttons_on_cooldown = true
-	track_button_cooldown_timer.start(tracking_button_cooldown_time)
-	animate_cooldown_lights()
+	# Start cooldown (skip if this is the first press and initial cooldown is disabled)
+	if initial_tracking_cooldown or not first_tracking_press:
+		tracking_buttons_on_cooldown = true
+		track_button_cooldown_timer.start(tracking_button_cooldown_time)
+		animate_cooldown_lights()
+
+	first_tracking_press = false  # Mark that first press has occurred
 
 	current_toggled_track_setting = track_setting
 	var current_tracking_setting_weight = VHS_DATA[1].track_setting_weights[current_toggled_track_setting]
@@ -403,10 +408,17 @@ func init_vhs():
 	set_rewind_noise()
 	turn_on_live_lights()
 
-	# Start the tracking button cooldown
-	tracking_buttons_on_cooldown = true
-	track_button_cooldown_timer.start(tracking_button_cooldown_time)
-	animate_cooldown_lights()
+	# Start the tracking button cooldown (if initial cooldown is enabled)
+	first_tracking_press = true
+	if initial_tracking_cooldown:
+		tracking_buttons_on_cooldown = true
+		track_button_cooldown_timer.start(tracking_button_cooldown_time)
+		animate_cooldown_lights()
+	else:
+		# Start with all lights green (ready to press)
+		tracking_buttons_on_cooldown = false
+		for light in tracking_cooldown_lights.get_children():
+			light.color = Color.GREEN
 
 	## play video based on genre
 	video_player.stream = load(get_video_file_by_genre())
@@ -460,10 +472,17 @@ func start_vhs_rewind_after_fix():
 	rewind_audio_player.play()
 	static_audio_player.play()
 
-	# Start the tracking button cooldown
-	tracking_buttons_on_cooldown = true
-	track_button_cooldown_timer.start(tracking_button_cooldown_time)
-	animate_cooldown_lights()
+	# Start the tracking button cooldown (if initial cooldown is enabled)
+	first_tracking_press = true
+	if initial_tracking_cooldown:
+		tracking_buttons_on_cooldown = true
+		track_button_cooldown_timer.start(tracking_button_cooldown_time)
+		animate_cooldown_lights()
+	else:
+		# Start with all lights green (ready to press)
+		tracking_buttons_on_cooldown = false
+		for light in tracking_cooldown_lights.get_children():
+			light.color = Color.GREEN
 
 
 func complete_tape_rewind():
