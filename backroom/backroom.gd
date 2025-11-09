@@ -23,12 +23,9 @@ extends Node2D
 @export var dial_rough_additional_max := 25.0
 
 @export_group("Tick Speed Settings")
-@export var tick_speed_no_zone_min := 1.4
-@export var tick_speed_no_zone_max := 1.9
-@export var tick_speed_rough_zone_min := 1.1
-@export var tick_speed_rough_zone_max := 1.4
-@export var tick_speed_tight_zone_min := 0.7
-@export var tick_speed_tight_zone_max := 1.0
+@export var base_tick_speed := 1.0  ## Starting ticker movement speed
+@export var tick_speed_increase_per_hit := 0.2  ## Amount to increase speed after each successful hit
+@export var max_tick_speed := 3.0  ## Maximum ticker speed cap
 
 @export_group("Hit Quality Thresholds")
 @export_range(0.0, 1.0) var perfect_hit_threshold := 0.2  ## % of hitzone width for PERFECT
@@ -145,6 +142,14 @@ func _unhandled_input(event: InputEvent):
 				tracking_input_map[key].pressed.emit()
 			
 	if event.is_action_pressed('hit'):
+		# Check if hitbox is enabled before allowing hit attempt
+		if VHS_DATA.has(1):
+			var dial_zone = VHS_DATA[1].dial_zone
+			var in_green_zone = dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]
+			var in_yellow_zone = dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]
+			if not in_green_zone and not in_yellow_zone:
+				return  # Don't process hit when hitbox disabled
+
 		var hit_quality = check_hit_accuracy()
 
 		# Debug: Print hit quality and distance
@@ -154,15 +159,35 @@ func _unhandled_input(event: InputEvent):
 		print("Hit attempt: Quality=%s | Distance=%.4f | Tick=%.4f | Hitzone=%.4f" % [hit_quality, distance, tick_pos, hitzone_pos])
 
 		if hit_quality != "MISS":
-			# Successful hit - stop ticker movement for visual precision
-			tick_speed = 0
-
+			# Successful hit - ticker continues moving
 			successful_hits += 1
 			if successful_hits >= VHS_DATA[1].success_count_to_continue:
 				complete_tape_rewind()
 			on_success()
 		else:
 			on_miss()
+
+func update_tick_movement(delta: float) -> void:
+	"""Updates the ticker position and handles direction changes at boundaries"""
+	tick_path_follow.progress_ratio += tick_speed * delta * tick_direction
+
+	if tick_path_follow.progress_ratio >= 1.0:
+		tick_path_follow.progress_ratio = 1.0
+		tick_direction = -1.0
+		a.play_random_sfx('ticker_wall', tick)
+	elif tick_path_follow.progress_ratio <= 0.0:
+		tick_path_follow.progress_ratio = 0.0
+		tick_direction = 1.0
+		a.play_random_sfx('ticker_wall', tick)
+
+func increase_tick_speed() -> void:
+	"""Increases tick speed after a successful hit, up to the maximum"""
+	tick_speed = min(tick_speed + tick_speed_increase_per_hit, max_tick_speed)
+	print("Tick speed increased to: %.2f" % tick_speed)
+
+func reset_tick_speed() -> void:
+	"""Resets tick speed to the base value"""
+	tick_speed = base_tick_speed
 
 func _process(delta):
 	$Clouds/ParallaxFast.scroll_offset.x += 6 * delta
@@ -194,26 +219,21 @@ func _process(delta):
 	var dial_zone = VHS_DATA[1].dial_zone
 
 	if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
+		# Green zone - hitbox enabled with bonus
 		dial_light.color = Color.GREEN
-		tick_speed = VHS_DATA[1].tick_speeds['tight_zone']
+		hitzone.modulate = Color.GREEN
 		## TODO: a.play_sfx('dial_light_green', vcr_sprite)
 	elif dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]:
+		# Yellow zone - hitbox enabled normally
 		dial_light.color = Color.YELLOW
-		tick_speed = VHS_DATA[1].tick_speeds['rough_zone']
+		hitzone.modulate = Color.YELLOW
 	else:
+		# No zone - hitbox disabled
 		dial_light.color = Color.BLACK
-		tick_speed = VHS_DATA[1].tick_speeds['no_zone']
-	
-	tick_path_follow.progress_ratio += tick_speed * delta * tick_direction
+		hitzone.modulate = Color.GRAY
 
-	if tick_path_follow.progress_ratio >= 1.0:
-		tick_path_follow.progress_ratio = 1.0
-		tick_direction = -1.0
-		a.play_random_sfx('ticker_wall', tick)
-	elif tick_path_follow.progress_ratio <= 0.0:
-		tick_path_follow.progress_ratio = 0.0
-		tick_direction = 1.0
-		a.play_random_sfx('ticker_wall', tick)
+	# Update ticker movement (speed increases with each successful hit)
+	update_tick_movement(delta)
 
 func on_success():
 	if not rewinding:
@@ -226,9 +246,12 @@ func on_success():
 	var left_spool_rot = left_spool.rotation
 	var right_spool_rot = right_spool.rotation
 
+	# Store current hitzone color before flashing
+	var current_hitzone_color = hitzone.modulate
+
 	var brightness_tween = create_tween()
 	brightness_tween.tween_property(hitzone, "modulate", Color(1.2, 1.2, 1.5), 0.15)
-	brightness_tween.tween_property(hitzone, "modulate", Color(1, 1, 1), 0.15)
+	brightness_tween.tween_property(hitzone, "modulate", current_hitzone_color, 0.15)
 
 	var rotation_tween = create_tween()
 
@@ -242,18 +265,11 @@ func on_success():
 	scale_tween.parallel().tween_property(right_spool, "scale", right_spool.scale - Vector2(.2, .2), .35)
 
 	if rewinding:
-		# Resume ticker speed and main spin animation
+		# Increase tick speed immediately after successful hit
+		increase_tick_speed()
+
+		# Resume main spin animation
 		rotation_tween.tween_callback(func():
-			# Restore ticker speed from dial zone
-			if not VHS_DATA.has(1):
-				return
-			var dial_zone = VHS_DATA[1].dial_zone
-			if dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]:
-				tick_speed = VHS_DATA[1].tick_speeds['tight_zone']
-			elif dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]:
-				tick_speed = VHS_DATA[1].tick_speeds['rough_zone']
-			else:
-				tick_speed = VHS_DATA[1].tick_speeds['no_zone']
 			vcr_anim_player.play("spin")
 		)
 
@@ -371,6 +387,18 @@ func update_rewind_noise_by_tracking_setting():
 	
 ## Position-based hit detection - returns hit quality or MISS
 func check_hit_accuracy() -> String:
+	# Check if hitbox is enabled based on dial position
+	if not VHS_DATA.has(1):
+		return "MISS"
+
+	var dial_zone = VHS_DATA[1].dial_zone
+	var in_green_zone = dial.rotation_degrees >= dial_zone.tight_zone[0] and dial.rotation_degrees <= dial_zone.tight_zone[1]
+	var in_yellow_zone = dial.rotation_degrees >= dial_zone.rough_zone[0] and dial.rotation_degrees <= dial_zone.rough_zone[1]
+
+	# Hitbox disabled if not in any zone
+	if not in_green_zone and not in_yellow_zone:
+		return "MISS"
+
 	var tick_pos = tick_path_follow.progress_ratio
 	var hitzone_pos = hitzone_path_follow.progress_ratio
 	var distance = abs(tick_pos - hitzone_pos)
@@ -388,14 +416,19 @@ func check_hit_accuracy() -> String:
 	var actual_hitzone_width = base_hitzone_width * hitzone_visual_scale
 
 	# Check against absolute distance thresholds
+	var hit_result = "MISS"
 	if distance < actual_hitzone_width * perfect_hit_threshold:
-		return "PERFECT"
+		hit_result = "PERFECT"
 	elif distance < actual_hitzone_width * good_hit_threshold:
-		return "GOOD"
+		hit_result = "GOOD"
 	elif distance < actual_hitzone_width * ok_hit_threshold:
-		return "OK"
-	else:
-		return "MISS"
+		hit_result = "OK"
+
+	# If in green zone and hit was successful, print bonus message
+	if in_green_zone and hit_result != "MISS":
+		print("BONUS HIT! Green zone multiplier active")
+
+	return hit_result
 
 func init_vhs():
 	$VCR/Labels.show()
@@ -428,8 +461,11 @@ func init_vhs():
 	var hitzone_scale_tween = create_tween()
 	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[1], 2), 1)
 
-	var tick_speed_tween = create_tween()
-	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[1].tick_speeds['no_zone'], 1)
+	# Initialize hitbox as disabled (gray) until dial is positioned
+	hitzone.modulate = Color.GRAY
+
+	# Initialize tick speed (increases with successful hits)
+	reset_tick_speed()
 
 	play_vhs_audio()
 
@@ -463,6 +499,7 @@ func start_vhs_rewind_after_fix():
 	tape_fixed = false
 	fix_tape_button.hide()
 	rewinding = true
+	reset_tick_speed()  # Reset tick speed when restarting after fix
 	$VCR/AnimationPlayer.play('spin')
 	tv_off_screen.hide()
 	video_player.paused = false
@@ -654,18 +691,10 @@ func generate_vhs_data() -> Dictionary:
 		"rough_zone": [tight_center - rough_half, tight_center + rough_half],
 	}
 
-	# --- Tick Speeds (uses export variables) ---
-	var tick_speeds := {
-		"no_zone": randf_range(tick_speed_no_zone_min, tick_speed_no_zone_max),
-		"rough_zone": randf_range(tick_speed_rough_zone_min, tick_speed_rough_zone_max),
-		"tight_zone": randf_range(tick_speed_tight_zone_min, tick_speed_tight_zone_max),
-	}
-
 	# Assign tape difficulty data
 	data[1] = {
 		"track_setting_weights": track_weights,
 		"dial_zone": dial_zone,
-		"tick_speeds": tick_speeds,
 		"hitzone_position": hitzone_position,
 		"success_count_to_continue": success_required,
 	}
