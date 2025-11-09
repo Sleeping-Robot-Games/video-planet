@@ -356,14 +356,16 @@ func check_hit_accuracy() -> String:
 	var hitzone_pos = hitzone_path_follow.progress_ratio
 	var distance = abs(tick_pos - hitzone_pos)
 
-	# Get current hitzone scale based on tracking setting (default to worst if none selected)
+	# Get current hitzone scale based on tracking setting (default to middle quality if none selected)
 	var tracking_setting = current_toggled_track_setting if current_toggled_track_setting else "1"
-	var current_tracking_weight = VHS_DATA[1].track_setting_weights.get(tracking_setting, 2)
+	var current_tracking_weight = VHS_DATA[1].track_setting_weights.get(tracking_setting, 1)
 	var hitzone_visual_scale = hitzone_scale_lookup[current_tracking_weight]
 
-	# Base hitzone width in progress_ratio units (empirically determined)
-	# The hitzone sprite is ~22px, and the path is ~640px, so base width ≈ 0.034
-	var base_hitzone_width = 0.034
+	# Calculate base hitzone width dynamically from actual path length
+	# Assumes hitzone sprite is approximately 22px wide
+	var path_length = tick_path_follow.get_parent().curve.get_baked_length()
+	var hitzone_sprite_width = 22.0  # Approximate width of hitzone sprite in pixels
+	var base_hitzone_width = hitzone_sprite_width / path_length
 	var actual_hitzone_width = base_hitzone_width * hitzone_visual_scale
 
 	# Check against absolute distance thresholds
@@ -396,8 +398,9 @@ func init_vhs():
 	video_player.stream = load(get_video_file_by_genre())
 	video_player.play()
 
+	# Start with middle quality scale (weight 1 = 0.9) to match default detection
 	var hitzone_scale_tween = create_tween()
-	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[2], 2), 1)
+	hitzone_scale_tween.tween_property(hitzone, 'scale', Vector2(hitzone_scale_lookup[1], 2), 1)
 
 	var tick_speed_tween = create_tween()
 	tick_speed_tween.tween_property(self, 'tick_speed', VHS_DATA[1].tick_speeds['no_zone'], 1)
