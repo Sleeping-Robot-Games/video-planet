@@ -871,6 +871,14 @@ texture = ExtResource("36_5dfa1")
 [node name="TrackButtonCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="ShiftClockLabel" type="Label" parent="."]
+offset_left = 141.0
+offset_top = 391.0
+offset_right = 260.0
+offset_bottom = 414.0
+text = "SHIFT INACTIVE"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="animation_finished" from="VCR/Tape" to="." method="_on_tape_animation_finished"]
 [connection signal="pressed" from="FixTapeButton" to="." method="_on_fix_tape_button_pressed"]

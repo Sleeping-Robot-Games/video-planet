@@ -500,6 +500,15 @@ offset_bottom = 199.0
 theme = ExtResource("20_22fc6")
 text = "Backroom entrance"
 
+[node name="ShiftClockLabel" type="Label" parent="HUD"]
+offset_left = 1050.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 40.0
+theme = ExtResource("20_22fc6")
+text = "SHIFT INACTIVE"
+horizontal_alignment = 2
+
 [node name="FadeBlack" type="ColorRect" parent="HUD"]
 visible = false
 z_index = 4

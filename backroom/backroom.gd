@@ -68,6 +68,7 @@ extends Node2D
 @onready var lives_light_container = $VCR/LivesLightContainer
 @onready var track_button_cooldown_timer = $TrackButtonCooldownTimer
 @onready var tracking_cooldown_lights = $VCR/TrackingCooldownLights
+@onready var shift_clock_label: Label = $ShiftClockLabel
 
 const DIAL_ROTATE_MIN = -100.0
 const DIAL_ROTATE_MAX = 100.0
@@ -125,7 +126,11 @@ func _ready():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
 		tracking_input_map[tracking_button.name] = tracking_button
 	_connect_ui_buttons()
-	
+	update_clock_display()
+
+func update_clock_display() -> void:
+	shift_clock_label.text = g.get_in_game_time_string()
+
 func _connect_ui_buttons():
 	for button in get_tree().get_nodes_in_group("ui_buttons"):
 		button.mouse_entered.connect(func():
@@ -249,9 +254,20 @@ func show_hit_quality_text(quality: String) -> void:
 	)
 
 func _process(delta):
+	# Update shift timer
+	if g.is_shift_active:
+		g.shift_time_remaining -= delta
+
+		# Stop timer at 0, don't go negative
+		if g.shift_time_remaining <= 0:
+			g.shift_time_remaining = 0
+			g.is_shift_active = false
+
+		update_clock_display()
+
 	$Clouds/ParallaxFast.scroll_offset.x += 6 * delta
 	$Clouds/ParallaxSlow.scroll_offset.x += 1.5 * delta
-	
+
 	if not rewinding:
 		return
 
@@ -707,6 +723,12 @@ func _on_backlog_button_pressed() -> void:
 	$Website.open_by_backroom_computer()
 
 func _on_storefront_button_pressed() -> void:
+	# Check if shift is active - if so, prevent leaving
+	if g.is_shift_active:
+		# Show temporary warning message (could be expanded with a dedicated label)
+		print("Can't leave during shift!")
+		return
+
 	music_player.stop()
 	music_player.queue_free()
 	get_tree().change_scene_to_file('res://storefront/storefront.tscn')

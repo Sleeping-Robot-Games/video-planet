@@ -5,6 +5,7 @@ extends Node2D
 @onready var shelf_desinations = $ShelfDestinations
 @onready var dialog = $HUD/Dialogue
 @onready var website = $HUD/Website
+@onready var shift_clock_label: Label = $HUD/ShiftClockLabel
 
 @warning_ignore("unused_signal")
 signal movie_return_to_backlog(movie_id: String, movie_data: Dictionary, customer_name: String)
@@ -19,7 +20,7 @@ func _ready() -> void:
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	
-	$Player.position = Vector2(272, 140) if g.is_clocking_in else Vector2(73, 139)
+	$Player.position = Vector2(272, 140) if g.is_new_game_start else Vector2(73, 139)
 	# g.player_movement_disabled = true
 	fade_black.color = Color.BLACK
 	fade_black.show()
@@ -47,9 +48,24 @@ func _ready() -> void:
 		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
 	
-	g.is_clocking_in = false
+	g.is_new_game_start = false
 	_connect_ui_buttons()
-	
+	update_clock_display()
+
+func _process(delta: float) -> void:
+	if g.is_shift_active:
+		g.shift_time_remaining -= delta
+
+		# Stop timer at 0, don't go negative
+		if g.shift_time_remaining <= 0:
+			g.shift_time_remaining = 0
+			g.is_shift_active = false
+
+		update_clock_display()
+
+func update_clock_display() -> void:
+	shift_clock_label.text = g.get_in_game_time_string()
+
 func _connect_ui_buttons():
 	for button in get_tree().get_nodes_in_group("ui_buttons"):
 		if button is Button:
@@ -66,6 +82,25 @@ func unfreeze_player() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and backroom_label.visible:
+		# Check if shift is active - if so, prevent leaving
+		if g.is_shift_active:
+			backroom_label.text = "Can't leave during shift!"
+			await get_tree().create_timer(2).timeout
+			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
+			return
+
+		# Start the backroom shift
+		g.is_shift_active = true
+		g.current_shift = "backroom"
+		g.shift_time_remaining = 300.0  # Reset to 5 minutes
+
+		# Determine shift start time (8 AM for first shift, 12 PM for second)
+		# This alternates between shifts
+		if g.shift_start_time == 8:
+			g.shift_start_time = 12
+		else:
+			g.shift_start_time = 8
+
 		music_player.stop()
 		music_player.queue_free()
 		dialog.close()
