@@ -856,6 +856,16 @@ scale = Vector2(2, 2)
 texture = ExtResource("35_sbjxv")
 metadata/_edit_lock_ = true
 
+[node name="ShiftClockLabel" type="Label" parent="."]
+offset_left = 141.0
+offset_top = 391.0
+offset_right = 260.0
+offset_bottom = 414.0
+theme = ExtResource("5_otosh")
+theme_override_font_sizes/font_size = 24
+text = "SHIFT INACTIVE"
+horizontal_alignment = 2
+
 [node name="Website" parent="." instance=ExtResource("23_6dn78")]
 visible = false
 offset_left = 0.0
@@ -870,14 +880,6 @@ texture = ExtResource("36_5dfa1")
 
 [node name="TrackButtonCooldownTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="ShiftClockLabel" type="Label" parent="."]
-offset_left = 141.0
-offset_top = 391.0
-offset_right = 260.0
-offset_bottom = 414.0
-text = "SHIFT INACTIVE"
-horizontal_alignment = 2
 
 [connection signal="pressed" from="VCR/RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="animation_finished" from="VCR/Tape" to="." method="_on_tape_animation_finished"]

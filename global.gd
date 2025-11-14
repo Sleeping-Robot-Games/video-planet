@@ -12,7 +12,7 @@ var player_movement_disabled: bool = false
 # Shift system variables
 var current_shift: String = "storefront"  # "storefront" or "backroom"
 var shift_time_remaining: float = 300.0  # 5 minutes in seconds
-var shift_start_time: int = 8  # 8 AM for first shift, 12 PM for second shift
+var shift_start_time: int = 13  # 1 PM (13:00) for backroom shift, 5 PM (17:00) for storefront shift
 var is_shift_active: bool = false
 var decoration_unlocks: Array = [
 	{

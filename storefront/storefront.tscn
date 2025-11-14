@@ -506,6 +506,7 @@ offset_top = 20.0
 offset_right = 1260.0
 offset_bottom = 40.0
 theme = ExtResource("20_22fc6")
+theme_override_font_sizes/font_size = 24
 text = "SHIFT INACTIVE"
 horizontal_alignment = 2
 

@@ -263,6 +263,12 @@ func _process(delta):
 			g.shift_time_remaining = 0
 			g.is_shift_active = false
 
+			# Toggle shift time for next shift
+			if g.shift_start_time == 13:  # Just finished 1 PM shift
+				g.shift_start_time = 17  # Next shift starts at 5 PM
+			else:  # Just finished 5 PM shift
+				g.shift_start_time = 13  # Next shift starts at 1 PM
+
 		update_clock_display()
 
 	$Clouds/ParallaxFast.scroll_offset.x += 6 * delta

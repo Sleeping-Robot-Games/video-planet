@@ -61,6 +61,12 @@ func _process(delta: float) -> void:
 			g.shift_time_remaining = 0
 			g.is_shift_active = false
 
+			# Toggle shift time for next shift
+			if g.shift_start_time == 13:  # Just finished 1 PM shift
+				g.shift_start_time = 17  # Next shift starts at 5 PM
+			else:  # Just finished 5 PM shift
+				g.shift_start_time = 13  # Next shift starts at 1 PM
+
 		update_clock_display()
 
 func update_clock_display() -> void:
@@ -89,17 +95,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
 			return
 
-		# Start the backroom shift
+		# Start the shift
 		g.is_shift_active = true
 		g.current_shift = "backroom"
 		g.shift_time_remaining = 300.0  # Reset to 5 minutes
 
-		# Determine shift start time (8 AM for first shift, 12 PM for second)
-		# This alternates between shifts
-		if g.shift_start_time == 8:
-			g.shift_start_time = 12
-		else:
-			g.shift_start_time = 8
+		# shift_start_time determines what time THIS shift starts at
+		# Don't change it here - it's already set correctly
+		# It will be toggled when the shift ENDS and player returns to storefront
 
 		music_player.stop()
 		music_player.queue_free()
