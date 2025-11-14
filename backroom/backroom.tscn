@@ -390,8 +390,6 @@ _data = {
 
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
-min_successes_required = 4
-max_successes_required = 6
 
 [node name="Bgtest" type="Sprite2D" parent="."]
 position = Vector2(640, 360)

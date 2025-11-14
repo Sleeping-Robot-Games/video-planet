@@ -14,6 +14,9 @@ var current_shift: String = "storefront"  # "storefront" or "backroom"
 var shift_time_remaining: float = 300.0  # 5 minutes in seconds
 var shift_start_time: int = 13  # 1 PM (13:00) for backroom shift, 5 PM (17:00) for storefront shift
 var is_shift_active: bool = false
+var shifts_completed: int = 0  # Track how many shifts completed (0, 1, or 2)
+var is_day_complete: bool = false  # True after both shifts are done
+var debug_mode: bool = OS.is_debug_build()
 var decoration_unlocks: Array = [
 	{
 		'name': 'rug_a',
@@ -125,3 +128,13 @@ func get_in_game_time_string() -> String:
 		display_hour = 12
 
 	return "%d:%02d %s" % [display_hour, current_minute, period]
+
+
+# Reset day cycle to start new day
+func start_new_day() -> void:
+	is_shift_active = false
+	shift_time_remaining = 300.0
+	shift_start_time = 13  # Reset to 1 PM for first shift
+	shifts_completed = 0
+	is_day_complete = false
+	print("New day started!")

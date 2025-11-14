@@ -729,11 +729,18 @@ func _on_backlog_button_pressed() -> void:
 	$Website.open_by_backroom_computer()
 
 func _on_storefront_button_pressed() -> void:
-	# Check if shift is active - if so, prevent leaving
+	# Allow exiting to storefront anytime during shift (skip to next shift)
 	if g.is_shift_active:
-		# Show temporary warning message (could be expanded with a dedicated label)
-		print("Can't leave during shift!")
-		return
+		# Skip to next shift immediately
+		print("Skipping to next shift...")
+		# Toggle to next shift time and restart
+		if g.shift_start_time == 13:
+			g.shift_start_time = 17  # Skip to 5 PM shift
+		else:
+			g.shift_start_time = 13  # Skip to 1 PM shift
+		g.shift_time_remaining = 300.0  # Reset timer for new shift
+		# Keep shift active!
+		update_clock_display()
 
 	music_player.stop()
 	music_player.queue_free()

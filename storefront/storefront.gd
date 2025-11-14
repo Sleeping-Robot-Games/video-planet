@@ -28,23 +28,23 @@ func _ready() -> void:
 	if g.is_new_game:
 		g.no_computer = true
 		var tween = get_tree().create_tween()
-		tween.tween_interval(1.5)
+		tween.tween_interval(0.5)
 		tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
-		tween.tween_property(fade_black, 'modulate:a', 0.5, 2)
+		tween.tween_property(fade_black, 'modulate:a', 0.5, 0.5)
 		tween.tween_callback($HUD/Dialogue.open.bind('There are barely any movies in stock! \n
-		I better get to the backroom and \n 
+		I better get to the backroom and \n
 		start rewinding to fill this place back up before we open!'))
-		tween.tween_property(fade_black, 'modulate:a', 0.0, 2)
+		tween.tween_property(fade_black, 'modulate:a', 0.0, 0.5)
 		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
-		
+
 		show_backroom_label()
 		g.is_new_game = false
 	else:
 		$CustomerTimer.start()
 		var tween = get_tree().create_tween()
-		tween.tween_interval(.75)
-		tween.tween_property(fade_black, 'modulate:a', 0.5, 1)
+		tween.tween_interval(0.25)
+		tween.tween_property(fade_black, 'modulate:a', 0.5, 0.5)
 		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
 	
@@ -60,12 +60,16 @@ func _process(delta: float) -> void:
 		if g.shift_time_remaining <= 0:
 			g.shift_time_remaining = 0
 			g.is_shift_active = false
+			g.shifts_completed += 1
 
 			# Toggle shift time for next shift
-			if g.shift_start_time == 13:  # Just finished 1 PM shift
+			if g.shift_start_time == 13:  # Just finished 1 PM shift (Shift 1)
 				g.shift_start_time = 17  # Next shift starts at 5 PM
-			else:  # Just finished 5 PM shift
+			else:  # Just finished 5 PM shift (Shift 2)
 				g.shift_start_time = 13  # Next shift starts at 1 PM
+				g.is_day_complete = true  # Both shifts done!
+				$CustomerTimer.stop()  # Stop spawning customers
+				print("Day complete! Go to the front door to leave.")
 
 		update_clock_display()
 
@@ -87,18 +91,33 @@ func unfreeze_player() -> void:
 	g.player_movement_disabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
+
 	if event.is_action_pressed("interact") and backroom_label.visible:
-		# Check if shift is active - if so, prevent leaving
-		if g.is_shift_active:
-			backroom_label.text = "Can't leave during shift!"
-			await get_tree().create_timer(2).timeout
+		# Check if we're in the storefront shift (Shift 2 at 5 PM)
+		if g.is_shift_active and g.shift_start_time == 17:
+			# Can't go to backroom during storefront shift
+			backroom_label.text = "Backroom is closed during this shift!"
+			await get_tree().create_timer(1.5)
 			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
 			return
 
-		# Start the shift
-		g.is_shift_active = true
-		g.current_shift = "backroom"
-		g.shift_time_remaining = 300.0  # Reset to 5 minutes
+		# Allow exiting to backroom during backroom shift (Shift 1) to skip ahead
+		if g.is_shift_active and g.shift_start_time == 13:
+			# Skip to next shift immediately (Shift 1 -> Shift 2)
+			backroom_label.text = "Skipping to next shift..."
+			g.shift_start_time = 17  # Skip to 5 PM storefront shift
+			g.shift_time_remaining = 300.0  # Reset timer for new shift
+			# Keep shift active!
+			update_clock_display()
+			await get_tree().create_timer(0.5)
+			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
+			# Don't return - allow scene change
+
+		# Start the shift (only when no shift is active)
+		if not g.is_shift_active:
+			g.is_shift_active = true
+			g.current_shift = "backroom"
+			g.shift_time_remaining = 300.0  # Reset to 5 minutes
 
 		# shift_start_time determines what time THIS shift starts at
 		# Don't change it here - it's already set correctly
@@ -128,11 +147,15 @@ func hide_backroom_label() -> void:
 
 
 func _on_customer_timer_timeout() -> void:
+	# Don't spawn customers if day is complete
+	if g.is_day_complete:
+		return
+
 	if not customer_in_store:
 		customer_in_store = true
 	else:
-		return 
-		
+		return
+
 	randomize()
 		
 	var new_customer = c.find_random_customer()
