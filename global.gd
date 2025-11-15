@@ -1,12 +1,25 @@
 extends Node
 
 signal add_log_line(msg: String, color: Color)
+signal shift_time_updated(in_game_time: String, time_remaining: float)
+@warning_ignore("unused_signal")
+signal day_changed(new_day: int)
 
+var current_day: int = 1
 var is_new_game: bool = true
 var no_computer: bool = false
-var is_clocking_in: bool = true
+var is_new_day_start: bool = true  # True when entering storefront at start of new day
 var is_dialogue_open: bool = false
 var player_movement_disabled: bool = false
+
+# Shift system variables
+var current_shift: String = "storefront"  # "storefront" or "backroom"
+var shift_time_remaining: float = 300.0  # 5 minutes in seconds
+var shift_start_time: int = 13  # 1 PM (13:00) for backroom shift, 5 PM (17:00) for storefront shift
+var is_shift_active: bool = false
+var shifts_completed: int = 0  # Track how many shifts completed (0, 1, or 2)
+var is_day_complete: bool = false  # True after both shifts are done
+var debug_mode: bool = OS.is_debug_build()
 var decoration_unlocks: Array = [
 	{
 		'name': 'rug_a',
@@ -88,3 +101,53 @@ func files_in_dir(path: String, keyword: String = "") -> Array:
 	else:
 		push_error('ERROR: failed to open folder '+path+'  RC:'+str(dir))
 	return files
+
+# Convert remaining shift time to in-game time string
+# 5 minutes real-time = 4 hours in-game (240 minutes)
+# Each real second = 0.8 in-game minutes (240 / 300)
+func get_in_game_time_string() -> String:
+	if not is_shift_active:
+		return "SHIFT INACTIVE"
+
+	# Calculate elapsed in-game minutes (each real second = 0.8 in-game minutes)
+	var elapsed_real_seconds = 300.0 - shift_time_remaining
+	var elapsed_in_game_minutes = elapsed_real_seconds * 0.8
+
+	# Round to nearest 10-minute interval for display
+	var rounded_minutes = int(elapsed_in_game_minutes / 10) * 10
+
+	# Calculate current in-game time
+	var current_hour = shift_start_time + int(rounded_minutes / 60)
+	var current_minute = rounded_minutes % 60
+
+	# Format with AM/PM
+	var period = "AM"
+	var display_hour = current_hour
+	if current_hour >= 12:
+		period = "PM"
+		if current_hour > 12:
+			display_hour = current_hour - 12
+	elif current_hour == 0:
+		display_hour = 12
+
+	return "%d:%02d %s" % [display_hour, current_minute, period]
+
+
+# Shift helper functions
+func is_storefront_shift() -> bool:
+	return is_shift_active and shift_start_time == 17
+
+func is_backroom_shift() -> bool:
+	return is_shift_active and shift_start_time == 13
+
+# Reset day cycle to start new day
+func start_new_day() -> void:
+	is_shift_active = false
+	shift_time_remaining = 300.0
+	shift_start_time = 13  # Reset to 1 PM for first shift
+	shifts_completed = 0
+	is_day_complete = false
+	is_new_day_start = true  # Flag for storefront entry animation
+	current_day += 1
+	day_changed.emit(current_day)
+	print("New day started! Day #", current_day)

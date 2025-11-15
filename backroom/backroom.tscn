@@ -390,8 +390,6 @@ _data = {
 
 [node name="Backroom" type="Node2D"]
 script = ExtResource("1_grv5e")
-min_successes_required = 4
-max_successes_required = 6
 
 [node name="Bgtest" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -855,6 +853,16 @@ position = Vector2(640, 360)
 scale = Vector2(2, 2)
 texture = ExtResource("35_sbjxv")
 metadata/_edit_lock_ = true
+
+[node name="ShiftClockLabel" type="Label" parent="."]
+offset_left = 141.0
+offset_top = 391.0
+offset_right = 260.0
+offset_bottom = 414.0
+theme = ExtResource("5_otosh")
+theme_override_font_sizes/font_size = 24
+text = "SHIFT INACTIVE"
+horizontal_alignment = 2
 
 [node name="Website" parent="." instance=ExtResource("23_6dn78")]
 visible = false

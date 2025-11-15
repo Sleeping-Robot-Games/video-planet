@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://btx5sqoyg85sn"]
+[gd_scene load_steps=70 format=4 uid="uid://btx5sqoyg85sn"]
 
 [ext_resource type="Texture2D" uid="uid://stnqvhdqpi81" path="res://storefront/wall.png" id="1_cuptk"]
 [ext_resource type="Script" uid="uid://boog0fmg7h0yh" path="res://storefront/storefront.gd" id="1_dspst"]
@@ -131,6 +131,9 @@ size = Vector2(608.25, 28.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur6w1"]
 size = Vector2(59.0625, 290.875)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8pys"]
+size = Vector2(33.5, 56.5)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7jv3"]
 atlas = ExtResource("10_06rv6")
 region = Rect2(0, 0, 252, 36)
@@ -193,6 +196,13 @@ size = Vector2(189, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fk8fj"]
 size = Vector2(13.75, 41.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ky1ax"]
+bg_color = Color(0.45887727, 0.339546, 0.76663256, 0.7294118)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Storefront" type="Node2D"]
 y_sort_enabled = true
@@ -262,6 +272,13 @@ shape = SubResource("RectangleShape2D_ur6w1")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
 position = Vector2(649, 224)
 shape = SubResource("RectangleShape2D_ur6w1")
+
+[node name="FrontDoorArea2D" type="Area2D" parent="."]
+position = Vector2(279.5, 118.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontDoorArea2D"]
+position = Vector2(0.75, -2.75)
+shape = SubResource("RectangleShape2D_b8pys")
 
 [node name="Deco" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -453,7 +470,7 @@ texture = ExtResource("12_74fhw")
 
 [node name="Player" parent="." instance=ExtResource("14_s766h")]
 z_as_relative = false
-position = Vector2(74, 144)
+position = Vector2(57.5, 143.5)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -500,6 +517,16 @@ offset_bottom = 199.0
 theme = ExtResource("20_22fc6")
 text = "Backroom entrance"
 
+[node name="ShiftClockLabel" type="Label" parent="HUD"]
+offset_left = 1050.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 40.0
+theme = ExtResource("20_22fc6")
+theme_override_font_sizes/font_size = 24
+text = "SHIFT INACTIVE"
+horizontal_alignment = 2
+
 [node name="FadeBlack" type="ColorRect" parent="HUD"]
 visible = false
 z_index = 4
@@ -507,6 +534,72 @@ custom_minimum_size = Vector2(1280, 720)
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
+
+[node name="FrontDoorLabel" type="Label" parent="HUD"]
+visible = false
+offset_left = 497.0
+offset_top = 146.0
+offset_right = 629.0
+offset_bottom = 160.0
+theme = ExtResource("20_22fc6")
+text = "Press E to Exit Shift"
+
+[node name="EndOfDayModal" type="Panel" parent="HUD"]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(500, 120)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -398.0
+offset_top = -433.0
+offset_right = 244.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("20_22fc6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ky1ax")
+
+[node name="Margin" type="MarginContainer" parent="HUD/EndOfDayModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/EndOfDayModal/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Message" type="Label" parent="HUD/EndOfDayModal/Margin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "End of Day Summary"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/EndOfDayModal/Margin/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ContinueNextDayBtn" type="Button" parent="HUD/EndOfDayModal/Margin/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Continue to Next Day"
+autowrap_mode = 2
 
 [node name="CustomerTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -562,6 +655,9 @@ Basket"
 [connection signal="body_exited" from="Floor/Rug/Area2D" to="." method="_on_rug_body_exited"]
 [connection signal="body_entered" from="Floor/Rug2/Area2D" to="." method="_on_rug_body_entered"]
 [connection signal="body_exited" from="Floor/Rug2/Area2D" to="." method="_on_rug_body_exited"]
+[connection signal="body_entered" from="FrontDoorArea2D" to="." method="_on_front_door_area_2d_body_entered"]
+[connection signal="body_exited" from="FrontDoorArea2D" to="." method="_on_front_door_area_2d_body_exited"]
 [connection signal="body_entered" from="Backroomdoor/BackRoomDoorArea2D" to="." method="_on_back_room_door_area_2d_body_entered"]
 [connection signal="body_exited" from="Backroomdoor/BackRoomDoorArea2D" to="." method="_on_back_room_door_area_2d_body_exited"]
+[connection signal="pressed" from="HUD/EndOfDayModal/Margin/VBoxContainer/VBoxContainer/ContinueNextDayBtn" to="." method="_on_continue_next_day_btn_pressed"]
 [connection signal="timeout" from="CustomerTimer" to="." method="_on_customer_timer_timeout"]

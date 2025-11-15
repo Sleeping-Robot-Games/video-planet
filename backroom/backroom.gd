@@ -68,6 +68,7 @@ extends Node2D
 @onready var lives_light_container = $VCR/LivesLightContainer
 @onready var track_button_cooldown_timer = $TrackButtonCooldownTimer
 @onready var tracking_cooldown_lights = $VCR/TrackingCooldownLights
+@onready var shift_clock_label: Label = $ShiftClockLabel
 
 const DIAL_ROTATE_MIN = -100.0
 const DIAL_ROTATE_MAX = 100.0
@@ -125,7 +126,11 @@ func _ready():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
 		tracking_input_map[tracking_button.name] = tracking_button
 	_connect_ui_buttons()
-	
+	update_clock_display()
+
+func update_clock_display() -> void:
+	shift_clock_label.text = g.get_in_game_time_string()
+
 func _connect_ui_buttons():
 	for button in get_tree().get_nodes_in_group("ui_buttons"):
 		button.mouse_entered.connect(func():
@@ -249,9 +254,26 @@ func show_hit_quality_text(quality: String) -> void:
 	)
 
 func _process(delta):
+	# Update shift timer
+	if g.is_shift_active:
+		g.shift_time_remaining -= delta
+
+		# Stop timer at 0, don't go negative
+		if g.shift_time_remaining <= 0:
+			g.shift_time_remaining = 0
+			g.is_shift_active = false
+
+			# Toggle shift time for next shift
+			if g.shift_start_time == 13:  # Just finished 1 PM shift
+				g.shift_start_time = 17  # Next shift starts at 5 PM
+			else:  # Just finished 5 PM shift
+				g.shift_start_time = 13  # Next shift starts at 1 PM
+
+		update_clock_display()
+
 	$Clouds/ParallaxFast.scroll_offset.x += 6 * delta
 	$Clouds/ParallaxSlow.scroll_offset.x += 1.5 * delta
-	
+
 	if not rewinding:
 		return
 
@@ -707,6 +729,19 @@ func _on_backlog_button_pressed() -> void:
 	$Website.open_by_backroom_computer()
 
 func _on_storefront_button_pressed() -> void:
+	# Allow exiting to storefront anytime during shift (skip to next shift)
+	if g.is_shift_active:
+		# Skip to next shift immediately
+		print("Skipping to next shift...")
+		# Toggle to next shift time and restart
+		if g.shift_start_time == 13:
+			g.shift_start_time = 17  # Skip to 5 PM shift
+		else:
+			g.shift_start_time = 13  # Skip to 1 PM shift
+		g.shift_time_remaining = 300.0  # Reset timer for new shift
+		# Keep shift active!
+		update_clock_display()
+
 	music_player.stop()
 	music_player.queue_free()
 	get_tree().change_scene_to_file('res://storefront/storefront.tscn')
