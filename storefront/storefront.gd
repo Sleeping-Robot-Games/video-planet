@@ -1,8 +1,20 @@
 extends Node2D
 
+# Constants
+const SPAWN_POS_NEW_DAY = Vector2(272, 140)
+const SPAWN_POS_CONTINUING = Vector2(57, 139)
+const FADE_DURATION = 0.5
+const INITIAL_FADE_INTERVAL = 0.25
+const SHIFT_DURATION_SECONDS = 300.0
+const BACKROOM_SHIFT_TIME = 13
+const STOREFRONT_SHIFT_TIME = 17
+const MAX_SHELF_DESTINATIONS = 5
+const CUSTOMER_ENTRY_DELAY = 2.0
+const CUSTOMER_SPAWN_TIMER_MAX = 30
+
 @onready var backroom_label: Label = $HUD/BackroomLabel
 @onready var fade_black: ColorRect = $HUD/FadeBlack
-@onready var shelf_desinations = $ShelfDestinations
+@onready var shelf_destinations = $ShelfDestinations
 @onready var dialog = $HUD/Dialogue
 @onready var website = $HUD/Website
 @onready var shift_clock_label: Label = $HUD/ShiftClockLabel
@@ -17,44 +29,56 @@ var music_player: AudioStreamPlayer
 var customer_in_store = false
 
 func _ready() -> void:
+	_setup_music()
+	_setup_fade_screen()
+	init_shelves()
+
+	if g.is_new_game:
+		_handle_new_game_start()
+	else:
+		_handle_continuing_game()
+
+	_connect_ui_buttons()
+	update_clock_display()
+
+func _setup_music() -> void:
 	var bgm_pool = ['storefront_bgm_1', 'storefront_bgm_2']
 	music_player = a.play_music(bgm_pool.pick_random())
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
-	init_shelves()
-	
-	$Player.position = Vector2(272, 140) if g.is_new_day_start else Vector2(57, 139)
-	# g.player_movement_disabled = true
+
+func _setup_fade_screen() -> void:
+	$Player.position = SPAWN_POS_NEW_DAY if g.is_new_day_start else SPAWN_POS_CONTINUING
 	fade_black.color = Color.BLACK
 	fade_black.show()
-	
-	if g.is_new_game:
-		g.no_computer = true
-		var tween = get_tree().create_tween()
-		tween.tween_interval(0.5)
-		tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
-		tween.tween_property(fade_black, 'modulate:a', 0.5, 0.5)
-		tween.tween_callback($HUD/Dialogue.open.bind('There are barely any movies in stock! \n
-		I better get to the backroom and \n
-		start rewinding to fill this place back up before we open!'))
-		tween.tween_property(fade_black, 'modulate:a', 0.0, 0.5)
-		tween.tween_callback(fade_black.hide)
-		tween.tween_callback(unfreeze_player)
-		tween.tween_callback(func(): g.is_new_day_start = false)
 
-		show_backroom_label()
-		g.is_new_game = false
-	else:
-		# Only start customer timer if we're in Shift 2 (storefront shift)
-		if g.is_shift_active and g.shift_start_time == 17:
-			$CustomerTimer.start()
-		var tween = get_tree().create_tween()
-		tween.tween_interval(0.25)
-		tween.tween_property(fade_black, 'modulate:a', 0.5, 0.5)
-		tween.tween_callback(fade_black.hide)
-		tween.tween_callback(unfreeze_player)
-		tween.tween_callback(func(): g.is_new_day_start = false)
-	_connect_ui_buttons()
-	update_clock_display()
+func _handle_new_game_start() -> void:
+	g.no_computer = true
+	var tween = get_tree().create_tween()
+	tween.tween_interval(FADE_DURATION)
+	tween.tween_callback(a.play_random_sfx.bind('storefront_door_entry'))
+	tween.tween_property(fade_black, 'modulate:a', 0.5, FADE_DURATION)
+	tween.tween_callback($HUD/Dialogue.open.bind('There are barely any movies in stock! \n
+	I better get to the backroom and \n
+	start rewinding to fill this place back up before we open!'))
+	tween.tween_property(fade_black, 'modulate:a', 0.0, FADE_DURATION)
+	tween.tween_callback(fade_black.hide)
+	tween.tween_callback(unfreeze_player)
+	tween.tween_callback(func(): g.is_new_day_start = false)
+
+	show_backroom_label()
+	g.is_new_game = false
+
+func _handle_continuing_game() -> void:
+	# Only start customer timer if we're in Shift 2 (storefront shift)
+	if g.is_storefront_shift():
+		$CustomerTimer.start()
+
+	var tween = get_tree().create_tween()
+	tween.tween_interval(INITIAL_FADE_INTERVAL)
+	tween.tween_property(fade_black, 'modulate:a', 0.5, FADE_DURATION)
+	tween.tween_callback(fade_black.hide)
+	tween.tween_callback(unfreeze_player)
+	tween.tween_callback(func(): g.is_new_day_start = false)
 
 func _process(delta: float) -> void:
 	if g.is_shift_active:
@@ -67,12 +91,12 @@ func _process(delta: float) -> void:
 			g.shifts_completed += 1
 
 			# Toggle shift time for next shift
-			if g.shift_start_time == 13:  # Just finished 1 PM shift (Shift 1)
-				g.shift_start_time = 17  # Next shift starts at 5 PM
-			else:  # Just finished 5 PM shift (Shift 2)
-				g.shift_start_time = 13  # Next shift starts at 1 PM
-				g.is_day_complete = true  # Both shifts done!
-				$CustomerTimer.stop()  # Stop spawning customers
+			if g.shift_start_time == BACKROOM_SHIFT_TIME:
+				g.shift_start_time = STOREFRONT_SHIFT_TIME
+			else:
+				g.shift_start_time = BACKROOM_SHIFT_TIME
+				g.is_day_complete = true
+				$CustomerTimer.stop()
 				print("Day complete! Go to the front door to leave.")
 
 		update_clock_display()
@@ -94,58 +118,60 @@ func init_shelves() -> void:
 func unfreeze_player() -> void:
 	g.player_movement_disabled = false
 
+func _is_valid_actor(body: Node2D) -> bool:
+	return body.name == 'Player' or body.has_meta('customer')
+
+func _update_footstep_sfx(body: Node2D, sfx_type: String) -> void:
+	if body.footsteps_player and body.footsteps_player.playing:
+		body.footsteps_player.stop()
+		body.footsteps_player.queue_free()
+		body.footsteps_player = a.play_random_sfx(sfx_type, body)
+		body.footsteps_player.finished.connect(body._on_footsteps_finished)
+
 func _unhandled_input(event: InputEvent) -> void:
-	# Front door exit - show end of day modal
 	if event.is_action_pressed("interact") and front_door_label.visible:
-		# Hide door label
-		front_door_label.hide()
-		# Show end of day modal
-		end_of_day_modal.show()
-		# Disable player movement
-		g.player_movement_disabled = true
-		# Stop customer spawning
-		$CustomerTimer.stop()
+		_handle_front_door_interaction()
 		return
 
 	if event.is_action_pressed("interact") and backroom_label.visible:
-		# Check if we're in the storefront shift (Shift 2 at 5 PM)
-		if g.is_shift_active and g.shift_start_time == 17:
-			# Can't go to backroom during storefront shift
-			backroom_label.text = "Backroom is closed during this shift!"
-			await get_tree().create_timer(1.5)
-			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
-			return
+		_handle_backroom_interaction()
 
-		# Allow exiting to backroom during backroom shift (Shift 1) to skip ahead
-		if g.is_shift_active and g.shift_start_time == 13:
-			# Skip to next shift immediately (Shift 1 -> Shift 2)
-			backroom_label.text = "Skipping to next shift..."
-			g.shift_start_time = 17  # Skip to 5 PM storefront shift
-			g.shift_time_remaining = 300.0  # Reset timer for new shift
-			# Keep shift active!
-			update_clock_display()
-			await get_tree().create_timer(0.5)
-			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
-			# Don't return - allow scene change
+func _handle_front_door_interaction() -> void:
+	front_door_label.hide()
+	end_of_day_modal.show()
+	g.player_movement_disabled = true
+	$CustomerTimer.stop()
 
-		# Start the shift (only when no shift is active)
-		if not g.is_shift_active:
-			g.is_shift_active = true
-			g.current_shift = "backroom"
-			g.shift_time_remaining = 300.0  # Reset to 5 minutes
+func _handle_backroom_interaction() -> void:
+	# Prevent backroom access during storefront shift
+	if g.is_storefront_shift():
+		return
 
-		# shift_start_time determines what time THIS shift starts at
-		# Don't change it here - it's already set correctly
-		# It will be toggled when the shift ENDS and player returns to storefront
+	# Skip to next shift if currently in backroom shift
+	if g.is_backroom_shift():
+		g.shift_start_time = STOREFRONT_SHIFT_TIME
+		g.shift_time_remaining = SHIFT_DURATION_SECONDS
+		update_clock_display()
 
-		music_player.stop()
-		music_player.queue_free()
-		dialog.close()
-		get_tree().change_scene_to_file("res://backroom/backroom.tscn")
+	# Start the shift if none is active
+	if not g.is_shift_active:
+		g.is_shift_active = true
+		g.current_shift = "backroom"
+		g.shift_time_remaining = SHIFT_DURATION_SECONDS
+
+	# Transition to backroom scene
+	music_player.stop()
+	music_player.queue_free()
+	dialog.close()
+	get_tree().change_scene_to_file("res://backroom/backroom.tscn")
 
 
 func _on_back_room_door_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == 'Player':
+		if g.is_storefront_shift():
+			backroom_label.text = "Backroom is closed during this shift!"
+		else:
+			backroom_label.text = "PRESS 'E' to Rewind VHS Tapes"
 		backroom_label.show()
 
 
@@ -162,71 +188,88 @@ func hide_backroom_label() -> void:
 
 
 func _on_customer_timer_timeout() -> void:
-	# Don't spawn customers if day is complete
-	if g.is_day_complete:
+	if not _should_spawn_customer():
 		return
 
-	# Only spawn customers during Shift 2 (storefront shift at 5 PM)
-	if not g.is_shift_active or g.shift_start_time != 17:
-		return
-
-	if not customer_in_store:
-		customer_in_store = true
-	else:
-		return
-
+	customer_in_store = true
 	randomize()
-		
+
+	var new_customer = _create_and_configure_customer()
+	if not new_customer:
+		return
+
+	var destinations = _determine_customer_destinations(new_customer)
+	if destinations.is_empty():
+		return
+
+	_spawn_customer_with_delay(new_customer, destinations)
+	_reschedule_customer_timer()
+
+func _should_spawn_customer() -> bool:
+	if g.is_day_complete:
+		return false
+	if not g.is_storefront_shift():
+		return false
+	if customer_in_store:
+		return false
+	return true
+
+func _create_and_configure_customer() -> Node:
 	var new_customer = c.find_random_customer()
+	if not new_customer:
+		push_error("Failed to find random customer")
+		customer_in_store = false
+		return null
+
 	new_customer.store = self
 	new_customer.counter = $CounterDestination
 	new_customer.return_basket = $ReturnBasketLocation
 	new_customer.exit = $Door
 	new_customer.position = $Door.position
 	new_customer.website = website
-	
+	return new_customer
+
+func _determine_customer_destinations(customer: Node) -> Array:
 	var destinations = []
-	
-	if new_customer.customer_data.goal == 'return':
-		# set destinations as counter, then door again
+
+	if customer.customer_data.goal == 'return':
 		destinations.append($ReturnBasketLocation)
 	else: # renting
-		
-		for _i in randi() % 5: # set customer desintations to random shelves then counter
-			destinations.append(shelf_desinations.get_children().pick_random())
+		var shelves = shelf_destinations.get_children()
+		if shelves.is_empty():
+			push_error("No shelf destinations available")
+			customer_in_store = false
+			customer.queue_free()
+			return []
+
+		for _i in randi() % MAX_SHELF_DESTINATIONS:
+			destinations.append(shelves.pick_random())
 		destinations.append($CounterDestination)
-		
-	add_child(new_customer)
+
+	return destinations
+
+func _spawn_customer_with_delay(customer: Node, destinations: Array) -> void:
+	add_child(customer)
 	a.play_random_sfx('storefront_door_entry', $Deco/DoorSprite)
-	
-	await get_tree().create_timer(2).timeout
-	
-	new_customer.enter_store(destinations)
-	
-	$CustomerTimer.wait_time = clamp(randi() % 30, 1, 30)
+
+	await get_tree().create_timer(CUSTOMER_ENTRY_DELAY).timeout
+	customer.enter_store(destinations)
+
+func _reschedule_customer_timer() -> void:
+	$CustomerTimer.wait_time = clamp(randi() % CUSTOMER_SPAWN_TIMER_MAX, 1, CUSTOMER_SPAWN_TIMER_MAX)
 
 
 func _on_rug_body_entered(body: Node2D) -> void:
-	if body.name == 'Player' or body.has_meta('customer'):
+	if _is_valid_actor(body):
 		print(body.name, ' stepped ON rug')
 		body.on_carpet = true
-		# if stepping off carpet and playing footstep sfx, cutover to tile sfx at same position
-		if body.footsteps_player and body.footsteps_player.playing:
-			body.footsteps_player.stop()
-			body.footsteps_player.queue_free()
-			body.footsteps_player = a.play_random_sfx('footstep_carpet', body)
-			body.footsteps_player.finished.connect(body._on_footsteps_finished)
+		_update_footstep_sfx(body, 'footstep_carpet')
 
 func _on_rug_body_exited(body: Node2D) -> void:
-	if body.name == 'Player' or body.has_meta('customer'):
+	if _is_valid_actor(body):
 		print(body.name, ' stepped OFF rug')
 		body.on_carpet = false
-		# if stepping off carpet and playing footstep sfx, cutover to tile sfx at same position
-		if body.footsteps_player and body.footsteps_player.playing:
-			body.footsteps_player.stop()
-			body.footsteps_player.queue_free()
-			body.footsteps_player = a.play_random_sfx('footstep_tile', body)
-			body.footsteps_player.finished.connect(body._on_footsteps_finished)
+		_update_footstep_sfx(body, 'footstep_tile')
 
 
 func _on_front_door_area_2d_body_entered(body: Node2D) -> void:
@@ -251,7 +294,7 @@ func _on_continue_next_day_btn_pressed() -> void:
 	# Fade out
 	fade_black.show()
 	var tween = get_tree().create_tween()
-	tween.tween_property(fade_black, 'modulate:a', 1.0, 0.5)
+	tween.tween_property(fade_black, 'modulate:a', 1.0, FADE_DURATION)
 	tween.tween_callback(func():
 		# Start new day
 		g.start_new_day()

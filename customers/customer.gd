@@ -42,7 +42,7 @@ var return_basket: Node2D
 func _ready():
 	set_meta('customer', true)
 	m.rented_movie_selected.connect(_on_rented_movie)
-	
+
 	nav_agent.path_desired_distance = 8.0
 	nav_agent.target_desired_distance = 8.0
 	nav_agent.avoidance_enabled = true
@@ -51,6 +51,12 @@ func _ready():
 	nav_agent.navigation_finished.connect(_on_arrived)
 
 	_play_idle()
+
+func _exit_tree():
+	# Safeguard: Always reset customer_in_store flag when this node is removed
+	# This handles edge cases where customer doesn't reach exit (scene change, navigation failure, etc.)
+	if store and is_instance_valid(store):
+		store.customer_in_store = false
 	
 func init(data):
 	customer_data = data

@@ -133,6 +133,13 @@ func get_in_game_time_string() -> String:
 	return "%d:%02d %s" % [display_hour, current_minute, period]
 
 
+# Shift helper functions
+func is_storefront_shift() -> bool:
+	return is_shift_active and shift_start_time == 17
+
+func is_backroom_shift() -> bool:
+	return is_shift_active and shift_start_time == 13
+
 # Reset day cycle to start new day
 func start_new_day() -> void:
 	is_shift_active = false
