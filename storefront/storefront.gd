@@ -6,6 +6,8 @@ extends Node2D
 @onready var dialog = $HUD/Dialogue
 @onready var website = $HUD/Website
 @onready var shift_clock_label: Label = $HUD/ShiftClockLabel
+@onready var front_door_label: Label = $HUD/FrontDoorLabel
+@onready var end_of_day_modal = $HUD/EndOfDayModal
 
 @warning_ignore("unused_signal")
 signal movie_return_to_backlog(movie_id: String, movie_data: Dictionary, customer_name: String)
@@ -20,7 +22,7 @@ func _ready() -> void:
 	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_shelves()
 	
-	$Player.position = Vector2(272, 140) if g.is_new_game_start else Vector2(73, 139)
+	$Player.position = Vector2(272, 140) if g.is_new_day_start else Vector2(57, 139)
 	# g.player_movement_disabled = true
 	fade_black.color = Color.BLACK
 	fade_black.show()
@@ -37,18 +39,20 @@ func _ready() -> void:
 		tween.tween_property(fade_black, 'modulate:a', 0.0, 0.5)
 		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
+		tween.tween_callback(func(): g.is_new_day_start = false)
 
 		show_backroom_label()
 		g.is_new_game = false
 	else:
-		$CustomerTimer.start()
+		# Only start customer timer if we're in Shift 2 (storefront shift)
+		if g.is_shift_active and g.shift_start_time == 17:
+			$CustomerTimer.start()
 		var tween = get_tree().create_tween()
 		tween.tween_interval(0.25)
 		tween.tween_property(fade_black, 'modulate:a', 0.5, 0.5)
 		tween.tween_callback(fade_black.hide)
 		tween.tween_callback(unfreeze_player)
-	
-	g.is_new_game_start = false
+		tween.tween_callback(func(): g.is_new_day_start = false)
 	_connect_ui_buttons()
 	update_clock_display()
 
@@ -91,6 +95,17 @@ func unfreeze_player() -> void:
 	g.player_movement_disabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Front door exit - show end of day modal
+	if event.is_action_pressed("interact") and front_door_label.visible:
+		# Hide door label
+		front_door_label.hide()
+		# Show end of day modal
+		end_of_day_modal.show()
+		# Disable player movement
+		g.player_movement_disabled = true
+		# Stop customer spawning
+		$CustomerTimer.stop()
+		return
 
 	if event.is_action_pressed("interact") and backroom_label.visible:
 		# Check if we're in the storefront shift (Shift 2 at 5 PM)
@@ -151,6 +166,10 @@ func _on_customer_timer_timeout() -> void:
 	if g.is_day_complete:
 		return
 
+	# Only spawn customers during Shift 2 (storefront shift at 5 PM)
+	if not g.is_shift_active or g.shift_start_time != 17:
+		return
+
 	if not customer_in_store:
 		customer_in_store = true
 	else:
@@ -208,3 +227,34 @@ func _on_rug_body_exited(body: Node2D) -> void:
 			body.footsteps_player.queue_free()
 			body.footsteps_player = a.play_random_sfx('footstep_tile', body)
 			body.footsteps_player.finished.connect(body._on_footsteps_finished)
+
+
+func _on_front_door_area_2d_body_entered(body: Node2D) -> void:
+	if body.name == 'Player':
+		# Don't show during new day start animation
+		if g.is_new_day_start:
+			return
+		# Show if day is complete OR if in Shift 2 (allow early day ending)
+		if g.is_day_complete or (g.is_shift_active and g.shift_start_time == 17):
+			front_door_label.show()
+
+
+func _on_front_door_area_2d_body_exited(body: Node2D) -> void:
+	if body.name == 'Player':
+		front_door_label.hide()
+
+
+func _on_continue_next_day_btn_pressed() -> void:
+	# Hide modal
+	end_of_day_modal.hide()
+
+	# Fade out
+	fade_black.show()
+	var tween = get_tree().create_tween()
+	tween.tween_property(fade_black, 'modulate:a', 1.0, 0.5)
+	tween.tween_callback(func():
+		# Start new day
+		g.start_new_day()
+		# Reload storefront scene
+		get_tree().change_scene_to_file("res://storefront/storefront.tscn")
+	)

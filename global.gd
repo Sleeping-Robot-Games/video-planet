@@ -2,10 +2,13 @@ extends Node
 
 signal add_log_line(msg: String, color: Color)
 signal shift_time_updated(in_game_time: String, time_remaining: float)
+@warning_ignore("unused_signal")
+signal day_changed(new_day: int)
 
+var current_day: int = 1
 var is_new_game: bool = true
 var no_computer: bool = false
-var is_new_game_start: bool = true  # Renamed from is_clocking_in for clarity
+var is_new_day_start: bool = true  # True when entering storefront at start of new day
 var is_dialogue_open: bool = false
 var player_movement_disabled: bool = false
 
@@ -137,4 +140,7 @@ func start_new_day() -> void:
 	shift_start_time = 13  # Reset to 1 PM for first shift
 	shifts_completed = 0
 	is_day_complete = false
-	print("New day started!")
+	is_new_day_start = true  # Flag for storefront entry animation
+	current_day += 1
+	day_changed.emit(current_day)
+	print("New day started! Day #", current_day)
