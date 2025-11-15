@@ -150,8 +150,8 @@ func _on_arrived():
 			_pick_new_target()
 		counter:
 			destinations.append(exit)
-			await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
 			_play_idle()
+			await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
 		exit:
 			store.customer_in_store = false
 			a.play_random_sfx('storefront_door_exit', a, {'position': position})
