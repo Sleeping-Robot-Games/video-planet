@@ -93,6 +93,13 @@ text = "HORROR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RentalPrice" type="Label" parent="Movie/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.8, 0.2, 1)
+theme_override_fonts/font = ExtResource("3_l1u4l")
+theme_override_font_sizes/font_size = 14
+text = "Rent: $5"
+
 [node name="Status" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2

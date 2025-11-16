@@ -28,10 +28,13 @@ func _on_rented_movie(movie_id: String, customer_name: String):
 	if customer_name == current_customer_name:
 		var customer_data = c.customers[current_customer_name]
 		var movie_data = m.inventory[movie_id]
+		var difficulty_config = m.DIFFICULTY_CONFIG[movie_data.difficulty_tier]
+		var rental_price = difficulty_config.money_value
+
 		if customer_data.wanted_genre == movie_data.genre:
-			dialog_msg.text = 'Thanks, looking forward to watching \'%s\'' % movie_data.title
+			dialog_msg.text = 'Thanks! That\'ll be $%d for \'%s\'' % [rental_price, movie_data.title]
 		else:
-			dialog_msg.text = 'Thanks... I guess I could give \'%s\' a try...' % movie_data.title
+			dialog_msg.text = 'Thanks... That\'ll be $%d for \'%s\' I guess...' % [rental_price, movie_data.title]
 		for btn in button_container.get_children():
 			btn.hide()
 

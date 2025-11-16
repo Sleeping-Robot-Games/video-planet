@@ -74,6 +74,7 @@ const DIAL_ROTATE_MIN = -100.0
 const DIAL_ROTATE_MAX = 100.0
 
 var rewinding_movie_id: String = ''
+var current_difficulty_tier: m.DifficultyTier = m.DifficultyTier.MEDIUM  # Difficulty of current tape
 
 var music_player: AudioStreamPlayer
 var rewind_audio_player: AudioStreamPlayer2D
@@ -200,8 +201,9 @@ func increase_tick_speed() -> void:
 	print("Tick speed increased to: %.2f" % tick_speed)
 
 func reset_tick_speed() -> void:
-	"""Resets tick speed to the base value"""
-	tick_speed = base_tick_speed
+	"""Resets tick speed to the base value, applying difficulty multiplier"""
+	var difficulty_config = m.DIFFICULTY_CONFIG[current_difficulty_tier]
+	tick_speed = base_tick_speed * difficulty_config.tick_speed_mult
 
 func show_hit_quality_text(quality: String) -> void:
 	"""Displays floating text showing hit quality with color-coded feedback"""
@@ -615,6 +617,7 @@ func complete_tape_rewind():
 	static_audio_player.stop()
 	m.inventory[rewinding_movie_id].status = 'STOCKED'
 	m.inventory[rewinding_movie_id].location = 'ON SHELF'
+
 	var log_msg: String = '%s rewound & stocked!' % m.inventory[rewinding_movie_id].title
 	g.add_log_line.emit(log_msg, 'SUCCESS')
 	$VCR/AnimationPlayer.pause()
@@ -635,6 +638,7 @@ func complete_tape_rewind():
 
 func _on_website_rewind_movie_selected(movie_id: String) -> void:
 	rewinding_movie_id = movie_id
+	current_difficulty_tier = m.inventory[movie_id].difficulty_tier
 	$VCR/Labels/RewindingMovieLabel.text = 'Rewinding %s' % m.inventory[movie_id].title
 	$VCR/Labels.show()
 	$BacklogButton.hide()
@@ -750,15 +754,16 @@ func _on_storefront_button_pressed() -> void:
 func generate_vhs_data() -> Dictionary:
 	var data := {}
 
-	# 1) Number of failures before break (uses export variables)
-	if failure_weight_options.size() > 0:
-		data["number_of_failures_before_break"] = failure_weight_options[randi() % failure_weight_options.size()]
-	else:
-		# Fallback if array is empty
-		data["number_of_failures_before_break"] = randi_range(min_failures_before_break, max_failures_before_break)
+	# Get difficulty config for current tape
+	var difficulty_config = m.DIFFICULTY_CONFIG[current_difficulty_tier]
 
-	# 2) Generate VHS rewind difficulty with configurable successes required
-	var success_required := randi_range(min_successes_required, max_successes_required)
+	# 1) Number of failures before break (from difficulty config)
+	var failures_range = difficulty_config.failures_range
+	data["number_of_failures_before_break"] = randi_range(failures_range[0], failures_range[1])
+
+	# 2) Generate VHS rewind difficulty with configurable successes required (from difficulty config)
+	var successes_range = difficulty_config.successes_range
+	var success_required := randi_range(successes_range[0], successes_range[1])
 
 	var used_zero_index := randi() % 4  # Random index 0-3 for best track
 	var hitzone_position = randf_range(hitzone_position_min, hitzone_position_max)

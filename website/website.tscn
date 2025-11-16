@@ -80,6 +80,14 @@ theme_override_font_sizes/font_size = 24
 text = "👽🛸 VIDEO PLANET 🪐🛰️"
 horizontal_alignment = 1
 
+[node name="MoneyDisplay" type="Label" parent="Margins/Window/PageMargins/VBox/Header/VBox"]
+layout_mode = 2
+theme = ExtResource("2_fayii")
+theme_override_colors/font_color = Color(0.2, 0.8, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "Balance: $0  |  Today: $0"
+horizontal_alignment = 1
+
 [node name="Filters" type="HBoxContainer" parent="Margins/Window/PageMargins/VBox/Header/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 16

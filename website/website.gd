@@ -8,6 +8,7 @@ var listing_scene = preload('res://website/listing.tscn')
 @onready var genre_clear: Button = $Margins/Window/PageMargins/VBox/Header/VBox/Filters/Genre/Spacer/ClearButton
 @onready var status_input: OptionButton = $Margins/Window/PageMargins/VBox/Header/VBox/Filters/Status/Picker
 @onready var status_clear: Button = $Margins/Window/PageMargins/VBox/Header/VBox/Filters/Status/Spacer/ClearButton
+@onready var money_display: Label = $Margins/Window/PageMargins/VBox/Header/VBox/MoneyDisplay
 
 signal rewind_movie_selected(movie_id: String)
 
@@ -20,7 +21,11 @@ var customer_name: String
 func _ready():
 	# game pauses when website is open, this allows website to remain active during game pause
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
+
+	# Connect to money signals
+	g.money_changed.connect(_on_money_changed)
+	update_money_display(g.total_money, g.daily_earnings)
+
 	# init movie listings
 	for movie_id in m.inventory.keys():
 		var listing = listing_scene.instantiate()
@@ -158,11 +163,17 @@ func open_by_backroom_computer() -> void:
 	
 func rent_movie_out(movie_id: String):
 	get_tree().paused = false
+
+	# Get rental price from difficulty tier and award money
+	var movie = m.inventory[movie_id]
+	var difficulty_config = m.DIFFICULTY_CONFIG[movie.difficulty_tier]
+	var rental_price = difficulty_config.money_value
+	g.add_money(rental_price, "rental")
+
+	# Update movie status
 	m.inventory[movie_id].status = 'CHECKED OUT'
 	m.inventory[movie_id].location = customer_name
 	m.rented_movie_selected.emit(movie_id, customer_name)
-	#var log_msg: String = '%s rented \'%s\'' % [customer_name, m.inventory[movie_id].title]
-	#g.add_log_line.emit(log_msg, 'SUCCESS') nvm lol not actually needed since you have to interact with customer for them to rent something
 	hide()
 
 func backroom_rewind_selected(movie_id: String) -> void:
@@ -186,3 +197,9 @@ func _on_visibility_changed() -> void:
 		a.play_sfx('pc_login')
 	else:
 		a.play_sfx('pc_logoff')
+
+func _on_money_changed(total_money: int, daily_earnings: int) -> void:
+	update_money_display(total_money, daily_earnings)
+
+func update_money_display(total_money: int, daily_earnings: int) -> void:
+	money_display.text = "Balance: $%d  |  Today: $%d" % [total_money, daily_earnings]

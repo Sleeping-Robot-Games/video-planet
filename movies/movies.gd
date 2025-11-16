@@ -3,6 +3,60 @@ extends Node
 signal rented_movie_selected(movie_id: String, customer_name: String)
 signal movie_reviewed(is_positive: bool, movie_id: String, movie_data: Dictionary, customer_name: String)
 
+# Difficulty tier system for rewind game
+enum DifficultyTier {
+	EASY = 0,
+	MEDIUM = 1,
+	HARD = 2,
+	EXPERT = 3
+}
+
+const DIFFICULTY_CONFIG = {
+	DifficultyTier.EASY: {
+		"name": "EASY",
+		"successes_range": [2, 2],   # Consistent 2 hits required
+		"failures_range": [4, 5],     # 4-5 lives before break
+		"tick_speed_mult": 0.8,       # 20% slower
+		"money_value": 5
+	},
+	DifficultyTier.MEDIUM: {
+		"name": "MEDIUM",
+		"successes_range": [2, 3],
+		"failures_range": [3, 4],
+		"tick_speed_mult": 1.0,       # Normal speed
+		"money_value": 10
+	},
+	DifficultyTier.HARD: {
+		"name": "HARD",
+		"successes_range": [3, 4],
+		"failures_range": [2, 3],
+		"tick_speed_mult": 1.2,       # 20% faster
+		"money_value": 20
+	},
+	DifficultyTier.EXPERT: {
+		"name": "EXPERT",
+		"successes_range": [4, 4],
+		"failures_range": [2, 2],
+		"tick_speed_mult": 1.5,       # 50% faster
+		"money_value": 35
+	}
+}
+
+# Weighted random difficulty assignment (1:3:2:1 ratio for EASY:MEDIUM:HARD:EXPERT)
+func _assign_random_difficulty_tier() -> DifficultyTier:
+	var weights = [1, 3, 2, 1]  # Total weight: 7
+	var total_weight = 7
+	var random_value = randi() % total_weight
+
+	if random_value < 1:  # 0
+		return DifficultyTier.EASY
+	elif random_value < 4:  # 1, 2, 3
+		return DifficultyTier.MEDIUM
+	elif random_value < 6:  # 4, 5
+		return DifficultyTier.HARD
+	else:  # 6
+		return DifficultyTier.EXPERT
+
 var genre_colors: Dictionary = {
 	'HORROR': Color('#ff0000'),
 	'SCI-FI': Color("1854ffff"),
@@ -41,10 +95,11 @@ func _ready():
 	var movie_counter = 1
 
 	# Generate 5 movies per genre on shelves (20 total stocked movies)
+	# All initial stocked movies are EASY difficulty (lowest rental price)
 	for genre in genres:
 		for i in range(5):
 			var movie_id = str(movie_counter).pad_zeros(3)
-			var movie = generate_movie_with_genre("STOCKED", genre)
+			var movie = generate_movie_with_genre("STOCKED", genre, '', DifficultyTier.EASY)
 			inventory[movie_id] = movie
 			movie_counter += 1
 
@@ -129,7 +184,7 @@ func generate_movie(status: String, customer: String = '') -> Dictionary:
 	var random_genre = ['HORROR', 'SCI-FI', 'ROMANCE', 'COMEDY'].pick_random()
 	return generate_movie_with_genre(status, random_genre, customer)
 
-func generate_movie_with_genre(status: String, genre: String, customer: String = '') -> Dictionary:
+func generate_movie_with_genre(status: String, genre: String, customer: String = '', difficulty: DifficultyTier = -1) -> Dictionary:
 	var movie: Dictionary = {
 		'title': 'TBD',
 		'genre': genre,
@@ -137,6 +192,7 @@ func generate_movie_with_genre(status: String, genre: String, customer: String =
 		'status': 'BACKLOG',
 		'location': 'NEEDS REWIND',
 		'reviews': [],
+		'difficulty_tier': difficulty if difficulty != -1 else _assign_random_difficulty_tier(),
 	}
 
 	# title based on genre

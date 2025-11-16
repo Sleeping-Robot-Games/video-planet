@@ -4,6 +4,8 @@ signal add_log_line(msg: String, color: Color)
 signal shift_time_updated(in_game_time: String, time_remaining: float)
 @warning_ignore("unused_signal")
 signal day_changed(new_day: int)
+signal money_changed(total_money: int, daily_earnings: int)
+signal money_earned(amount: int, source: String)
 
 var current_day: int = 1
 var is_new_game: bool = true
@@ -11,6 +13,11 @@ var no_computer: bool = false
 var is_new_day_start: bool = true  # True when entering storefront at start of new day
 var is_dialogue_open: bool = false
 var player_movement_disabled: bool = false
+
+# Money tracking
+var total_money: int = 0  # Player's current money balance
+var daily_earnings: int = 0  # Money earned today (resets each day)
+var lifetime_earnings: int = 0  # Total money earned across all days
 
 # Shift system variables
 var current_shift: String = "storefront"  # "storefront" or "backroom"
@@ -133,6 +140,16 @@ func get_in_game_time_string() -> String:
 	return "%d:%02d %s" % [display_hour, current_minute, period]
 
 
+# Money management
+func add_money(amount: int, source: String = "rewind") -> void:
+	total_money += amount
+	daily_earnings += amount
+	lifetime_earnings += amount
+	money_earned.emit(amount, source)
+	money_changed.emit(total_money, daily_earnings)
+	print("Earned $%d from %s (Total: $%d, Today: $%d)" % [amount, source, total_money, daily_earnings])
+
+
 # Shift helper functions
 func is_storefront_shift() -> bool:
 	return is_shift_active and shift_start_time == 17
@@ -148,6 +165,7 @@ func start_new_day() -> void:
 	shifts_completed = 0
 	is_day_complete = false
 	is_new_day_start = true  # Flag for storefront entry animation
+	daily_earnings = 0  # Reset daily earnings for new day
 	current_day += 1
 	day_changed.emit(current_day)
 	print("New day started! Day #", current_day)

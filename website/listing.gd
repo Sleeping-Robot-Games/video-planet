@@ -8,6 +8,7 @@ var review_scene = preload('res://website/review.tscn')
 @onready var movie_title: Label = $Movie/Details/Title
 @onready var genre_border: NinePatchRect = $Movie/Details/Genre/Border
 @onready var genre_label: Label = $Movie/Details/Genre/MarginContainer/Label
+@onready var rental_price: Label = $Movie/Details/RentalPrice
 @onready var status: Label = $Status/State
 @onready var location: Label = $Status/Location
 @onready var pos_review_count: Label = $ReviewCounts/Counts/Positive/Count
@@ -44,6 +45,9 @@ func set_movie(_movie_id: String):
 	genre_label.text = genre
 	genre_label.modulate = m.genre_colors[genre]
 	genre_border.modulate = m.genre_colors[genre]
+	# rental price
+	var difficulty_config = m.DIFFICULTY_CONFIG[m.inventory[movie_id].difficulty_tier]
+	rental_price.text = "Rent: $%d" % difficulty_config.money_value
 	# status
 	set_status(m.inventory[movie_id].status, m.inventory[movie_id].location)
 	# reset review state
