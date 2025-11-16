@@ -11,21 +11,20 @@ var customers: Dictionary = {} # key = name, value = data dict
 
 # Fixed personality assignments for each customer
 var customer_personalities = {
-	"Ari W": "ENTHUSIAST",
-	"Avery M": "CRITIC",
-	"Charlie B": "CRITIC",
-	"Finley P": "SOCIALITE",
-	"Gray J": "SKEPTIC",
-	"Hayden G": "REGULAR",
-	"Kai Z": "ENTHUSIAST",
-	"Quinn R": "SOCIALITE",
-	"Rowan G": "SKEPTIC",
-	"Skyler X": "REGULAR"
+	"Ari W": "CHEERFUL",
+	"Avery M": "PICKY",
+	"Charlie B": "PICKY",
+	"Finley P": "CHATTY",
+	"Gray J": "GRUMPY",
+	"Hayden G": "CHILL",
+	"Kai Z": "CHEERFUL",
+	"Quinn R": "CHATTY",
+	"Rowan G": "GRUMPY",
+	"Skyler X": "CHILL"
 }
 
 func _ready():
 	var sprite_files = g.files_in_dir("res://customers/sprites/")
-	sprite_files.shuffle() # Randomize order so pairing is random
 
 	var names = [
 		"Ari W",
