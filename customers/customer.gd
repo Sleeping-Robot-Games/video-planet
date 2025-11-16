@@ -46,6 +46,9 @@ func _ready():
 	nav_agent.path_desired_distance = 8.0
 	nav_agent.target_desired_distance = 8.0
 	nav_agent.avoidance_enabled = true
+	nav_agent.radius = 16.0  # Increase personal space for better multi-customer navigation
+	nav_agent.neighbor_distance = 50.0  # How far to look for other agents
+	nav_agent.max_neighbors = 5  # Max number of neighbors to avoid
 
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.navigation_finished.connect(_on_arrived)
@@ -53,10 +56,10 @@ func _ready():
 	_play_idle()
 
 func _exit_tree():
-	# Safeguard: Always reset customer_in_store flag when this node is removed
+	# Safeguard: Always remove customer from array when this node is removed
 	# This handles edge cases where customer doesn't reach exit (scene change, navigation failure, etc.)
 	if store and is_instance_valid(store):
-		store.customer_in_store = false
+		store.remove_customer(self)
 	
 func init(data):
 	customer_data = data
@@ -110,7 +113,7 @@ func _physics_process(_delta):
 
 	var next_velocity = nav_agent.get_next_path_position() - global_position
 	nav_agent.set_velocity(next_velocity.normalized() * speed)
-	
+
 	_play_animation(velocity)
 
 
@@ -153,7 +156,7 @@ func _on_arrived():
 			_play_idle()
 			await get_tree().create_timer(randf_range(1.0, 10.0)).timeout
 		exit:
-			store.customer_in_store = false
+			store.remove_customer(self)
 			a.play_random_sfx('storefront_door_exit', a, {'position': position})
 			queue_free()
 		_:

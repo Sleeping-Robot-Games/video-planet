@@ -10,7 +10,9 @@ const BACKROOM_SHIFT_TIME = 13
 const STOREFRONT_SHIFT_TIME = 17
 const MAX_SHELF_DESTINATIONS = 5
 const CUSTOMER_ENTRY_DELAY = 2.0
-const CUSTOMER_SPAWN_TIMER_MAX = 30
+const CUSTOMER_SPAWN_TIMER_MIN = 5
+const CUSTOMER_SPAWN_TIMER_MAX = 15
+const MAX_CUSTOMERS = 4
 
 @onready var backroom_label: Label = $HUD/BackroomLabel
 @onready var fade_black: ColorRect = $HUD/FadeBlack
@@ -26,7 +28,8 @@ signal movie_return_to_backlog(movie_id: String, movie_data: Dictionary, custome
 
 var music_player: AudioStreamPlayer
 
-var customer_in_store = false
+var customers_in_store: Array = []
+var customer_names_in_store: Array = []
 
 func _ready() -> void:
 	_setup_music()
@@ -97,6 +100,7 @@ func _process(delta: float) -> void:
 				g.shift_start_time = BACKROOM_SHIFT_TIME
 				g.is_day_complete = true
 				$CustomerTimer.stop()
+				clear_all_customers()
 				print("Day complete! Go to the front door to leave.")
 
 		update_clock_display()
@@ -191,7 +195,6 @@ func _on_customer_timer_timeout() -> void:
 	if not _should_spawn_customer():
 		return
 
-	customer_in_store = true
 	randomize()
 
 	var new_customer = _create_and_configure_customer()
@@ -202,6 +205,7 @@ func _on_customer_timer_timeout() -> void:
 	if destinations.is_empty():
 		return
 
+	customers_in_store.append(new_customer)
 	_spawn_customer_with_delay(new_customer, destinations)
 	_reschedule_customer_timer()
 
@@ -210,15 +214,15 @@ func _should_spawn_customer() -> bool:
 		return false
 	if not g.is_storefront_shift():
 		return false
-	if customer_in_store:
+	if customers_in_store.size() >= MAX_CUSTOMERS:
 		return false
 	return true
 
 func _create_and_configure_customer() -> Node:
-	var new_customer = c.find_random_customer()
+	# Get list of customer names currently in store to prevent duplicates
+	var new_customer = c.find_random_customer(customer_names_in_store)
 	if not new_customer:
-		push_error("Failed to find random customer")
-		customer_in_store = false
+		push_error("Failed to find random customer (all may be in store already)")
 		return null
 
 	new_customer.store = self
@@ -227,6 +231,10 @@ func _create_and_configure_customer() -> Node:
 	new_customer.exit = $Door
 	new_customer.position = $Door.position
 	new_customer.website = website
+
+	# Track the customer name to prevent duplicates
+	customer_names_in_store.append(new_customer.customer_data.name)
+
 	return new_customer
 
 func _determine_customer_destinations(customer: Node) -> Array:
@@ -238,7 +246,7 @@ func _determine_customer_destinations(customer: Node) -> Array:
 		var shelves = shelf_destinations.get_children()
 		if shelves.is_empty():
 			push_error("No shelf destinations available")
-			customer_in_store = false
+			remove_customer(customer)
 			customer.queue_free()
 			return []
 
@@ -256,7 +264,20 @@ func _spawn_customer_with_delay(customer: Node, destinations: Array) -> void:
 	customer.enter_store(destinations)
 
 func _reschedule_customer_timer() -> void:
-	$CustomerTimer.wait_time = clamp(randi() % CUSTOMER_SPAWN_TIMER_MAX, 1, CUSTOMER_SPAWN_TIMER_MAX)
+	var wait_time = randf_range(CUSTOMER_SPAWN_TIMER_MIN, CUSTOMER_SPAWN_TIMER_MAX)
+	$CustomerTimer.wait_time = wait_time
+
+func remove_customer(customer: Node) -> void:
+	customers_in_store.erase(customer)
+	if customer and customer.customer_data and customer.customer_data.has("name"):
+		customer_names_in_store.erase(customer.customer_data.name)
+
+func clear_all_customers() -> void:
+	for customer in customers_in_store:
+		if is_instance_valid(customer):
+			customer.queue_free()
+	customers_in_store.clear()
+	customer_names_in_store.clear()
 
 
 func _on_rug_body_entered(body: Node2D) -> void:

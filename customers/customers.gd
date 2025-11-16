@@ -35,8 +35,15 @@ func _ready():
 			"extrovert": randf() > 0.5,
 		})
 
-func find_random_customer():
-	var customer_data = customer_pool.pick_random().duplicate()
+func find_random_customer(exclude_names: Array = []):
+	# Filter out customers that are already in the store
+	var available_customers = customer_pool.filter(func(c): return not exclude_names.has(c.name))
+
+	# If all customers are in store, return null
+	if available_customers.is_empty():
+		return null
+
+	var customer_data = available_customers.pick_random().duplicate()
 	
 	var customer_has_movie_already = false
 	
