@@ -80,6 +80,11 @@ var music_player: AudioStreamPlayer
 var rewind_audio_player: AudioStreamPlayer2D
 var static_audio_player: AudioStreamPlayer2D
 
+# Background music playlist variables
+var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_2', 'backroom_bgm_3', 'backroom_bgm_5_loop']
+var bgm_playlist: Array = []  # Shuffled playlist
+var current_bgm_index: int = 0  # Current position in playlist
+
 var dial_angle = 0.0
 var dial_current_speed = 0.0  # Current rotation speed with acceleration
 
@@ -119,9 +124,11 @@ func _ready():
 	g.no_computer = false
 	randomize()
 	tree_anim_player.play("trees")
-	var bgm_pool = ['backroom_bgm_1', 'backroom_bgm_2', 'backroom_bgm_3', 'backroom_bgm_5_loop']
-	music_player = a.play_music(bgm_pool.pick_random())
-	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	# Initialize shuffled background music playlist
+	shuffle_bgm_playlist()
+	play_next_bgm()
+
 	$Website.rewind_movie_selected.connect(_on_website_rewind_movie_selected)
 	for tracking_button in tracking.get_children():
 		tracking_button.pressed.connect(_on_tracking_button_pressed.bind(tracking_button.name))
@@ -131,6 +138,33 @@ func _ready():
 
 func update_clock_display() -> void:
 	shift_clock_label.text = g.get_in_game_time_string()
+
+func shuffle_bgm_playlist() -> void:
+	bgm_playlist = bgm_pool.duplicate()
+	bgm_playlist.shuffle()
+	current_bgm_index = 0
+
+func play_next_bgm() -> void:
+	# If we've reached the end of the playlist, reshuffle
+	if current_bgm_index >= bgm_playlist.size():
+		shuffle_bgm_playlist()
+
+	# Play the current song
+	var track_name = bgm_playlist[current_bgm_index]
+	music_player = a.play_music(track_name)
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	# Disable looping so the finished signal will fire
+	if music_player.stream:
+		music_player.stream.loop = false
+
+	# Connect to finished signal to play next song
+	music_player.finished.connect(_on_bgm_finished)
+
+	current_bgm_index += 1
+
+func _on_bgm_finished() -> void:
+	play_next_bgm()
 
 func _connect_ui_buttons():
 	for button in get_tree().get_nodes_in_group("ui_buttons"):
