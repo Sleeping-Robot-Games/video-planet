@@ -217,6 +217,10 @@ func _finalize_rental(movie_id: String):
 	m.inventory[movie_id].status = "CHECKED OUT"
 	m.inventory[movie_id].location = customer_data.name
 
+	# Mark that this customer rented from the player
+	customer_data.rented_from_player = true
+	c.customers[customer_data.name].rented_from_player = true
+
 	# Award money
 	g.money_earned.emit(rental_price, 'rental')
 
@@ -282,15 +286,18 @@ func _on_arrived():
 				return
 			store_front.movie_return_to_backlog.emit(customer_data.movie_id, customer_data.movie_data, customer_data.name)
 			await get_tree().create_timer(randf_range(1.0, 2.0)).timeout
-			var chance: int = randi_range(1, 10)
-			if customer_data.wanted_genre == customer_data.movie_data.genre:
-				# 70% chance to leave a positive review if the customer rented the genre they wanted
-				if chance <= 7:
-					m.movie_reviewed.emit(true, customer_data.movie_id, customer_data.movie_data, customer_data.name)
-			else:
-				# otherwise 70% chance to leave negative review
-				if chance <= 7:
-					m.movie_reviewed.emit(false, customer_data.movie_id, customer_data.movie_data, customer_data.name)
+
+			# Only leave reviews if the movie was actually rented from the player
+			if customer_data.rented_from_player:
+				var chance: int = randi_range(1, 10)
+				if customer_data.wanted_genre == customer_data.movie_data.genre:
+					# 70% chance to leave a positive review if the customer rented the genre they wanted
+					if chance <= 7:
+						m.movie_reviewed.emit(true, customer_data.movie_id, customer_data.movie_data, customer_data.name)
+				else:
+					# otherwise 70% chance to leave negative review
+					if chance <= 7:
+						m.movie_reviewed.emit(false, customer_data.movie_id, customer_data.movie_data, customer_data.name)
 			_pick_new_target()
 		counter:
 			destinations.append(exit)

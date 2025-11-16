@@ -83,13 +83,14 @@ func find_random_customer(exclude_names: Array = []):
 		"selected_cheap_movie": null,  # Will be populated when interaction starts
 		"player_recommended_movie": null,  # Movie player picks from catalog
 		"persuasion_correct_index": -1,  # Which option is correct in persuasion check
+		"rented_from_player": customer_has_movie_already,  # Track if movie was actually rented from player
 	}
 
 	customer_data.merge(goal_data, true)
 
 	# Returning customers should already have a movie checked out
 	if goal == "return":
-		# No movie? Generate movie
+		# No movie? Generate movie (this means they didn't rent from player)
 		if not customer_has_movie_already:
 			var new_movie := m.generate_movie('BACKLOG')
 			var new_movie_id := str(randi() % 300 + 100).pad_zeros(3)

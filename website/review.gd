@@ -6,6 +6,6 @@ extends HBoxContainer
 
 func set_review(user: String, content: String, is_positive: bool, bg_color: Color) -> void:
 	review.text = '%s: %s' % [user, content]
-	var thumb_icon_path = 'res://movies/assets/thumbs_%s_small.png' % 'up' if is_positive else 'down'
+	var thumb_icon_path = 'res://movies/assets/thumbs_%s_small.png' % 'up' if is_positive else 'res://movies/assets/thumbs_%s_small.png' % 'down'
 	thumb_icon.texture = load(thumb_icon_path)
 	background.color = bg_color
