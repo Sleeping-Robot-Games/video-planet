@@ -7,6 +7,8 @@ extends Panel
 
 var current_options = []
 var current_customer_name
+var conversation_stage = 0  # Track multi-stage conversations
+var choice_callback: Callable  # Custom callback for handling choices
 
 func _ready() -> void:
 	m.rented_movie_selected.connect(_on_rented_movie)
@@ -19,31 +21,28 @@ func _ready() -> void:
 		btn.hide() # default hidden until options shown
 
 func _on_choice_pressed(index: int):
+	# If we have a custom callback, use it
+	if choice_callback:
+		choice_callback.call(index)
+		return
+
+	# Otherwise use default behavior (legacy support)
 	match index:
 		0:
 			website.open_by_dialog(current_customer_name)
 
 func _on_rented_movie(movie_id: String, customer_name: String):
+	# NOTE: This is now handled by customer.gd persuasion system
+	# Legacy code kept for compatibility with return flow
 	a.play_sfx('rental_logged')
-	if customer_name == current_customer_name:
-		var customer_data = c.customers[current_customer_name]
-		var movie_data = m.inventory[movie_id]
-		var difficulty_config = m.DIFFICULTY_CONFIG[movie_data.difficulty_tier]
-		var rental_price = difficulty_config.money_value
 
-		if customer_data.wanted_genre == movie_data.genre:
-			dialog_msg.text = 'Thanks! That\'ll be $%d for \'%s\'' % [rental_price, movie_data.title]
-		else:
-			dialog_msg.text = 'Thanks... That\'ll be $%d for \'%s\' I guess...' % [rental_price, movie_data.title]
-		for btn in button_container.get_children():
-			btn.hide()
-
-func open(msg: String, customer_name: String = "", options: Array = []) -> void:
+func open(msg: String, customer_name: String = "", options: Array = [], callback: Callable = Callable()) -> void:
 	a.play_sfx('customer_dialogue_bubble')
 	current_customer_name = customer_name
 	current_options = options
 	g.is_dialogue_open = true
 	dialog_msg.text = msg
+	choice_callback = callback  # Set custom callback if provided
 
 	var buttons = button_container.get_children()
 
@@ -76,4 +75,6 @@ func perform_bounce() -> void:
 func close() -> void:
 	hide()
 	current_options = []
+	conversation_stage = 0
+	choice_callback = Callable()  # Clear callback
 	g.is_dialogue_open = false

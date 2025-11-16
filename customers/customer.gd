@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
+var personality_responses = preload("res://customers/personality_responses.gd").new()
+
 @export var speed: float = 85.0
 
 var on_carpet: bool = false
@@ -74,27 +76,166 @@ func enter_store(dest_array):
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and player_interacting:
 		if customer_data.goal == 'rent':
-			var genre_texts = {
-				'HORROR': ['scary', 'spooky', 'creepy', 'something that will keep me up tonight', 'a real fright', 'something dark and chilling'],
-				'SCI-FI': ['futuristic', 'about space', 'with robots or aliens', 'high-tech', 'something out of this world', 'a mind-bender'],
-				'ROMANCE': ['romantic', 'about falling in love', 'something heartfelt', 'a good love story', 'sweet and emotional', 'something cozy with a happy ending'],
-				'COMEDY': ['funny', 'lighthearted', 'something to laugh at', 'a good laugh', 'goofy', 'something cheerful']
-			}
-			var wanted_genre_text = genre_texts.get(customer_data.wanted_genre, ['interesting']).pick_random()
-			store_front.dialog.open(
-				"Im looking for a movie that is " + wanted_genre_text + ", can you recommend one?",
-				name,
-				['Open Movie Catalog']
-			)
+			_start_rental_conversation()
 		else:
 			store_front.dialog.open('Just returning '+ m.inventory[customer_data.movie_id].title + '\n it was quite the movie...')
-			
+
+func _start_rental_conversation():
+	# Stage 0: Select cheap movie if not already selected
+	if customer_data.selected_cheap_movie == null:
+		_select_cheap_movie()
+
+	# Stage 1: Small talk (personality hint)
+	if customer_data.conversation_stage == 0:
+		customer_data.conversation_stage = 1
+		var small_talk = personality_responses.get_small_talk(customer_data.personality_type)
+		store_front.dialog.open(
+			small_talk,
+			name,
+			["Nice! What can I help you with?"],
+			_on_stage1_choice
+		)
+
+func _select_cheap_movie():
+	# Find cheapest STOCKED movie in wanted genre
+	var stocked_movies = []
+	for movie_id in m.inventory.keys():
+		var movie = m.inventory[movie_id]
+		if movie.status == "STOCKED" and movie.genre == customer_data.wanted_genre:
+			stocked_movies.append({"id": movie_id, "data": movie})
+
+	if stocked_movies.is_empty():
+		# Fallback: pick any stocked movie
+		for movie_id in m.inventory.keys():
+			var movie = m.inventory[movie_id]
+			if movie.status == "STOCKED":
+				stocked_movies.append({"id": movie_id, "data": movie})
+
+	if not stocked_movies.is_empty():
+		var selected = stocked_movies.pick_random()
+		customer_data.selected_cheap_movie = selected
+
+func _on_stage1_choice(_choice_index: int):
+	# Stage 2: Genre request + mention cheap movie
+	customer_data.conversation_stage = 2
+
+	var genre_texts = {
+		'HORROR': ['scary', 'spooky', 'creepy', 'something that will keep me up tonight', 'a real fright', 'something dark and chilling'],
+		'SCI-FI': ['futuristic', 'about space', 'with robots or aliens', 'high-tech', 'something out of this world', 'a mind-bender'],
+		'ROMANCE': ['romantic', 'about falling in love', 'something heartfelt', 'a good love story', 'sweet and emotional', 'something cozy with a happy ending'],
+		'COMEDY': ['funny', 'lighthearted', 'something to laugh at', 'a good laugh', 'goofy', 'something cheerful']
+	}
+	var wanted_genre_text = genre_texts.get(customer_data.wanted_genre, ['interesting']).pick_random()
+
+	var cheap_movie_title = customer_data.selected_cheap_movie.data.title
+	var cheap_movie_price = m.DIFFICULTY_CONFIG[customer_data.selected_cheap_movie.data.difficulty_tier].money_value
+
+	var message = "I'm looking for something %s...\nI'll just grab '%s' for $%d unless you can recommend something better?" % [
+		wanted_genre_text,
+		cheap_movie_title,
+		cheap_movie_price
+	]
+
+	store_front.dialog.open(
+		message,
+		name,
+		["Open Movie Catalog"],
+		_on_stage2_choice
+	)
+
+func _on_stage2_choice(_choice_index: int):
+	# Open website - player will select a movie
+	store_front.dialog.close()
+	store_front.website.open_by_dialog(name)
+
+func _show_persuasion_check(movie_id: String):
+	var movie_data = m.inventory[movie_id]
+	var persuasion_data = personality_responses.get_persuasion_options(customer_data.personality_type)
+
+	# Store which option is correct
+	customer_data.persuasion_correct_index = persuasion_data.correct_index
+
+	# Create the message based on genre match
+	var message = ""
+	if customer_data.wanted_genre == movie_data.genre:
+		message = "'%s' huh? Why do you think I'd like it?" % movie_data.title
+	else:
+		message = "'%s'? That's not quite what I was looking for... Why this one?" % movie_data.title
+
+	# Show the persuasion dialog with 3 options
+	store_front.dialog.open(
+		message,
+		name,
+		persuasion_data.options,
+		_on_persuasion_choice
+	)
+
+func _on_persuasion_choice(choice_index: int):
+	# Check if player picked the correct response
+	var success = (choice_index == customer_data.persuasion_correct_index)
+
+	if success:
+		_handle_persuasion_success()
+	else:
+		_handle_persuasion_failure()
+
+func _handle_persuasion_success():
+	# Customer accepts the player's recommendation
+	var movie_id = customer_data.player_recommended_movie
+	var movie_data = m.inventory[movie_id]
+	var rental_price = m.DIFFICULTY_CONFIG[movie_data.difficulty_tier].money_value
+
+	store_front.dialog.open(
+		"You know what? You're absolutely right! I'll take '%s' for $%d!" % [movie_data.title, rental_price],
+		name,
+		[]
+	)
+
+	# Actually rent the movie
+	_finalize_rental(movie_id)
+
+func _handle_persuasion_failure():
+	# Customer rejects and takes the cheap movie instead
+	var cheap_movie_id = customer_data.selected_cheap_movie.id
+	var cheap_movie_data = customer_data.selected_cheap_movie.data
+	var cheap_price = m.DIFFICULTY_CONFIG[cheap_movie_data.difficulty_tier].money_value
+
+	store_front.dialog.open(
+		"Hmm, I don't think so... I'll just stick with '%s' for $%d." % [cheap_movie_data.title, cheap_price],
+		name,
+		[]
+	)
+
+	# Rent the cheap movie instead
+	_finalize_rental(cheap_movie_id)
+
+func _finalize_rental(movie_id: String):
+	var movie_data = m.inventory[movie_id]
+	var rental_price = m.DIFFICULTY_CONFIG[movie_data.difficulty_tier].money_value
+
+	# Update movie status
+	m.inventory[movie_id].status = "CHECKED OUT"
+	m.inventory[movie_id].location = customer_data.name
+
+	# Award money
+	g.money_earned.emit(rental_price, 'rental')
+
+	# Customer leaves
+	await get_tree().create_timer(2.0).timeout
+	store_front.dialog.close()
+	destinations = []
+	destinations.append(exit)
+	_pick_new_target()
+
 
 func _on_rented_movie(_movie_id: String, customer_name: String):
 	if customer_name == customer_data.name:
-		destinations = []
-		destinations.append(exit)
-		_pick_new_target()
+		# Store the player's recommended movie
+		customer_data.player_recommended_movie = _movie_id
+		customer_data.conversation_stage = 3
+
+		# Stage 3: Persuasion check
+		_show_persuasion_check(_movie_id)
 
 func _process(_delta: float) -> void:
 	if anim_player.is_playing() and anim_player.current_animation.begins_with('walk_') and anim_player.current_animation_position in [0.0, 0.4]:

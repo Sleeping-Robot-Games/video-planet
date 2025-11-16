@@ -1,12 +1,27 @@
 extends Node
 
 var customer_scene: PackedScene = preload("res://customers/customer.tscn")
+var personality_responses = preload("res://customers/personality_responses.gd").new()
 
 var customer_pool: Array = []
 
 var genre_pool = ["HORROR", "SCI-FI", "ROMANCE", "COMEDY"]
 
 var customers: Dictionary = {} # key = name, value = data dict
+
+# Fixed personality assignments for each customer
+var customer_personalities = {
+	"Ari W": "ENTHUSIAST",
+	"Avery M": "CRITIC",
+	"Charlie B": "CRITIC",
+	"Finley P": "SOCIALITE",
+	"Gray J": "SKEPTIC",
+	"Hayden G": "REGULAR",
+	"Kai Z": "ENTHUSIAST",
+	"Quinn R": "SOCIALITE",
+	"Rowan G": "SKEPTIC",
+	"Skyler X": "REGULAR"
+}
 
 func _ready():
 	var sprite_files = g.files_in_dir("res://customers/sprites/")
@@ -33,6 +48,7 @@ func _ready():
 			"sprite": "res://customers/sprites/" + sprite_files[i],
 			"friendship_level": 0,
 			"extrovert": randf() > 0.5,
+			"personality_type": customer_personalities[names[i]],
 		})
 
 func find_random_customer(exclude_names: Array = []):
@@ -62,9 +78,13 @@ func find_random_customer(exclude_names: Array = []):
 		"goal": goal,
 		"wanted_genre": genre_pool.pick_random(),
 		"movie_id": null,
-		"movie_data": null
+		"movie_data": null,
+		"conversation_stage": 0,  # 0=not started, 1=small talk, 2=genre request, 3=persuasion
+		"selected_cheap_movie": null,  # Will be populated when interaction starts
+		"player_recommended_movie": null,  # Movie player picks from catalog
+		"persuasion_correct_index": -1,  # Which option is correct in persuasion check
 	}
-	
+
 	customer_data.merge(goal_data, true)
 
 	# Returning customers should already have a movie checked out

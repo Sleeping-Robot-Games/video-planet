@@ -64,16 +64,19 @@ text = "Movie Title"
 alignment = 0
 
 [node name="Choice2" type="Button" parent="Margin/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Movie Title"
 alignment = 0
 
 [node name="Choice3" type="Button" parent="Margin/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Movie Title"
 alignment = 0
 
 [node name="Choice4" type="Button" parent="Margin/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Movie Title"
 alignment = 0
